@@ -96,23 +96,6 @@ python visuals/gen_full_schematic.py   # circuit_schematic.html (از netlist.cs
 python visuals/build_sim.py            # clock_simulator.html
 ```
 
-## انتشار روی GitHub Pages
-
-۱. مخزن را روی GitHub بسازید و همین پوشه را push کنید (دستور زیر).
-۲. در مخزن: **Settings → Pages → Build and deployment → Source: Deploy from a branch → Branch: main / root**.
-۳. صفحهٔ اصلی `index.html` به‌صورت خودکار منتشر می‌شود؛ لینک همهٔ HTMLها و داکیومنت‌ها در آن آماده است.
-
-```bash
-git init
-git add .
-git commit -m "hardware digital clock: design, netlist, simulator, schematics"
-git branch -M main
-git remote add origin https://github.com/<USER>/<REPO>.git
-git push -u origin main
-```
-
-> داکیومنت‌های Markdown در خود GitHub رندر می‌شوند (با `<div dir="rtl">` برای راست‌چین)؛ در Pages به‌صورت متن خام نمایش داده می‌شوند — برای مطالعهٔ کامل از نمای خود GitHub استفاده کنید.
-
 ## مشخصات کلیدی
 
 - **دقت زمان:** کریستال ۳۲٫۷۶۸ kHz؛ خطای تقسیم صفر (تقسیم دیجیتال خالص). خطای نهایی = خطای کریستال (معمولاً ±۲۰ ppm ≈ ۱٫۷ ثانیه در روز).
