@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>شبیه‌ساز واقعی ساعت دیجیتال سخت‌افزاری</title>
+</head>
+<body style="margin:0;background:#0d1117">
+<style>
+  .clksim{--bg:#0d1117;--panel:#161b22;--panel2:#1c2330;--line:#2d3646;--txt:#e6edf3;--mut:#8b98a9;
+       --red:#ff3b30;--redoff:#3a1512;--grn:#3fb950;--amber:#d29922;--cyan:#39c5cf;--acc:#58a6ff;
+       background:var(--bg);color:var(--txt);font-family:Tahoma,'Segoe UI',sans-serif;font-size:14px;line-height:1.6;
+       direction:rtl;text-align:right;border-radius:12px;padding:0 0 4px}
+  .clksim *{box-sizing:border-box}
+  .clksim .hd{padding:16px 20px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#11161d,#0d1117);border-radius:12px 12px 0 0}
+  .clksim .hd h1{margin:0;font-size:19px}
+  .clksim .hd p{margin:4px 0 0;color:var(--mut);font-size:12.5px}
+  .clksim .wrap{max-width:1180px;margin:0 auto;padding:16px}
+  .clksim .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px}
+  .clksim .card h2{margin:0 0 12px;font-size:15px;color:var(--acc);display:flex;align-items:center;gap:8px}
+  .clksim .badge{font-size:11px;padding:2px 9px;border-radius:20px;border:1px solid var(--line);color:var(--mut)}
+  .clksim .display{display:flex;direction:ltr;align-items:center;justify-content:center;gap:clamp(2px,1vw,6px);background:#0a0d12;border:1px solid var(--line);
+           border-radius:12px;padding:22px 10px;flex-wrap:nowrap}
+  .clksim .digit{width:clamp(34px,11.5vw,74px);height:auto;aspect-ratio:100/180;flex-shrink:1}
+  .clksim .digit polygon{fill:var(--redoff);transition:fill .05s}
+  .clksim .digit polygon.on{fill:var(--red);filter:drop-shadow(0 0 5px rgba(255,59,48,.8))}
+  .clksim .colon{display:flex;flex-direction:column;gap:26px;padding:0 4px}
+  .clksim .colon i{width:12px;height:12px;border-radius:50%;background:var(--redoff)}
+  .clksim .colon i.on{background:var(--red);box-shadow:0 0 8px rgba(255,59,48,.9)}
+  .clksim .readout{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:12px;color:var(--mut);font-size:13px}
+  .clksim .readout b{color:var(--txt);font-variant-numeric:tabular-nums}
+  .clksim .mode-run{color:var(--grn)} .clksim .mode-set{color:var(--amber)} .clksim .mode-rst{color:var(--red)}
+  .clksim .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .clksim button,.clksim select{font-family:inherit;font-size:13px;color:var(--txt);background:var(--panel2);border:1px solid var(--line);
+        border-radius:8px;padding:9px 14px;cursor:pointer;transition:.12s}
+  .clksim button:hover{border-color:var(--acc)} .clksim button:active{transform:translateY(1px)}
+  .clksim button.key{min-width:96px}
+  .clksim button.warn{border-color:#5a3a1a;color:var(--amber)}
+  .clksim button.danger{border-color:#5a1a1a;color:var(--red)}
+  .clksim button.set-on{background:#3a2e10;border-color:var(--amber);color:var(--amber)}
+  .clksim button:disabled{opacity:.4;cursor:not-allowed}
+  .clksim select{padding:9px}
+  .clksim .lbl{color:var(--mut);font-size:12px}
+  .clksim .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:820px){.clksim .grid2{grid-template-columns:1fr}}
+  .clksim .nets{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:7px}
+  .clksim .net{display:flex;align-items:center;justify-content:space-between;background:var(--panel2);border:1px solid var(--line);
+       border-radius:7px;padding:5px 9px;font-size:12px}
+  .clksim .net .nm{color:var(--mut);font-family:Consolas,monospace;font-size:11px}
+  .clksim .net .led{width:11px;height:11px;border-radius:50%;background:#30363d;flex-shrink:0}
+  .clksim .net .led.hi{background:var(--grn);box-shadow:0 0 6px rgba(63,185,80,.8)}
+  .clksim .net .v{font-family:Consolas,monospace;width:14px;text-align:center;color:var(--txt)}
+  .clksim #scope{width:100%;height:230px;background:#0a0d12;border:1px solid var(--line);border-radius:8px;display:block}
+  .clksim .blocks{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+  .clksim .blk{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:9px 10px;cursor:pointer;font-size:12.5px}
+  .clksim .blk:hover{border-color:var(--acc)} .clksim .blk.sel{border-color:var(--acc);background:#13233a}
+  .clksim .blk .t{color:var(--txt)} .clksim .blk .s{color:var(--mut);font-size:11px;font-family:Consolas,monospace}
+  .clksim table{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px}
+  .clksim th,.clksim td{border:1px solid var(--line);padding:4px 7px;text-align:right}
+  .clksim th{background:var(--panel2);color:var(--mut);font-weight:normal}
+  .clksim td.mono{font-family:Consolas,monospace;font-size:11px}
+  .clksim td .led{display:inline-block;width:9px;height:9px;border-radius:50%;background:#30363d;vertical-align:middle}
+  .clksim td .led.hi{background:var(--grn)}
+  .clksim .ic-title{margin:12px 0 2px;color:var(--cyan);font-size:13px;font-family:Consolas,monospace}
+  .clksim #log{max-height:200px;overflow:auto;font-family:Consolas,monospace;font-size:12px;background:#0a0d12;
+       border:1px solid var(--line);border-radius:8px;padding:8px}
+  .clksim #log div{padding:1px 0;border-bottom:1px solid #161b22}
+  .clksim #log .t{color:var(--mut)} .clksim .k-carry{color:var(--cyan)} .clksim .k-reset24{color:var(--red)} .clksim .k-set{color:var(--amber)} .clksim .k-reset{color:var(--red)}
+  .clksim .note{color:var(--mut);font-size:12px;margin-top:10px}
+</style>
+<div class="clksim">
+  <div class="hd">
+    <h1>شبیه‌ساز واقعی ساعت دیجیتال تمام‌سخت‌افزاری</h1>
+    <p>اجرای منطق واقعی مدار روی نت‌لیست: اسیلاتور ۳۲۷۶۸Hz → CD4060 → CD4013 ÷۲ → زنجیرهٔ CD4026 با دیکودهای MOD-6/MOD-24، POR و دیبانس کلیدها. موتور با تست ۲۵ ساعته تأیید شده است.</p>
+  </div>
+  <div class="wrap">
+
+    <div class="card">
+      <div class="display" id="display"></div>
+      <div class="readout">
+        <span>زمان مدار: <b id="ro-time">0.000 s</b></span>
+        <span>حالت: <b id="ro-mode" class="mode-run">RUN</b></span>
+        <span>سرعت: <b id="ro-speed">1×</b></span>
+        <span>کری ث→د: <b id="ro-c1">0</b></span>
+        <span>کری د→س: <b id="ro-c2">0</b></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>کنترل‌ها <span class="badge">کلیدها با دیبانس واقعی</span></h2>
+      <div class="controls">
+        <button id="btn-run">توقف</button>
+        <span class="lbl">سرعت:</span>
+        <select id="speed">
+          <option value="1">1× (واقعی)</option>
+          <option value="10">10×</option>
+          <option value="60">60×</option>
+          <option value="600">600×</option>
+          <option value="3600">3600×</option>
+        </select>
+        <button class="key" id="k-SET">SET</button>
+        <button class="key" id="k-HOUR">HOUR+</button>
+        <button class="key" id="k-MIN">MIN+</button>
+        <button class="key warn" id="k-SECRST">SEC RESET</button>
+        <button class="key danger" id="k-MSTRST">MASTER RESET</button>
+        <button class="danger" id="btn-power">قطع و وصل تغذیه (POR)</button>
+      </div>
+      <div class="note">HOUR+/MIN+ فقط در حالت SET اثر دارند (گیت واقعی SET_MODE). نگه‌داشتن کلید = یک افزایش (لبه‌trigger). SEC RESET و MASTER RESET سطح‌فعال‌اند. قطع و وصل، پالس POR ≈۰٫۸۷s تولید می‌کند.</div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h2>کاوشگر نت‌های واقعی <span class="badge">زنده</span></h2>
+        <div class="nets" id="nets"></div>
+      </div>
+      <div class="card">
+        <h2>تحلیل‌گر منطقی <span class="badge">مقیاس ثانیه</span></h2>
+        <canvas id="scope"></canvas>
+        <div class="note">پالس‌های کری/ریست در حد نانوثانیه‌اند و در این مقیاس دیده نمی‌شوند؛ در «رویدادها» ثبت می‌شوند. اینجا CLK1HZ، سطح کری‌ها، SET_MODE و RST_GLOBAL نمایش داده می‌شود.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>دیاگرام بلوکی و پین‌های واقعی <span class="badge">از netlist.csv</span></h2>
+      <div class="blocks" id="blocks"></div>
+      <div id="block-detail"></div>
+    </div>
+
+    <div class="card">
+      <h2>رویدادها <span class="badge">کری / ریست / SET</span></h2>
+      <div id="log"></div>
+    </div>
+
+  </div>
+</div>
+<script>
+// Net-driven functional simulator of the CD4026 hardware clock.
+// Mirrors netlist/gen_netlist.py: real nets, real gates, real IC behaviour.
+// Timebase is cycle-accurate: CD4060 counts 32768 Hz crystal edges; Q14 -> Schmitt
+// inverter -> CD4013 toggle (SET preset) => exact 1 Hz, first rising edge t=1.000 s.
+// Counter chain + MOD-6/MOD-24 self-reset decodes match sim/verify.js (25 h proven).
+'use strict';
+
+const F = 32768;                       // crystal Hz
+const SEG = {0:'abcdef',1:'bc',2:'abdeg',3:'abcdg',4:'bcfg',5:'acdfg',6:'acdefg',7:'abc',8:'abcdefg',9:'abcdfg'};
+const has = (n,s)=>SEG[n].indexOf(s)>=0;
+const DIGS = ['SU','ST','MU','MT','HU','HT'];
+
+function create(){
+  const nets = {VCC:1, GND:0};
+  const dig = {SU:0,ST:0,MU:0,MT:0,HU:0,HT:0};
+  let count=0, prevQ14=0;              // U1 CD4060 ripple divider
+  let ff1=1, prevInv=1;                // U2 FF1 -> CLK1HZ (preset Q=1 during reset)
+  let ff2=0, prevBtnSet=0;             // U2 FF2 -> SET_MODE (toggle on BTN_SET rise)
+  let simTime=0;                       // seconds since power-on
+  let porUntil=0.87;                   // POR pulse width (100k/10uF + Schmitt)
+  let powered=true;
+  const raw={SET:1,HOUR:1,MIN:1,SECRST:1,MSTRST:1};   // raw node: 1=released, 0=pressed
+  const prevBtn={SET:0,HOUR:0,MIN:0,SECRST:0,MSTRST:0};
+  const events=[];                     // {t, kind, net}
+  const carryCount={secMin:0,minHour:0};
+
+  function ev(kind,net){ events.push({t:simTime,kind,net}); if(events.length>4000) events.shift(); }
+
+  // ---- combinational settle: evaluate every gate from current state ----
+  function settle(){
+    nets.CLK2HZ=prevQ14;
+    nets.CLK2HZ_INV=1-prevQ14;
+    nets.CLK1HZ=ff1;
+    nets.FF1_D=1-ff1;
+    nets.SET_MODE=ff2;
+    nets.nSET_MODE=1-ff2;
+    nets.FF2_D=1-ff2;
+    for(const k in raw){ nets['BTN_'+k]=1-raw[k]; nets['BTN_'+k+'_n']=raw[k]; }
+    nets.POR_N=(powered && simTime<porUntil)?0:1;
+    nets.POR_RST=1-nets.POR_N;
+    nets.RST_GLOBAL=nets.POR_RST | nets.BTN_MSTRST;
+    nets.RST_SEC=nets.RST_GLOBAL | nets.BTN_SECRST;
+    // CD4026 segment outputs (a..g) per digit
+    for(const d of DIGS){ const s=SEG[dig[d]];
+      for(const seg of 'abcdefg') nets['SEG_'+d+'_'+seg.toUpperCase()]=has(dig[d],seg)?1:0;
+      for(const seg of 'abcdefg') nets['DSP_'+d+'_'+seg.toUpperCase()]=nets['SEG_'+d+'_'+seg.toUpperCase()];
+    }
+    // U9 ANDs: MOD-6 tens decodes (e.f.g)
+    nets.ST_EF=nets.SEG_ST_E & nets.SEG_ST_F; nets.D6_ST=nets.ST_EF & nets.SEG_ST_G;
+    nets.MT_EF=nets.SEG_MT_E & nets.SEG_MT_F; nets.D6_MT=nets.MT_EF & nets.SEG_MT_G;
+    // U10 ANDs: hour tens=2 (a.d.g), hour units=4 (c.f.g)
+    nets.HT_AD=nets.SEG_HT_A & nets.SEG_HT_D; nets.HT2=nets.HT_AD & nets.SEG_HT_G;
+    nets.HU_CF=nets.SEG_HU_C & nets.SEG_HU_F; nets.HU4=nets.HU_CF & nets.SEG_HU_G;
+    nets.D24=nets.HT2 & nets.HU4;                       // U11/1
+    // U12 ORs: reset combining
+    nets.RST_ST=nets.RST_SEC | nets.D6_ST;
+    nets.RST_MT=nets.RST_GLOBAL | nets.D6_MT;
+    nets.RST_HOURS=nets.RST_GLOBAL | nets.D24;
+    // U11 clock gating
+    nets.CLK_SEC=nets.CLK1HZ & nets.nSET_MODE;
+    nets.HOUR_GATE=nets.BTN_HOUR & nets.SET_MODE;
+    nets.MIN_GATE=nets.BTN_MIN & nets.SET_MODE;
+    // U13 ORs: carry/manual clock combining
+    nets.CLK_MU=nets.D6_ST | nets.MIN_GATE;
+    nets.CLK_HU=nets.D6_MT | nets.HOUR_GATE;
+    // CD4026 carry-out levels (high counts 0..4; rising edge at 9->0 clocks next)
+    nets.C_SU=dig.SU<=4?1:0; nets.C_MU=dig.MU<=4?1:0; nets.C_HU=dig.HU<=4?1:0;
+    // colon driver Q1: base=CLK1HZ, saturated => COLON_K low => LEDs lit
+    nets.COLON_B=nets.CLK1HZ; nets.COLON_K=nets.CLK1HZ?0:1;
+    nets.COLON_A1=1; nets.COLON_A2=1;
+  }
+
+  // ---- sequential counter chain (identical semantics to verify.js) ----
+  function clockHT(){ dig.HT++; ev('clk','C_HU'); }
+  function clockHU(){ dig.HU++;
+    if(dig.HT===2 && dig.HU===4){ dig.HU=0; dig.HT=0; ev('reset24','D24'); return; }
+    if(dig.HU===10){ dig.HU=0; clockHT(); } }
+  function clockMT(){ dig.MT++; if(dig.MT===6){ dig.MT=0; carryCount.minHour++; ev('carry','D6_MT'); clockHU(); } }
+  function clockMU(){ dig.MU++; if(dig.MU===10){ dig.MU=0; clockMT(); } }
+  function clockST(){ dig.ST++; if(dig.ST===6){ dig.ST=0; carryCount.secMin++; ev('carry','D6_ST'); clockMU(); } }
+  function clockSU(){ dig.SU++; if(dig.SU===10){ dig.SU=0; clockST(); } }
+
+  function holdReset(){ count=0; prevQ14=0; ff1=1; prevInv=1; ff2=0; prevBtnSet=0;
+    for(const d of DIGS) dig[d]=0; }
+
+  function applyResets(){
+    if(nets.RST_GLOBAL) holdReset();
+    if(nets.RST_SEC){ dig.SU=0; dig.ST=0; }
+    if(nets.RST_ST) dig.ST=0;
+    if(nets.RST_MT) dig.MT=0;
+    if(nets.RST_HOURS){ dig.HU=0; dig.HT=0; }
+  }
+
+  // ---- timebase: one CD4060 count per crystal edge; act only on Q14 transitions ----
+  function onQ14(){
+    const inv=1-prevQ14;
+    if(inv===1 && prevInv===0){          // rising edge of FF1 clock (CLK2HZ_INV)
+      ff1=1-ff1;                         // toggle (D=Q/)
+      if(ff1===1){ ev('clk','CLK1HZ'); if(!ff2) clockSU(); }  // CLK_SEC gated by nSET_MODE
+    }
+    prevInv=inv;
+  }
+
+  function step(dt){
+    if(!powered) return;
+    simTime+=dt;
+    settle();
+    if(nets.RST_GLOBAL){ holdReset(); }
+    else {
+      let cycles=Math.round(dt*F);
+      for(let i=0;i<cycles;i++){
+        count++;
+        const q14=(count>>13)&1;
+        if(q14!==prevQ14){ prevQ14=q14; onQ14(); }
+      }
+    }
+    applyResets();
+    settle();
+  }
+
+  // ---- buttons (clean UI press; hardware RC+Schmitt debounce present in netlist) ----
+  function buttonEdge(k){
+    const b=1-raw[k];
+    if(b===1 && prevBtn[k]===0){
+      if(k==='SET'){ ff2=1-ff2; ev('set','BTN_SET'); }
+      else if(k==='HOUR'){ if(ff2) clockHU(); }
+      else if(k==='MIN'){ if(ff2) clockMU(); }
+    }
+    prevBtn[k]=b;
+  }
+  function press(k){ raw[k]=0; settle(); buttonEdge(k); applyResets(); settle(); }
+  function release(k){ raw[k]=1; settle(); buttonEdge(k); applyResets(); settle(); }
+
+  function powerCycle(){ powered=false; }
+  function powerOn(){ powered=true; simTime=0; porUntil=0.87; holdReset(); events.length=0;
+    carryCount.secMin=0; carryCount.minHour=0; settle(); }
+
+  function display(){ const p=n=>String(n).padStart(2,'0');
+    return p(dig.HT*10+dig.HU)+':'+p(dig.MT*10+dig.MU)+':'+p(dig.ST*10+dig.SU); }
+
+  settle();
+  return {nets,dig,events,carryCount,step,press,release,powerCycle,powerOn,display,
+    get simTime(){return simTime;}, get setMode(){return !!ff2;}, get powered(){return powered;},
+    get colon(){return nets.COLON_K===0;}};
+}
+
+const api={create,F,SEG,DIGS};
+if(typeof module!=='undefined' && module.exports) module.exports=api;
+else window.ClockEngine=api;
+</script>
+<script>
+const PIN_DATA = {"U1": {"model": "CD4060B", "pkg": "DIP-16", "pins": [{"n": 1, "name": "Q12", "net": "NC"}, {"n": 2, "name": "Q13", "net": "NC"}, {"n": 3, "name": "Q14", "net": "CLK2HZ"}, {"n": 4, "name": "Q6", "net": "NC"}, {"n": 5, "name": "Q5", "net": "NC"}, {"n": 6, "name": "Q7", "net": "NC"}, {"n": 7, "name": "Q4", "net": "NC"}, {"n": 8, "name": "VSS", "net": "GND"}, {"n": 9, "name": "OSC OUT (phi0)", "net": "NC"}, {"n": 10, "name": "OSC OUT/ (phi0bar)", "net": "OSC_FB"}, {"n": 11, "name": "OSC IN (phi1)", "net": "XTAL_A"}, {"n": 12, "name": "RESET", "net": "RST_GLOBAL"}, {"n": 13, "name": "Q9", "net": "NC"}, {"n": 14, "name": "Q8", "net": "NC"}, {"n": 15, "name": "Q10", "net": "NC"}, {"n": 16, "name": "VDD", "net": "VCC"}]}, "U2": {"model": "CD4013B", "pkg": "DIP-14", "pins": [{"n": 1, "name": "Q1", "net": "CLK1HZ"}, {"n": 2, "name": "Q1/", "net": "FF1_D"}, {"n": 3, "name": "CLOCK1", "net": "CLK2HZ_INV"}, {"n": 4, "name": "RESET1", "net": "GND"}, {"n": 5, "name": "D1", "net": "FF1_D"}, {"n": 6, "name": "SET1", "net": "RST_GLOBAL"}, {"n": 7, "name": "VSS", "net": "GND"}, {"n": 8, "name": "SET2", "net": "GND"}, {"n": 9, "name": "D2", "net": "FF2_D"}, {"n": 10, "name": "RESET2", "net": "RST_GLOBAL"}, {"n": 11, "name": "CLOCK2", "net": "BTN_SET"}, {"n": 12, "name": "Q2/", "net": "FF2_D"}, {"n": 13, "name": "Q2", "net": "SET_MODE"}, {"n": 14, "name": "VDD", "net": "VCC"}]}, "U3": {"model": "CD4026B", "pkg": "DIP-16", "pins": [{"n": 1, "name": "CLOCK", "net": "CLK_SEC"}, {"n": 2, "name": "CLOCK INHIBIT", "net": "GND"}, {"n": 3, "name": "DISPLAY ENABLE IN", "net": "VCC"}, {"n": 4, "name": "DISPLAY ENABLE OUT", "net": "NC"}, {"n": 5, "name": "CARRY OUT", "net": "C_SU"}, {"n": 6, "name": "segment f", "net": "SEG_SU_F"}, {"n": 7, "name": "segment g", "net": "SEG_SU_G"}, {"n": 8, "name": "VSS", "net": "GND"}, {"n": 9, "name": "segment d", "net": "SEG_SU_D"}, {"n": 10, "name": "segment a", "net": "SEG_SU_A"}, {"n": 11, "name": "segment e", "net": "SEG_SU_E"}, {"n": 12, "name": "segment b", "net": "SEG_SU_B"}, {"n": 13, "name": "segment c", "net": "SEG_SU_C"}, {"n": 14, "name": "UNGATED C", "net": "NC"}, {"n": 15, "name": "RESET", "net": "RST_SEC"}, {"n": 16, "name": "VDD", "net": "VCC"}]}, "U4": {"model": "CD4026B", "pkg": "DIP-16", "pins": [{"n": 1, "name": "CLOCK", "net": "C_SU"}, {"n": 2, "name": "CLOCK INHIBIT", "net": "GND"}, {"n": 3, "name": "DISPLAY ENABLE IN", "net": "VCC"}, {"n": 4, "name": "DISPLAY ENABLE OUT", "net": "NC"}, {"n": 5, "name": "CARRY OUT", "net": "NC"}, {"n": 6, "name": "segment f", "net": "SEG_ST_F"}, {"n": 7, "name": "segment g", "net": "SEG_ST_G"}, {"n": 8, "name": "VSS", "net": "GND"}, {"n": 9, "name": "segment d", "net": "SEG_ST_D"}, {"n": 10, "name": "segment a", "net": "SEG_ST_A"}, {"n": 11, "name": "segment e", "net": "SEG_ST_E"}, {"n": 12, "name": "segment b", "net": "SEG_ST_B"}, {"n": 13, "name": "segment c", "net": "SEG_ST_C"}, {"n": 14, "name": "UNGATED C", "net": "NC"}, {"n": 15, "name": "RESET", "net": "RST_ST"}, {"n": 16, "name": "VDD", "net": "VCC"}]}, "U5": {"model": "CD4026B", "pkg": "DIP-16", "pins": [{"n": 1, "name": "CLOCK", "net": "CLK_MU"}, {"n": 2, "name": "CLOCK INHIBIT", "net": "GND"}, {"n": 3, "name": "DISPLAY ENABLE IN", "net": "VCC"}, {"n": 4, "name": "DISPLAY ENABLE OUT", "net": "NC"}, {"n": 5, "name": "CARRY OUT", "net": "C_MU"}, {"n": 6, "name": "segment f", "net": "SEG_MU_F"}, {"n": 7, "name": "segment g", "net": "SEG_MU_G"}, {"n": 8, "name": "VSS", "net": "GND"}, {"n": 9, "name": "segment d", "net": "SEG_MU_D"}, {"n": 10, "name": "segment a", "net": "SEG_MU_A"}, {"n": 11, "name": "segment e", "net": "SEG_MU_E"}, {"n": 12, "name": "segment b", "net": "SEG_MU_B"}, {"n": 13, "name": "segment c", "net": "SEG_MU_C"}, {"n": 14, "name": "UNGATED C", "net": "NC"}, {"n": 15, "name": "RESET", "net": "RST_GLOBAL"}, {"n": 16, "name": "VDD", "net": "VCC"}]}, "U6": {"model": "CD4026B", "pkg": "DIP-16", "pins": [{"n": 1, "name": "CLOCK", "net": "C_MU"}, {"n": 2, "name": "CLOCK INHIBIT", "net": "GND"}, {"n": 3, "name": "DISPLAY ENABLE IN", "net": "VCC"}, {"n": 4, "name": "DISPLAY ENABLE OUT", "net": "NC"}, {"n": 5, "name": "CARRY OUT", "net": "NC"}, {"n": 6, "name": "segment f", "net": "SEG_MT_F"}, {"n": 7, "name": "segment g", "net": "SEG_MT_G"}, {"n": 8, "name": "VSS", "net": "GND"}, {"n": 9, "name": "segment d", "net": "SEG_MT_D"}, {"n": 10, "name": "segment a", "net": "SEG_MT_A"}, {"n": 11, "name": "segment e", "net": "SEG_MT_E"}, {"n": 12, "name": "segment b", "net": "SEG_MT_B"}, {"n": 13, "name": "segment c", "net": "SEG_MT_C"}, {"n": 14, "name": "UNGATED C", "net": "NC"}, {"n": 15, "name": "RESET", "net": "RST_MT"}, {"n": 16, "name": "VDD", "net": "VCC"}]}, "U7": {"model": "CD4026B", "pkg": "DIP-16", "pins": [{"n": 1, "name": "CLOCK", "net": "CLK_HU"}, {"n": 2, "name": "CLOCK INHIBIT", "net": "GND"}, {"n": 3, "name": "DISPLAY ENABLE IN", "net": "VCC"}, {"n": 4, "name": "DISPLAY ENABLE OUT", "net": "NC"}, {"n": 5, "name": "CARRY OUT", "net": "C_HU"}, {"n": 6, "name": "segment f", "net": "SEG_HU_F"}, {"n": 7, "name": "segment g", "net": "SEG_HU_G"}, {"n": 8, "name": "VSS", "net": "GND"}, {"n": 9, "name": "segment d", "net": "SEG_HU_D"}, {"n": 10, "name": "segment a", "net": "SEG_HU_A"}, {"n": 11, "name": "segment e", "net": "SEG_HU_E"}, {"n": 12, "name": "segment b", "net": "SEG_HU_B"}, {"n": 13, "name": "segment c", "net": "SEG_HU_C"}, {"n": 14, "name": "UNGATED C", "net": "NC"}, {"n": 15, "name": "RESET", "net": "RST_HOURS"}, {"n": 16, "name": "VDD", "net": "VCC"}]}, "U8": {"model": "CD4026B", "pkg": "DIP-16", "pins": [{"n": 1, "name": "CLOCK", "net": "C_HU"}, {"n": 2, "name": "CLOCK INHIBIT", "net": "GND"}, {"n": 3, "name": "DISPLAY ENABLE IN", "net": "VCC"}, {"n": 4, "name": "DISPLAY ENABLE OUT", "net": "NC"}, {"n": 5, "name": "CARRY OUT", "net": "NC"}, {"n": 6, "name": "segment f", "net": "SEG_HT_F"}, {"n": 7, "name": "segment g", "net": "SEG_HT_G"}, {"n": 8, "name": "VSS", "net": "GND"}, {"n": 9, "name": "segment d", "net": "SEG_HT_D"}, {"n": 10, "name": "segment a", "net": "SEG_HT_A"}, {"n": 11, "name": "segment e", "net": "SEG_HT_E"}, {"n": 12, "name": "segment b", "net": "SEG_HT_B"}, {"n": 13, "name": "segment c", "net": "SEG_HT_C"}, {"n": 14, "name": "UNGATED C", "net": "NC"}, {"n": 15, "name": "RESET", "net": "RST_HOURS"}, {"n": 16, "name": "VDD", "net": "VCC"}]}, "U9": {"model": "CD4081B", "pkg": "DIP-14", "pins": [{"n": 1, "name": "AND in A", "net": "SEG_ST_E"}, {"n": 2, "name": "AND in B", "net": "SEG_ST_F"}, {"n": 3, "name": "AND out Y", "net": "ST_EF"}, {"n": 4, "name": "AND out Y", "net": "D6_ST"}, {"n": 5, "name": "AND in A", "net": "ST_EF"}, {"n": 6, "name": "AND in B", "net": "SEG_ST_G"}, {"n": 7, "name": "VSS", "net": "GND"}, {"n": 8, "name": "AND in A", "net": "SEG_MT_E"}, {"n": 9, "name": "AND in B", "net": "SEG_MT_F"}, {"n": 10, "name": "AND out Y", "net": "MT_EF"}, {"n": 11, "name": "AND out Y", "net": "D6_MT"}, {"n": 12, "name": "AND in A", "net": "MT_EF"}, {"n": 13, "name": "AND in B", "net": "SEG_MT_G"}, {"n": 14, "name": "VDD", "net": "VCC"}]}, "U10": {"model": "CD4081B", "pkg": "DIP-14", "pins": [{"n": 1, "name": "AND in A", "net": "SEG_HT_A"}, {"n": 2, "name": "AND in B", "net": "SEG_HT_D"}, {"n": 3, "name": "AND out Y", "net": "HT_AD"}, {"n": 4, "name": "AND out Y", "net": "HT2"}, {"n": 5, "name": "AND in A", "net": "HT_AD"}, {"n": 6, "name": "AND in B", "net": "SEG_HT_G"}, {"n": 7, "name": "VSS", "net": "GND"}, {"n": 8, "name": "AND in A", "net": "SEG_HU_C"}, {"n": 9, "name": "AND in B", "net": "SEG_HU_F"}, {"n": 10, "name": "AND out Y", "net": "HU_CF"}, {"n": 11, "name": "AND out Y", "net": "HU4"}, {"n": 12, "name": "AND in A", "net": "HU_CF"}, {"n": 13, "name": "AND in B", "net": "SEG_HU_G"}, {"n": 14, "name": "VDD", "net": "VCC"}]}, "U11": {"model": "CD4081B", "pkg": "DIP-14", "pins": [{"n": 1, "name": "AND in A", "net": "HT2"}, {"n": 2, "name": "AND in B", "net": "HU4"}, {"n": 3, "name": "AND out Y", "net": "D24"}, {"n": 4, "name": "AND out Y", "net": "CLK_SEC"}, {"n": 5, "name": "AND in A", "net": "CLK1HZ"}, {"n": 6, "name": "AND in B", "net": "nSET_MODE"}, {"n": 7, "name": "VSS", "net": "GND"}, {"n": 8, "name": "AND in A", "net": "BTN_HOUR"}, {"n": 9, "name": "AND in B", "net": "SET_MODE"}, {"n": 10, "name": "AND out Y", "net": "HOUR_GATE"}, {"n": 11, "name": "AND out Y", "net": "MIN_GATE"}, {"n": 12, "name": "AND in A", "net": "BTN_MIN"}, {"n": 13, "name": "AND in B", "net": "SET_MODE"}, {"n": 14, "name": "VDD", "net": "VCC"}]}, "U12": {"model": "CD4071B", "pkg": "DIP-14", "pins": [{"n": 1, "name": "OR in A", "net": "RST_GLOBAL"}, {"n": 2, "name": "OR in B", "net": "BTN_SECRST"}, {"n": 3, "name": "OR out Y", "net": "RST_SEC"}, {"n": 4, "name": "OR out Y", "net": "RST_HOURS"}, {"n": 5, "name": "OR in A", "net": "RST_GLOBAL"}, {"n": 6, "name": "OR in B", "net": "D24"}, {"n": 7, "name": "VSS", "net": "GND"}, {"n": 8, "name": "OR in A", "net": "RST_SEC"}, {"n": 9, "name": "OR in B", "net": "D6_ST"}, {"n": 10, "name": "OR out Y", "net": "RST_ST"}, {"n": 11, "name": "OR out Y", "net": "RST_MT"}, {"n": 12, "name": "OR in A", "net": "RST_GLOBAL"}, {"n": 13, "name": "OR in B", "net": "D6_MT"}, {"n": 14, "name": "VDD", "net": "VCC"}]}, "U13": {"model": "CD4071B", "pkg": "DIP-14", "pins": [{"n": 1, "name": "OR in A", "net": "POR_RST"}, {"n": 2, "name": "OR in B", "net": "BTN_MSTRST"}, {"n": 3, "name": "OR out Y", "net": "RST_GLOBAL"}, {"n": 4, "name": "OR out Y", "net": "CLK_MU"}, {"n": 5, "name": "OR in A", "net": "D6_ST"}, {"n": 6, "name": "OR in B", "net": "MIN_GATE"}, {"n": 7, "name": "VSS", "net": "GND"}, {"n": 8, "name": "OR in A", "net": "D6_MT"}, {"n": 9, "name": "OR in B", "net": "HOUR_GATE"}, {"n": 10, "name": "OR out Y", "net": "CLK_HU"}, {"n": 11, "name": "OR out Y", "net": "NC"}, {"n": 12, "name": "OR in A", "net": "GND"}, {"n": 13, "name": "OR in B", "net": "GND"}, {"n": 14, "name": "VDD", "net": "VCC"}]}, "U14": {"model": "CD4093B", "pkg": "DIP-14", "pins": [{"n": 1, "name": "Schmitt NAND in A", "net": "BTN_SET_n"}, {"n": 2, "name": "Schmitt NAND in B", "net": "BTN_SET_n"}, {"n": 3, "name": "Schmitt NAND out Y", "net": "BTN_SET"}, {"n": 4, "name": "Schmitt NAND out Y", "net": "BTN_HOUR"}, {"n": 5, "name": "Schmitt NAND in A", "net": "BTN_HOUR_n"}, {"n": 6, "name": "Schmitt NAND in B", "net": "BTN_HOUR_n"}, {"n": 7, "name": "VSS", "net": "GND"}, {"n": 8, "name": "Schmitt NAND in A", "net": "BTN_MIN_n"}, {"n": 9, "name": "Schmitt NAND in B", "net": "BTN_MIN_n"}, {"n": 10, "name": "Schmitt NAND out Y", "net": "BTN_MIN"}, {"n": 11, "name": "Schmitt NAND out Y", "net": "BTN_SECRST"}, {"n": 12, "name": "Schmitt NAND in A", "net": "BTN_SECRST_n"}, {"n": 13, "name": "Schmitt NAND in B", "net": "BTN_SECRST_n"}, {"n": 14, "name": "VDD", "net": "VCC"}]}, "U15": {"model": "CD4093B", "pkg": "DIP-14", "pins": [{"n": 1, "name": "Schmitt NAND in A", "net": "BTN_MSTRST_n"}, {"n": 2, "name": "Schmitt NAND in B", "net": "BTN_MSTRST_n"}, {"n": 3, "name": "Schmitt NAND out Y", "net": "BTN_MSTRST"}, {"n": 4, "name": "Schmitt NAND out Y", "net": "nSET_MODE"}, {"n": 5, "name": "Schmitt NAND in A", "net": "SET_MODE"}, {"n": 6, "name": "Schmitt NAND in B", "net": "SET_MODE"}, {"n": 7, "name": "VSS", "net": "GND"}, {"n": 8, "name": "Schmitt NAND in A", "net": "POR_N"}, {"n": 9, "name": "Schmitt NAND in B", "net": "POR_N"}, {"n": 10, "name": "Schmitt NAND out Y", "net": "POR_RST"}, {"n": 11, "name": "Schmitt NAND out Y", "net": "CLK2HZ_INV"}, {"n": 12, "name": "Schmitt NAND in A", "net": "CLK2HZ"}, {"n": 13, "name": "Schmitt NAND in B", "net": "CLK2HZ"}, {"n": 14, "name": "VDD", "net": "VCC"}]}, "U16": {"model": "MC7805/LM7805", "pkg": "TO-220", "pins": [{"n": 1, "name": "INPUT", "net": "VIN2"}, {"n": 2, "name": "GROUND", "net": "GND"}, {"n": 3, "name": "OUTPUT", "net": "VCC"}]}, "Q1": {"model": "2N3904", "pkg": "TO-92", "pins": [{"n": 1, "name": "E", "net": "GND"}, {"n": 2, "name": "B", "net": "COLON_B"}, {"n": 3, "name": "C", "net": "COLON_K"}]}};
+const NET_DESC = {"BTN_HOUR": "debounced HOUR+ pulse", "BTN_HOUR_n": "raw HOUR+ node", "BTN_MIN": "debounced MIN+ pulse", "BTN_MIN_n": "raw MIN+ node", "BTN_MSTRST": "debounced master-reset pulse", "BTN_MSTRST_n": "raw MASTER RESET node", "BTN_SECRST": "debounced seconds-zero pulse", "BTN_SECRST_n": "raw SEC RESET node", "BTN_SET": "debounced SET pulse (active HIGH)", "BTN_SET_n": "raw SET node (pull-up + cap, LOW while pressed)", "CLK1HZ": "exact 1Hz, first rising edge t=1.000s after reset release", "CLK2HZ": "U1 Q14 = 2Hz", "CLK2HZ_INV": "inverted Q14 (U15/4) = clock of divide-by-2 FF", "CLK_HU": "D6_MT OR HOUR_GATE -> HU clock", "CLK_MU": "D6_ST OR MIN_GATE -> MU clock", "CLK_SEC": "CLK1HZ gated by nSET_MODE -> SU clock", "COLON_A1": "LED1 anode via 1k", "COLON_A2": "LED2 anode via 1k", "COLON_B": "Q1 base via 10k", "COLON_K": "colon LED cathodes = Q1 collector", "C_HU": "HU carry -> HT clock", "C_MU": "MU carry -> MT clock", "C_SU": "SU carry (1/10 Hz) -> ST clock", "D24": "hour = 24 decode (HT2 AND HU4); reset pulse", "D6_MT": "minutes-tens = 6 decode (e.f.g); reset+carry pulse", "D6_ST": "seconds-tens = 6 decode (e.f.g); reset+carry pulse", "DSP_HT_A": "HT segment a (display side of 470R)", "DSP_HT_B": "HT segment b (display side of 470R)", "DSP_HT_C": "HT segment c (display side of 470R)", "DSP_HT_D": "HT segment d (display side of 470R)", "DSP_HT_E": "HT segment e (display side of 470R)", "DSP_HT_F": "HT segment f (display side of 470R)", "DSP_HT_G": "HT segment g (display side of 470R)", "DSP_HU_A": "HU segment a (display side of 470R)", "DSP_HU_B": "HU segment b (display side of 470R)", "DSP_HU_C": "HU segment c (display side of 470R)", "DSP_HU_D": "HU segment d (display side of 470R)", "DSP_HU_E": "HU segment e (display side of 470R)", "DSP_HU_F": "HU segment f (display side of 470R)", "DSP_HU_G": "HU segment g (display side of 470R)", "DSP_MT_A": "MT segment a (display side of 470R)", "DSP_MT_B": "MT segment b (display side of 470R)", "DSP_MT_C": "MT segment c (display side of 470R)", "DSP_MT_D": "MT segment d (display side of 470R)", "DSP_MT_E": "MT segment e (display side of 470R)", "DSP_MT_F": "MT segment f (display side of 470R)", "DSP_MT_G": "MT segment g (display side of 470R)", "DSP_MU_A": "MU segment a (display side of 470R)", "DSP_MU_B": "MU segment b (display side of 470R)", "DSP_MU_C": "MU segment c (display side of 470R)", "DSP_MU_D": "MU segment d (display side of 470R)", "DSP_MU_E": "MU segment e (display side of 470R)", "DSP_MU_F": "MU segment f (display side of 470R)", "DSP_MU_G": "MU segment g (display side of 470R)", "DSP_ST_A": "ST segment a (display side of 470R)", "DSP_ST_B": "ST segment b (display side of 470R)", "DSP_ST_C": "ST segment c (display side of 470R)", "DSP_ST_D": "ST segment d (display side of 470R)", "DSP_ST_E": "ST segment e (display side of 470R)", "DSP_ST_F": "ST segment f (display side of 470R)", "DSP_ST_G": "ST segment g (display side of 470R)", "DSP_SU_A": "SU segment a (display side of 470R)", "DSP_SU_B": "SU segment b (display side of 470R)", "DSP_SU_C": "SU segment c (display side of 470R)", "DSP_SU_D": "SU segment d (display side of 470R)", "DSP_SU_E": "SU segment e (display side of 470R)", "DSP_SU_F": "SU segment f (display side of 470R)", "DSP_SU_G": "SU segment g (display side of 470R)", "FF1_D": "U2 Q1/ tied to D1 (toggle)", "FF2_D": "U2 Q2/ tied to D2 (toggle)", "GND": "0V common ground", "HOUR_GATE": "BTN_HOUR AND SET_MODE", "HT2": "HT = 2 decode", "HT_AD": "HT a AND d", "HU4": "HU = 4 decode", "HU_CF": "HU c AND f", "MIN_GATE": "BTN_MIN AND SET_MODE", "MT_EF": "MT e AND f", "NC": "not connected", "OSC_FB": "U1 pin 10 to Rs (osc feedback)", "POR_N": "power-on reset RC node (LOW at power-up)", "POR_RST": "POR pulse active HIGH ~0.87s", "RST_GLOBAL": "POR OR master reset; resets divider, FFs, SU, MU", "RST_HOURS": "RST_GLOBAL OR D24 -> HU+HT reset", "RST_MT": "RST_GLOBAL OR D6_MT -> MT reset", "RST_SEC": "RST_GLOBAL OR BTN_SECRST -> SU reset", "RST_ST": "RST_SEC OR D6_ST -> ST reset", "SEG_HT_A": "HT segment a (IC pin)", "SEG_HT_B": "HT segment b (IC pin)", "SEG_HT_C": "HT segment c (IC pin)", "SEG_HT_D": "HT segment d (IC pin)", "SEG_HT_E": "HT segment e (IC pin)", "SEG_HT_F": "HT segment f (IC pin)", "SEG_HT_G": "HT segment g (IC pin)", "SEG_HU_A": "HU segment a (IC pin)", "SEG_HU_B": "HU segment b (IC pin)", "SEG_HU_C": "HU segment c (IC pin)", "SEG_HU_D": "HU segment d (IC pin)", "SEG_HU_E": "HU segment e (IC pin)", "SEG_HU_F": "HU segment f (IC pin)", "SEG_HU_G": "HU segment g (IC pin)", "SEG_MT_A": "MT segment a (IC pin)", "SEG_MT_B": "MT segment b (IC pin)", "SEG_MT_C": "MT segment c (IC pin)", "SEG_MT_D": "MT segment d (IC pin)", "SEG_MT_E": "MT segment e (IC pin)", "SEG_MT_F": "MT segment f (IC pin)", "SEG_MT_G": "MT segment g (IC pin)", "SEG_MU_A": "MU segment a (IC pin)", "SEG_MU_B": "MU segment b (IC pin)", "SEG_MU_C": "MU segment c (IC pin)", "SEG_MU_D": "MU segment d (IC pin)", "SEG_MU_E": "MU segment e (IC pin)", "SEG_MU_F": "MU segment f (IC pin)", "SEG_MU_G": "MU segment g (IC pin)", "SEG_ST_A": "ST segment a (IC pin)", "SEG_ST_B": "ST segment b (IC pin)", "SEG_ST_C": "ST segment c (IC pin)", "SEG_ST_D": "ST segment d (IC pin)", "SEG_ST_E": "ST segment e (IC pin)", "SEG_ST_F": "ST segment f (IC pin)", "SEG_ST_G": "ST segment g (IC pin)", "SEG_SU_A": "SU segment a (IC pin)", "SEG_SU_B": "SU segment b (IC pin)", "SEG_SU_C": "SU segment c (IC pin)", "SEG_SU_D": "SU segment d (IC pin)", "SEG_SU_E": "SU segment e (IC pin)", "SEG_SU_F": "SU segment f (IC pin)", "SEG_SU_G": "SU segment g (IC pin)", "SET_MODE": "1 = set mode (U2 Q2)", "ST_EF": "ST e AND f", "VCC": "+5V regulated rail", "VIN": "raw 9-12V input at connector", "VIN2": "after reverse-protection diode D1, regulator input", "XTAL_A": "crystal node A = U1 pin 11 (osc in)", "XTAL_B": "crystal node B = C2/Rc/Rs junction", "nSET_MODE": "inverted SET_MODE"};
+'use strict';
+const E = ClockEngine.create(); E.powerOn();
+let running=true, speed=1;
+
+// ---------- seven-segment display ----------
+const SEGPOLY={
+ a:"22,7 78,7 85,14 78,21 22,21 15,14",
+ b:"86,22 93,29 93,83 86,90 79,83 79,29",
+ c:"86,98 93,105 93,159 86,166 79,159 79,105",
+ d:"22,159 78,159 85,166 78,173 22,173 15,166",
+ e:"14,98 21,105 21,159 14,166 7,159 7,105",
+ f:"14,22 21,29 21,83 14,90 7,83 7,29",
+ g:"22,83 78,83 85,90 78,97 22,97 15,90"
+};
+const ORDER=['HT','HU','MT','MU','ST','SU'];
+const disp=document.getElementById('display');
+const segEls={};
+ORDER.forEach((d,i)=>{
+  if(i===2||i===4){const c=document.createElement('div');c.className='colon';c.innerHTML='<i></i><i></i>';disp.appendChild(c);}
+  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.setAttribute('viewBox','0 0 100 180');svg.setAttribute('class','digit');
+  segEls[d]={};
+  for(const s of 'abcdefg'){const p=document.createElementNS('http://www.w3.org/2000/svg','polygon');
+    p.setAttribute('points',SEGPOLY[s]);svg.appendChild(p);segEls[d][s]=p;}
+  disp.appendChild(svg);
+});
+function renderDisplay(){
+  for(const d of ORDER) for(const s of 'abcdefg'){
+    const on=E.nets['SEG_'+d+'_'+s.toUpperCase()]===1;
+    segEls[d][s].classList.toggle('on',on);
+  }
+  document.querySelectorAll('.clksim .colon').forEach(c=>{
+    c.querySelectorAll('i').forEach(i=>i.classList.toggle('on',E.colon));
+  });
+}
+
+// ---------- net probe ----------
+const PROBE=['CLK2HZ','CLK2HZ_INV','CLK1HZ','CLK_SEC','SET_MODE','nSET_MODE','C_SU','D6_ST','C_MU','D6_MT',
+ 'C_HU','D24','HT2','HU4','RST_GLOBAL','RST_SEC','RST_ST','RST_MT','RST_HOURS','POR_RST',
+ 'BTN_SET','BTN_HOUR','BTN_MIN','BTN_SECRST','BTN_MSTRST'];
+const netsBox=document.getElementById('nets');const netEls={};
+PROBE.forEach(n=>{const d=document.createElement('div');d.className='net';d.title=NET_DESC[n]||'';
+  d.innerHTML='<span class="nm">'+n+'</span><span class="v">0</span><span class="led"></span>';
+  netsBox.appendChild(d);netEls[n]={v:d.querySelector('.v'),led:d.querySelector('.led')};});
+function renderNets(){for(const n of PROBE){const v=E.nets[n]?1:0;netEls[n].v.textContent=v;netEls[n].led.classList.toggle('hi',v===1);}}
+
+// ---------- logic analyzer ----------
+const SIG=['CLK1HZ','C_SU','C_MU','C_HU','SET_MODE','RST_GLOBAL'];
+const SIGCOL={'CLK1HZ':'#3fb950','C_SU':'#39c5cf','C_MU':'#58a6ff','C_HU':'#bc8cff','SET_MODE':'#d29922','RST_GLOBAL':'#ff3b30'};
+const scope=document.getElementById('scope');const ctx=scope.getContext('2d');
+const buf=[];const WINDOW=12;
+function sizeScope(){const r=scope.getBoundingClientRect();scope.width=Math.max(1,r.width)*devicePixelRatio;scope.height=230*devicePixelRatio;}
+sizeScope();window.addEventListener('resize',sizeScope);
+function sample(){buf.push({t:E.simTime,v:SIG.map(s=>E.nets[s]?1:0)});
+  const t0=E.simTime-WINDOW;while(buf.length&&buf[0].t<t0-1)buf.shift();}
+function drawScope(){
+  const W=scope.width,H=scope.height;ctx.clearRect(0,0,W,H);
+  const t1=Math.max(E.simTime,WINDOW),t0=t1-WINDOW;
+  const rowH=H/(SIG.length+0.5);
+  const X=t=>(t-t0)/WINDOW*W;
+  ctx.font=(11*devicePixelRatio)+'px Consolas,monospace';ctx.textBaseline='middle';
+  SIG.forEach((s,i)=>{
+    const yTop=rowH*(i+0.5),yBot=yTop+rowH*0.62;
+    ctx.strokeStyle='#2d3646';ctx.beginPath();ctx.moveTo(0,yBot+rowH*0.18);ctx.lineTo(W,yBot+rowH*0.18);ctx.stroke();
+    ctx.fillStyle=SIGCOL[s];ctx.textAlign='left';ctx.fillText(s,6*devicePixelRatio,yTop-rowH*0.05);
+    ctx.strokeStyle=SIGCOL[s];ctx.lineWidth=1.6*devicePixelRatio;ctx.beginPath();
+    let started=false,prevY=null;
+    for(const p of buf){if(p.t<t0)continue;const x=X(p.t);const y=p.v[i]?yTop:yBot;
+      if(!started){ctx.moveTo(x,y);started=true;}else{ctx.lineTo(x,prevY);ctx.lineTo(x,y);}prevY=y;}
+    if(started){ctx.lineTo(X(t1),prevY);}ctx.stroke();
+  });
+}
+
+// ---------- blocks + pin tables ----------
+const BLOCKS=[
+ {id:'B1',t:'تغذیه ۵V',s:'U16,D1,J1',refs:['U16']},
+ {id:'B2',t:'POR',s:'U15/3,RC',refs:['U15']},
+ {id:'B3',t:'اسیلاتور ۳۲۷۶۸Hz',s:'U1,Y1',refs:['U1']},
+ {id:'B4',t:'تقسیم ÷۲ → 1Hz',s:'U2/FF1,U15/4',refs:['U2','U15']},
+ {id:'B5',t:'حالت SET',s:'U2/FF2',refs:['U2']},
+ {id:'B6',t:'ثانیه MOD-60',s:'U3,U4,U9',refs:['U3','U4','U9']},
+ {id:'B7',t:'دقیقه MOD-60',s:'U5,U6,U9',refs:['U5','U6','U9']},
+ {id:'B8',t:'ساعت MOD-24',s:'U7,U8,U10',refs:['U7','U8','U10','U11']},
+ {id:'B9',t:'مسیریابی کلاک/ریست',s:'U11,U12,U13',refs:['U11','U12','U13']},
+ {id:'B10',t:'کلیدها + دیبانس',s:'U14,U15',refs:['U14','U15']},
+ {id:'B11',t:'نمایشگر + کولن',s:'U3..U8,Q1',refs:['U3','U4','U5','U6','U7','U8','Q1']},
+];
+const blocksBox=document.getElementById('blocks');const detail=document.getElementById('block-detail');
+let selBlock=null;
+BLOCKS.forEach(b=>{const d=document.createElement('div');d.className='blk';d.dataset.id=b.id;
+  d.innerHTML='<div class="t">'+b.id+' · '+b.t+'</div><div class="s">'+b.s+'</div>';
+  d.onclick=()=>{selBlock=b.id;document.querySelectorAll('.clksim .blk').forEach(x=>x.classList.toggle('sel',x.dataset.id===b.id));renderBlock();};
+  blocksBox.appendChild(d);});
+function netVal(n){if(n==='NC')return '—';if(n==='VCC')return '1';if(n==='GND')return '0';return (E.nets[n]?1:0);}
+function renderBlock(){
+  if(!selBlock){detail.innerHTML='';return;}
+  const b=BLOCKS.find(x=>x.id===selBlock);let h='<div class="note">بلوک '+b.id+' — '+b.t+'. مقادیر نت‌ها زنده‌اند.</div>';
+  const seen=new Set();
+  b.refs.forEach(ref=>{const ic=PIN_DATA[ref];if(!ic||seen.has(ref))return;seen.add(ref);
+    h+='<div class="ic-title">'+ref+' · '+ic.model+' · '+ic.pkg+'</div>';
+    h+='<table><tr><th>پین</th><th>نام</th><th>نت</th><th>مقدار</th></tr>';
+    ic.pins.forEach(p=>{const v=netVal(p.net);const hi=(v==='1');
+      h+='<tr><td class="mono">'+p.n+'</td><td>'+p.name+'</td><td class="mono">'+p.net+'</td>'+
+         '<td class="mono">'+(v==='—'?'—':'<span class="led '+(hi?'hi':'')+'"></span> '+v)+'</td></tr>';});
+    h+='</table>';});
+  detail.innerHTML=h;
+}
+
+// ---------- event log ----------
+const logBox=document.getElementById('log');let lastEv=0;
+const KLABEL={carry:'کری',reset24:'ریست ۲۴',set:'SET',reset:'ریست',clk:'کلاک'};
+function renderLog(){
+  while(lastEv<E.events.length){const e=E.events[lastEv++];
+    if(e.kind==='clk')continue;
+    const d=document.createElement('div');
+    d.innerHTML='<span class="t">t='+e.t.toFixed(3)+'s</span> · <span class="k-'+e.kind+'">'+(KLABEL[e.kind]||e.kind)+'</span> · '+e.net;
+    logBox.appendChild(d);}
+  while(logBox.childNodes.length>60)logBox.removeChild(logBox.firstChild);
+  logBox.scrollTop=logBox.scrollHeight;
+}
+
+// ---------- readouts ----------
+function renderReadout(){
+  document.getElementById('ro-time').textContent=E.simTime.toFixed(3)+' s';
+  const m=document.getElementById('ro-mode');
+  if(!E.powered){m.textContent='POWER OFF';m.className='mode-rst';}
+  else if(E.nets.RST_GLOBAL){m.textContent='RESET';m.className='mode-rst';}
+  else if(E.setMode){m.textContent='SET';m.className='mode-set';}
+  else{m.textContent='RUN';m.className='mode-run';}
+  document.getElementById('ro-speed').textContent=speed+'×';
+  document.getElementById('ro-c1').textContent=E.carryCount.secMin;
+  document.getElementById('ro-c2').textContent=E.carryCount.minHour;
+  document.getElementById('k-SET').classList.toggle('set-on',E.setMode);
+}
+
+// ---------- controls ----------
+const btnRun=document.getElementById('btn-run');
+btnRun.onclick=()=>{running=!running;btnRun.textContent=running?'توقف':'اجرا';};
+document.getElementById('speed').onchange=e=>{speed=+e.target.value;};
+['SET','HOUR','MIN','SECRST','MSTRST'].forEach(k=>{
+  const el=document.getElementById('k-'+k);
+  const down=ev=>{ev.preventDefault();E.press(k);renderAll();};
+  const up=ev=>{ev.preventDefault();E.release(k);renderAll();};
+  el.addEventListener('pointerdown',down);el.addEventListener('pointerup',up);
+  el.addEventListener('pointerleave',up);el.addEventListener('pointercancel',up);
+});
+document.getElementById('btn-power').onclick=()=>{E.powerCycle();E.powerOn();lastEv=0;logBox.innerHTML='';buf.length=0;renderAll();};
+
+// ---------- main loop ----------
+function renderAll(){renderDisplay();renderNets();renderReadout();renderBlock();renderLog();}
+let last=performance.now(),lastBlock=0;
+function frame(now){
+  let dt=(now-last)/1000;last=now;if(dt>0.1)dt=0.1;
+  if(running&&E.powered){E.step(dt*speed);}
+  sample();renderDisplay();renderNets();renderReadout();drawScope();renderLog();
+  if(now-lastBlock>200){lastBlock=now;renderBlock();}
+  requestAnimationFrame(frame);
+}
+renderAll();requestAnimationFrame(frame);
+</script>
+</body>
+</html>

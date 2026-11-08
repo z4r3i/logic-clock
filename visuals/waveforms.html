@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>شکل‌موج‌های پایه زمان و کری/ریست — ساعت دیجیتال سخت‌افزاری</title>
+</head>
+<body style="margin:0;background:#fcfcfc">
+<style>
+.wf-wrap{font-family:Tahoma,sans-serif;direction:rtl;color:#111}
+.wf-wrap h2{font-size:18px;margin:6px 0}
+.wf-wrap h3{font-size:14px;margin:14px 0 4px}
+.wf-wrap svg{width:100%;background:#fcfcfa;border:1px solid #ddd;border-radius:6px}
+.wf-note{font-size:12px;color:#555;margin:4px 0}
+</style>
+<div class="wf-wrap">
+<h2>شکل‌موج‌های کلیدی ساعت سخت‌افزاری</h2>
+<p class="wf-note">پالس‌های نانوثانیه‌ای (D6_ST، D6_MT، D24) برای دیده‌شدن اغراق‌شده رسم شده‌اند؛ پهنای واقعی typ آن‌ها 675/675/800 ns است (بخش ۷ سند). بقیهٔ محورها مقیاس واقعی دارند.</p>
+<div id="wf-out"></div>
+</div>
+<script>
+(function(){
+var W=940,L=150,R=20;
+function sx(t,t0,t1){return L+(t-t0)/(t1-t0)*(W-L-R);}
+function panel(title,note,traces,t0,t1,ticks){
+  var rowH=42,H=traces.length*rowH+46;
+  var s='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" font-family="Consolas,monospace">';
+  ticks.forEach(function(tk){
+    var x=sx(tk[0],t0,t1);
+    s+='<line x1="'+x+'" y1="16" x2="'+x+'" y2="'+(H-24)+'" stroke="#e3e3e3"/>';
+    s+='<text x="'+x+'" y="'+(H-8)+'" font-size="10" fill="#666" text-anchor="middle">'+tk[1]+'</text>';
+  });
+  traces.forEach(function(tr,i){
+    var yH=26+i*rowH, yL=yH+24;
+    s+='<text x="'+(L-6)+'" y="'+(yH+16)+'" font-size="11" fill="#111" text-anchor="end">'+tr.name+'</text>';
+    var d='';
+    if(tr.kind==='step'){
+      tr.pts.forEach(function(p,j){
+        var x=sx(p[0],t0,t1), y=p[1]?yH:yL;
+        d+=(j===0?'M':'L')+x+','+y+' ';
+        if(j<tr.pts.length-1){d+='L'+sx(tr.pts[j+1][0],t0,t1)+','+y+' ';}
+      });
+    } else if(tr.kind==='bus'){
+      tr.pts.forEach(function(p,j){
+        var x=sx(p[0],t0,t1);
+        if(j>0){var xp=sx(tr.pts[j-1][0],t0,t1);
+          d+='M'+xp+','+(yH+4)+' L'+x+','+(yH+4)+' M'+xp+','+(yL-4)+' L'+x+','+(yL-4)+' ';
+          d+='M'+x+','+(yH+4)+' L'+(x+4)+','+(yH+12)+' L'+x+','+(yL-4)+' ';
+          s+='<text x="'+((xp+x)/2)+'" y="'+(yH+16)+'" font-size="10" fill="#0a58a2" text-anchor="middle">'+tr.pts[j-1][1]+'</text>';
+        }
+      });
+      var xl=sx(tr.pts[tr.pts.length-1][0],t0,t1);
+      s+='<text x="'+((xl+W-R)/2)+'" y="'+(yH+16)+'" font-size="10" fill="#0a58a2" text-anchor="middle">'+tr.pts[tr.pts.length-1][1]+'</text>';
+      d+='M'+xl+','+(yH+4)+' L'+(W-R)+','+(yH+4)+' M'+xl+','+(yL-4)+' L'+(W-R)+','+(yL-4);
+    } else {
+      for(var x=L;x<=W-R;x+=3){
+        var t=t0+(x-L)/(W-L-R)*(t1-t0), v=tr.fn(t);
+        var y=yL-(v/5)*(yL-yH);
+        d+=(x===L?'M':'L')+x+','+y.toFixed(1)+' ';
+      }
+      if(tr.th){var yt=yL-(tr.th/5)*(yL-yH);
+        s+='<line x1="'+L+'" y1="'+yt+'" x2="'+(W-R)+'" y2="'+yt+'" stroke="#c00" stroke-dasharray="4 3" stroke-width="0.8"/>';}
+    }
+    s+='<path d="'+d+'" fill="none" stroke="'+(tr.color||'#0a58a2')+'" stroke-width="1.6"/>';
+    if(tr.mark){tr.mark.forEach(function(m){
+      var x=sx(m[0],t0,t1);
+      s+='<line x1="'+x+'" y1="16" x2="'+x+'" y2="'+(H-24)+'" stroke="#c00" stroke-dasharray="3 3" stroke-width="0.9"/>';
+      s+='<text x="'+(x+3)+'" y="12" font-size="9" fill="#c00">'+m[1]+'</text>';});}
+  });
+  s+='</svg>';
+  return '<h3>'+title+'</h3><p class="wf-note">'+note+'</p>'+s;
+}
+function sq(period,phase,rise0){ // square wave: value 1 during [rise0+k*period, rise0+period/2)
+  return function(t){var u=((t-rise0)%period+period)%period;return u<period/2?1:0;};
+}
+var out='';
+out+=panel('۱) پایهٔ زمان پس از رهاسازی ریست (t=0)',
+ 'Q14=2Hz؛ اینورتر U15/4؛ FF1 با SET در ریست پیش‌تنظیم شده → اولین لبهٔ بالاروندهٔ CLK1HZ دقیقاً t=1.000s و سپس هر 1.000s.',
+ [{name:'CLK2HZ (Q14)',kind:'analog',fn:function(t){return t<0.25?0:(sq(0.5,0,0.25)(t)?5:0);}},
+  {name:'CLK2HZ_INV',kind:'analog',fn:function(t){return t<0.25?5:(sq(0.5,0,0.25)(t)?0:5);}},
+  {name:'CLK1HZ',kind:'step',pts:[[0,1],[0.5,0],[1.0,1],[1.5,0],[2.0,1],[2.5,0],[3.0,1]],mark:[[1.0,'اولین tick = 1.000s']]},
+  {name:'SU (bus)',kind:'bus',pts:[[0,'0'],[1,'1'],[2,'2'],[3,'3']]}],
+ 0,3,[[0,'0'],[0.5,'0.5'],[1,'1.0s'],[1.5,'1.5'],[2,'2.0s'],[2.5,'2.5'],[3,'3.0s']]);
+out+=panel('۲) Power-On Reset',
+ 'POR_N = 5(1−e^(−t/1s))؛ عبور از آستانهٔ اشمیت ≈2.9V در t≈0.87s → پایان POR_RST و RST_GLOBAL.',
+ [{name:'VCC',kind:'step',pts:[[0,1],[1.2,1]]},
+  {name:'POR_N',kind:'analog',fn:function(t){return 5*(1-Math.exp(-t));},th:2.9,color:'#0a58a2'},
+  {name:'POR_RST',kind:'step',pts:[[0,1],[0.87,0],[1.2,0]],mark:[[0.87,'0.87s']]},
+  {name:'RST_GLOBAL',kind:'step',pts:[[0,1],[0.87,0],[1.2,0]]}],
+ 0,1.2,[[0,'0'],[0.2,'0.2'],[0.4,'0.4'],[0.6,'0.6'],[0.8,'0.8'],[1.0,'1.0s'],[1.2,'1.2s']]);
+out+=panel('۳) گذر 00:00:59 → 00:01:00 (کری MOD-60)',
+ 'در t=60: SU 9→0 و C_SU بالا می‌رود؛ ST موقتاً 6 می‌شود؛ D6_ST پالس 675ns (اغراق‌شده) می‌سازد: هم RST_ST (ریست U4) هم CLK_MU (یک لبه به U5).',
+ [{name:'CLK1HZ',kind:'step',pts:[[58,1],[58.5,0],[59,1],[59.5,0],[60,1],[60.5,0],[61,1],[61.5,0],[62,1]]},
+  {name:'SU',kind:'bus',pts:[[58,'8'],[59,'9'],[60,'0'],[61,'1'],[62,'2']]},
+  {name:'C_SU',kind:'step',pts:[[58,0],[60,1],[62,1]]},
+  {name:'ST',kind:'bus',pts:[[58,'5'],[60,'0→6→0'],[62,'0']]},
+  {name:'D6_ST',kind:'step',pts:[[58,0],[60,1],[60.12,0],[62,0]],color:'#c00',mark:[[60,'675ns typ']]},
+  {name:'RST_ST',kind:'step',pts:[[58,0],[60,1],[60.10,0],[62,0]],color:'#c00'},
+  {name:'CLK_MU',kind:'step',pts:[[58,0],[60,1],[60.12,0],[62,0]],color:'#0a58a2'},
+  {name:'MU',kind:'bus',pts:[[58,'0'],[60,'1'],[62,'1']]}],
+ 58,62,[[58,'58'],[59,'59'],[60,'60s'],[61,'61'],[62,'62s']]);
+out+=panel('۴) دیبانس کلید SET',
+ 'گرهٔ raw با بانس مکانیکی؛ خروجی اشمیت یک پالس تمیز: شروع با فشار، پایان ≈87ms پس از آخرین جدایش (شارژ 100k×1µ).',
+ [{name:'BTN_SET_n',kind:'analog',fn:function(t){
+    if(t<0.1)return 5;
+    if(t<0.16)return (Math.floor((t-0.1)/0.015)%2===0)?0.2:1.4;
+    if(t<0.6)return 0.1;
+    if(t<0.66)return (Math.floor((t-0.6)/0.015)%2===0)?0.2:2.2;
+    return 5-(5-0.2)*Math.exp(-(t-0.66)/0.1);},th:2.9},
+  {name:'BTN_SET',kind:'step',pts:[[0,0],[0.1,1],[0.747,0],[1.2,0]],mark:[[0.747,'+87ms']]}],
+ 0,1.2,[[0,'0'],[0.2,'0.2'],[0.4,'0.4'],[0.6,'0.6'],[0.8,'0.8'],[1.0,'1.0s'],[1.2,'1.2s']]);
+out+=panel('۵) نیمه‌شب 23:59:59 → 00:00:00 (MOD-24)',
+ 'در t=86400: HU 3→4 با HT=2 → D24=1 (پالس 800ns typ، اغراق‌شده) → RST_HOURS هر دو رقم را صفر می‌کند؛ هیچ کری اضافه‌ای تولید نمی‌شود.',
+ [{name:'CLK_HU',kind:'step',pts:[[86398,0],[86399,1],[86399.5,0],[86400,1],[86400.5,0],[86402,0]]},
+  {name:'HU',kind:'bus',pts:[[86398,'3'],[86400,'4→0'],[86402,'0']]},
+  {name:'HT',kind:'bus',pts:[[86398,'2'],[86400,'2→0'],[86402,'0']]},
+  {name:'D24',kind:'step',pts:[[86398,0],[86400,1],[86400.15,0],[86402,0]],color:'#c00',mark:[[86400,'800ns typ']]},
+  {name:'RST_HOURS',kind:'step',pts:[[86398,0],[86400,1],[86400.13,0],[86402,0]],color:'#c00'}],
+ 86398,86402,[[86398,'…58'],[86399,'…59'],[86400,'00:00:00'],[86401,'…01'],[86402,'…02']]);
+document.getElementById('wf-out').innerHTML=out;
+})();
+</script>
+</body>
+</html>

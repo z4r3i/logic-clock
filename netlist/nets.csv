@@ -1,0 +1,138 @@
+﻿Net,Description
+BTN_HOUR,debounced HOUR+ pulse
+BTN_HOUR_n,raw HOUR+ node
+BTN_MIN,debounced MIN+ pulse
+BTN_MIN_n,raw MIN+ node
+BTN_MSTRST,debounced master-reset pulse
+BTN_MSTRST_n,raw MASTER RESET node
+BTN_SECRST,debounced seconds-zero pulse
+BTN_SECRST_n,raw SEC RESET node
+BTN_SET,debounced SET pulse (active HIGH)
+BTN_SET_n,"raw SET node (pull-up + cap, LOW while pressed)"
+CLK1HZ,"exact 1Hz, first rising edge t=1.000s after reset release"
+CLK2HZ,U1 Q14 = 2Hz
+CLK2HZ_INV,inverted Q14 (U15/4) = clock of divide-by-2 FF
+CLK_HU,D6_MT OR HOUR_GATE -> HU clock
+CLK_MU,D6_ST OR MIN_GATE -> MU clock
+CLK_SEC,CLK1HZ gated by nSET_MODE -> SU clock
+COLON_A1,LED1 anode via 1k
+COLON_A2,LED2 anode via 1k
+COLON_B,Q1 base via 10k
+COLON_K,colon LED cathodes = Q1 collector
+C_HU,HU carry -> HT clock
+C_MU,MU carry -> MT clock
+C_SU,SU carry (1/10 Hz) -> ST clock
+D24,hour = 24 decode (HT2 AND HU4); reset pulse
+D6_MT,minutes-tens = 6 decode (e.f.g); reset+carry pulse
+D6_ST,seconds-tens = 6 decode (e.f.g); reset+carry pulse
+DSP_HT_A,HT segment a (display side of 470R)
+DSP_HT_B,HT segment b (display side of 470R)
+DSP_HT_C,HT segment c (display side of 470R)
+DSP_HT_D,HT segment d (display side of 470R)
+DSP_HT_E,HT segment e (display side of 470R)
+DSP_HT_F,HT segment f (display side of 470R)
+DSP_HT_G,HT segment g (display side of 470R)
+DSP_HU_A,HU segment a (display side of 470R)
+DSP_HU_B,HU segment b (display side of 470R)
+DSP_HU_C,HU segment c (display side of 470R)
+DSP_HU_D,HU segment d (display side of 470R)
+DSP_HU_E,HU segment e (display side of 470R)
+DSP_HU_F,HU segment f (display side of 470R)
+DSP_HU_G,HU segment g (display side of 470R)
+DSP_MT_A,MT segment a (display side of 470R)
+DSP_MT_B,MT segment b (display side of 470R)
+DSP_MT_C,MT segment c (display side of 470R)
+DSP_MT_D,MT segment d (display side of 470R)
+DSP_MT_E,MT segment e (display side of 470R)
+DSP_MT_F,MT segment f (display side of 470R)
+DSP_MT_G,MT segment g (display side of 470R)
+DSP_MU_A,MU segment a (display side of 470R)
+DSP_MU_B,MU segment b (display side of 470R)
+DSP_MU_C,MU segment c (display side of 470R)
+DSP_MU_D,MU segment d (display side of 470R)
+DSP_MU_E,MU segment e (display side of 470R)
+DSP_MU_F,MU segment f (display side of 470R)
+DSP_MU_G,MU segment g (display side of 470R)
+DSP_ST_A,ST segment a (display side of 470R)
+DSP_ST_B,ST segment b (display side of 470R)
+DSP_ST_C,ST segment c (display side of 470R)
+DSP_ST_D,ST segment d (display side of 470R)
+DSP_ST_E,ST segment e (display side of 470R)
+DSP_ST_F,ST segment f (display side of 470R)
+DSP_ST_G,ST segment g (display side of 470R)
+DSP_SU_A,SU segment a (display side of 470R)
+DSP_SU_B,SU segment b (display side of 470R)
+DSP_SU_C,SU segment c (display side of 470R)
+DSP_SU_D,SU segment d (display side of 470R)
+DSP_SU_E,SU segment e (display side of 470R)
+DSP_SU_F,SU segment f (display side of 470R)
+DSP_SU_G,SU segment g (display side of 470R)
+FF1_D,U2 Q1/ tied to D1 (toggle)
+FF2_D,U2 Q2/ tied to D2 (toggle)
+GND,0V common ground
+HOUR_GATE,BTN_HOUR AND SET_MODE
+HT2,HT = 2 decode
+HT_AD,HT a AND d
+HU4,HU = 4 decode
+HU_CF,HU c AND f
+MIN_GATE,BTN_MIN AND SET_MODE
+MT_EF,MT e AND f
+NC,not connected
+OSC_FB,U1 pin 10 to Rs (osc feedback)
+POR_N,power-on reset RC node (LOW at power-up)
+POR_RST,POR pulse active HIGH ~0.87s
+RST_GLOBAL,"POR OR master reset; resets divider, FFs, SU, MU"
+RST_HOURS,RST_GLOBAL OR D24 -> HU+HT reset
+RST_MT,RST_GLOBAL OR D6_MT -> MT reset
+RST_SEC,RST_GLOBAL OR BTN_SECRST -> SU reset
+RST_ST,RST_SEC OR D6_ST -> ST reset
+SEG_HT_A,HT segment a (IC pin)
+SEG_HT_B,HT segment b (IC pin)
+SEG_HT_C,HT segment c (IC pin)
+SEG_HT_D,HT segment d (IC pin)
+SEG_HT_E,HT segment e (IC pin)
+SEG_HT_F,HT segment f (IC pin)
+SEG_HT_G,HT segment g (IC pin)
+SEG_HU_A,HU segment a (IC pin)
+SEG_HU_B,HU segment b (IC pin)
+SEG_HU_C,HU segment c (IC pin)
+SEG_HU_D,HU segment d (IC pin)
+SEG_HU_E,HU segment e (IC pin)
+SEG_HU_F,HU segment f (IC pin)
+SEG_HU_G,HU segment g (IC pin)
+SEG_MT_A,MT segment a (IC pin)
+SEG_MT_B,MT segment b (IC pin)
+SEG_MT_C,MT segment c (IC pin)
+SEG_MT_D,MT segment d (IC pin)
+SEG_MT_E,MT segment e (IC pin)
+SEG_MT_F,MT segment f (IC pin)
+SEG_MT_G,MT segment g (IC pin)
+SEG_MU_A,MU segment a (IC pin)
+SEG_MU_B,MU segment b (IC pin)
+SEG_MU_C,MU segment c (IC pin)
+SEG_MU_D,MU segment d (IC pin)
+SEG_MU_E,MU segment e (IC pin)
+SEG_MU_F,MU segment f (IC pin)
+SEG_MU_G,MU segment g (IC pin)
+SEG_ST_A,ST segment a (IC pin)
+SEG_ST_B,ST segment b (IC pin)
+SEG_ST_C,ST segment c (IC pin)
+SEG_ST_D,ST segment d (IC pin)
+SEG_ST_E,ST segment e (IC pin)
+SEG_ST_F,ST segment f (IC pin)
+SEG_ST_G,ST segment g (IC pin)
+SEG_SU_A,SU segment a (IC pin)
+SEG_SU_B,SU segment b (IC pin)
+SEG_SU_C,SU segment c (IC pin)
+SEG_SU_D,SU segment d (IC pin)
+SEG_SU_E,SU segment e (IC pin)
+SEG_SU_F,SU segment f (IC pin)
+SEG_SU_G,SU segment g (IC pin)
+SET_MODE,1 = set mode (U2 Q2)
+ST_EF,ST e AND f
+VCC,+5V regulated rail
+VIN,raw 9-12V input at connector
+VIN2,"after reverse-protection diode D1, regulator input"
+XTAL_A,crystal node A = U1 pin 11 (osc in)
+XTAL_B,crystal node B = C2/Rc/Rs junction
+nSET_MODE,inverted SET_MODE

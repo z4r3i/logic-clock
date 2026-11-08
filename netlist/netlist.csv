@@ -1,0 +1,485 @@
+﻿Ref,Model,Value,Package,Pin,PinName,Net,Notes
+U1,CD4060B,-,DIP-16,1,Q12,NC,
+U1,CD4060B,-,DIP-16,2,Q13,NC,
+U1,CD4060B,-,DIP-16,3,Q14,CLK2HZ,
+U1,CD4060B,-,DIP-16,4,Q6,NC,
+U1,CD4060B,-,DIP-16,5,Q5,NC,
+U1,CD4060B,-,DIP-16,6,Q7,NC,
+U1,CD4060B,-,DIP-16,7,Q4,NC,
+U1,CD4060B,-,DIP-16,8,VSS,GND,
+U1,CD4060B,-,DIP-16,9,OSC OUT (phi0),NC,internal osc output; leave open per Fig.13
+U1,CD4060B,-,DIP-16,10,OSC OUT/ (phi0bar),OSC_FB,to Rs then XTAL_B per Fig.13
+U1,CD4060B,-,DIP-16,11,OSC IN (phi1),XTAL_A,
+U1,CD4060B,-,DIP-16,12,RESET,RST_GLOBAL,active HIGH
+U1,CD4060B,-,DIP-16,13,Q9,NC,
+U1,CD4060B,-,DIP-16,14,Q8,NC,
+U1,CD4060B,-,DIP-16,15,Q10,NC,
+U1,CD4060B,-,DIP-16,16,VDD,VCC,
+U2,CD4013B,-,DIP-14,1,Q1,CLK1HZ,
+U2,CD4013B,-,DIP-14,2,Q1/,FF1_D,
+U2,CD4013B,-,DIP-14,3,CLOCK1,CLK2HZ_INV,
+U2,CD4013B,-,DIP-14,4,RESET1,GND,
+U2,CD4013B,-,DIP-14,5,D1,FF1_D,
+U2,CD4013B,-,DIP-14,6,SET1,RST_GLOBAL,preset Q1=1 during reset => first 1Hz edge at t=1.000s
+U2,CD4013B,-,DIP-14,7,VSS,GND,
+U2,CD4013B,-,DIP-14,8,SET2,GND,
+U2,CD4013B,-,DIP-14,9,D2,FF2_D,
+U2,CD4013B,-,DIP-14,10,RESET2,RST_GLOBAL,
+U2,CD4013B,-,DIP-14,11,CLOCK2,BTN_SET,
+U2,CD4013B,-,DIP-14,12,Q2/,FF2_D,
+U2,CD4013B,-,DIP-14,13,Q2,SET_MODE,
+U2,CD4013B,-,DIP-14,14,VDD,VCC,
+U3,CD4026B,-,DIP-16,1,CLOCK,CLK_SEC,
+U3,CD4026B,-,DIP-16,2,CLOCK INHIBIT,GND,tie LOW: count on CLOCK rising edge
+U3,CD4026B,-,DIP-16,3,DISPLAY ENABLE IN,VCC,segments always on
+U3,CD4026B,-,DIP-16,4,DISPLAY ENABLE OUT,NC,
+U3,CD4026B,-,DIP-16,5,CARRY OUT,C_SU,
+U3,CD4026B,-,DIP-16,10,segment a,SEG_SU_A,
+U3,CD4026B,-,DIP-16,12,segment b,SEG_SU_B,
+U3,CD4026B,-,DIP-16,13,segment c,SEG_SU_C,
+U3,CD4026B,-,DIP-16,9,segment d,SEG_SU_D,
+U3,CD4026B,-,DIP-16,11,segment e,SEG_SU_E,
+U3,CD4026B,-,DIP-16,6,segment f,SEG_SU_F,
+U3,CD4026B,-,DIP-16,7,segment g,SEG_SU_G,
+U3,CD4026B,-,DIP-16,8,VSS,GND,
+U3,CD4026B,-,DIP-16,14,UNGATED C,NC,
+U3,CD4026B,-,DIP-16,15,RESET,RST_SEC,active HIGH
+U3,CD4026B,-,DIP-16,16,VDD,VCC,
+U4,CD4026B,-,DIP-16,1,CLOCK,C_SU,
+U4,CD4026B,-,DIP-16,2,CLOCK INHIBIT,GND,tie LOW: count on CLOCK rising edge
+U4,CD4026B,-,DIP-16,3,DISPLAY ENABLE IN,VCC,segments always on
+U4,CD4026B,-,DIP-16,4,DISPLAY ENABLE OUT,NC,
+U4,CD4026B,-,DIP-16,5,CARRY OUT,NC,
+U4,CD4026B,-,DIP-16,10,segment a,SEG_ST_A,
+U4,CD4026B,-,DIP-16,12,segment b,SEG_ST_B,
+U4,CD4026B,-,DIP-16,13,segment c,SEG_ST_C,
+U4,CD4026B,-,DIP-16,9,segment d,SEG_ST_D,
+U4,CD4026B,-,DIP-16,11,segment e,SEG_ST_E,
+U4,CD4026B,-,DIP-16,6,segment f,SEG_ST_F,
+U4,CD4026B,-,DIP-16,7,segment g,SEG_ST_G,
+U4,CD4026B,-,DIP-16,8,VSS,GND,
+U4,CD4026B,-,DIP-16,14,UNGATED C,NC,
+U4,CD4026B,-,DIP-16,15,RESET,RST_ST,active HIGH
+U4,CD4026B,-,DIP-16,16,VDD,VCC,
+U5,CD4026B,-,DIP-16,1,CLOCK,CLK_MU,
+U5,CD4026B,-,DIP-16,2,CLOCK INHIBIT,GND,tie LOW: count on CLOCK rising edge
+U5,CD4026B,-,DIP-16,3,DISPLAY ENABLE IN,VCC,segments always on
+U5,CD4026B,-,DIP-16,4,DISPLAY ENABLE OUT,NC,
+U5,CD4026B,-,DIP-16,5,CARRY OUT,C_MU,
+U5,CD4026B,-,DIP-16,10,segment a,SEG_MU_A,
+U5,CD4026B,-,DIP-16,12,segment b,SEG_MU_B,
+U5,CD4026B,-,DIP-16,13,segment c,SEG_MU_C,
+U5,CD4026B,-,DIP-16,9,segment d,SEG_MU_D,
+U5,CD4026B,-,DIP-16,11,segment e,SEG_MU_E,
+U5,CD4026B,-,DIP-16,6,segment f,SEG_MU_F,
+U5,CD4026B,-,DIP-16,7,segment g,SEG_MU_G,
+U5,CD4026B,-,DIP-16,8,VSS,GND,
+U5,CD4026B,-,DIP-16,14,UNGATED C,NC,
+U5,CD4026B,-,DIP-16,15,RESET,RST_GLOBAL,active HIGH
+U5,CD4026B,-,DIP-16,16,VDD,VCC,
+U6,CD4026B,-,DIP-16,1,CLOCK,C_MU,
+U6,CD4026B,-,DIP-16,2,CLOCK INHIBIT,GND,tie LOW: count on CLOCK rising edge
+U6,CD4026B,-,DIP-16,3,DISPLAY ENABLE IN,VCC,segments always on
+U6,CD4026B,-,DIP-16,4,DISPLAY ENABLE OUT,NC,
+U6,CD4026B,-,DIP-16,5,CARRY OUT,NC,
+U6,CD4026B,-,DIP-16,10,segment a,SEG_MT_A,
+U6,CD4026B,-,DIP-16,12,segment b,SEG_MT_B,
+U6,CD4026B,-,DIP-16,13,segment c,SEG_MT_C,
+U6,CD4026B,-,DIP-16,9,segment d,SEG_MT_D,
+U6,CD4026B,-,DIP-16,11,segment e,SEG_MT_E,
+U6,CD4026B,-,DIP-16,6,segment f,SEG_MT_F,
+U6,CD4026B,-,DIP-16,7,segment g,SEG_MT_G,
+U6,CD4026B,-,DIP-16,8,VSS,GND,
+U6,CD4026B,-,DIP-16,14,UNGATED C,NC,
+U6,CD4026B,-,DIP-16,15,RESET,RST_MT,active HIGH
+U6,CD4026B,-,DIP-16,16,VDD,VCC,
+U7,CD4026B,-,DIP-16,1,CLOCK,CLK_HU,
+U7,CD4026B,-,DIP-16,2,CLOCK INHIBIT,GND,tie LOW: count on CLOCK rising edge
+U7,CD4026B,-,DIP-16,3,DISPLAY ENABLE IN,VCC,segments always on
+U7,CD4026B,-,DIP-16,4,DISPLAY ENABLE OUT,NC,
+U7,CD4026B,-,DIP-16,5,CARRY OUT,C_HU,
+U7,CD4026B,-,DIP-16,10,segment a,SEG_HU_A,
+U7,CD4026B,-,DIP-16,12,segment b,SEG_HU_B,
+U7,CD4026B,-,DIP-16,13,segment c,SEG_HU_C,
+U7,CD4026B,-,DIP-16,9,segment d,SEG_HU_D,
+U7,CD4026B,-,DIP-16,11,segment e,SEG_HU_E,
+U7,CD4026B,-,DIP-16,6,segment f,SEG_HU_F,
+U7,CD4026B,-,DIP-16,7,segment g,SEG_HU_G,
+U7,CD4026B,-,DIP-16,8,VSS,GND,
+U7,CD4026B,-,DIP-16,14,UNGATED C,NC,
+U7,CD4026B,-,DIP-16,15,RESET,RST_HOURS,active HIGH
+U7,CD4026B,-,DIP-16,16,VDD,VCC,
+U8,CD4026B,-,DIP-16,1,CLOCK,C_HU,
+U8,CD4026B,-,DIP-16,2,CLOCK INHIBIT,GND,tie LOW: count on CLOCK rising edge
+U8,CD4026B,-,DIP-16,3,DISPLAY ENABLE IN,VCC,segments always on
+U8,CD4026B,-,DIP-16,4,DISPLAY ENABLE OUT,NC,
+U8,CD4026B,-,DIP-16,5,CARRY OUT,NC,
+U8,CD4026B,-,DIP-16,10,segment a,SEG_HT_A,
+U8,CD4026B,-,DIP-16,12,segment b,SEG_HT_B,
+U8,CD4026B,-,DIP-16,13,segment c,SEG_HT_C,
+U8,CD4026B,-,DIP-16,9,segment d,SEG_HT_D,
+U8,CD4026B,-,DIP-16,11,segment e,SEG_HT_E,
+U8,CD4026B,-,DIP-16,6,segment f,SEG_HT_F,
+U8,CD4026B,-,DIP-16,7,segment g,SEG_HT_G,
+U8,CD4026B,-,DIP-16,8,VSS,GND,
+U8,CD4026B,-,DIP-16,14,UNGATED C,NC,
+U8,CD4026B,-,DIP-16,15,RESET,RST_HOURS,active HIGH
+U8,CD4026B,-,DIP-16,16,VDD,VCC,
+U9,CD4081B,-,DIP-14,1,AND in A,SEG_ST_E,
+U9,CD4081B,-,DIP-14,2,AND in B,SEG_ST_F,
+U9,CD4081B,-,DIP-14,3,AND out Y,ST_EF,
+U9,CD4081B,-,DIP-14,5,AND in A,ST_EF,
+U9,CD4081B,-,DIP-14,6,AND in B,SEG_ST_G,
+U9,CD4081B,-,DIP-14,4,AND out Y,D6_ST,
+U9,CD4081B,-,DIP-14,8,AND in A,SEG_MT_E,
+U9,CD4081B,-,DIP-14,9,AND in B,SEG_MT_F,
+U9,CD4081B,-,DIP-14,10,AND out Y,MT_EF,
+U9,CD4081B,-,DIP-14,12,AND in A,MT_EF,
+U9,CD4081B,-,DIP-14,13,AND in B,SEG_MT_G,
+U9,CD4081B,-,DIP-14,11,AND out Y,D6_MT,
+U9,CD4081B,-,DIP-14,7,VSS,GND,
+U9,CD4081B,-,DIP-14,14,VDD,VCC,
+U10,CD4081B,-,DIP-14,1,AND in A,SEG_HT_A,
+U10,CD4081B,-,DIP-14,2,AND in B,SEG_HT_D,
+U10,CD4081B,-,DIP-14,3,AND out Y,HT_AD,
+U10,CD4081B,-,DIP-14,5,AND in A,HT_AD,
+U10,CD4081B,-,DIP-14,6,AND in B,SEG_HT_G,
+U10,CD4081B,-,DIP-14,4,AND out Y,HT2,
+U10,CD4081B,-,DIP-14,8,AND in A,SEG_HU_C,
+U10,CD4081B,-,DIP-14,9,AND in B,SEG_HU_F,
+U10,CD4081B,-,DIP-14,10,AND out Y,HU_CF,
+U10,CD4081B,-,DIP-14,12,AND in A,HU_CF,
+U10,CD4081B,-,DIP-14,13,AND in B,SEG_HU_G,
+U10,CD4081B,-,DIP-14,11,AND out Y,HU4,
+U10,CD4081B,-,DIP-14,7,VSS,GND,
+U10,CD4081B,-,DIP-14,14,VDD,VCC,
+U11,CD4081B,-,DIP-14,1,AND in A,HT2,
+U11,CD4081B,-,DIP-14,2,AND in B,HU4,
+U11,CD4081B,-,DIP-14,3,AND out Y,D24,
+U11,CD4081B,-,DIP-14,5,AND in A,CLK1HZ,
+U11,CD4081B,-,DIP-14,6,AND in B,nSET_MODE,
+U11,CD4081B,-,DIP-14,4,AND out Y,CLK_SEC,
+U11,CD4081B,-,DIP-14,8,AND in A,BTN_HOUR,
+U11,CD4081B,-,DIP-14,9,AND in B,SET_MODE,
+U11,CD4081B,-,DIP-14,10,AND out Y,HOUR_GATE,
+U11,CD4081B,-,DIP-14,12,AND in A,BTN_MIN,
+U11,CD4081B,-,DIP-14,13,AND in B,SET_MODE,
+U11,CD4081B,-,DIP-14,11,AND out Y,MIN_GATE,
+U11,CD4081B,-,DIP-14,7,VSS,GND,
+U11,CD4081B,-,DIP-14,14,VDD,VCC,
+U12,CD4071B,-,DIP-14,1,OR in A,RST_GLOBAL,
+U12,CD4071B,-,DIP-14,2,OR in B,BTN_SECRST,
+U12,CD4071B,-,DIP-14,3,OR out Y,RST_SEC,
+U12,CD4071B,-,DIP-14,5,OR in A,RST_GLOBAL,
+U12,CD4071B,-,DIP-14,6,OR in B,D24,
+U12,CD4071B,-,DIP-14,4,OR out Y,RST_HOURS,
+U12,CD4071B,-,DIP-14,8,OR in A,RST_SEC,
+U12,CD4071B,-,DIP-14,9,OR in B,D6_ST,
+U12,CD4071B,-,DIP-14,10,OR out Y,RST_ST,
+U12,CD4071B,-,DIP-14,12,OR in A,RST_GLOBAL,
+U12,CD4071B,-,DIP-14,13,OR in B,D6_MT,
+U12,CD4071B,-,DIP-14,11,OR out Y,RST_MT,
+U12,CD4071B,-,DIP-14,7,VSS,GND,
+U12,CD4071B,-,DIP-14,14,VDD,VCC,
+U13,CD4071B,-,DIP-14,1,OR in A,POR_RST,
+U13,CD4071B,-,DIP-14,2,OR in B,BTN_MSTRST,
+U13,CD4071B,-,DIP-14,3,OR out Y,RST_GLOBAL,
+U13,CD4071B,-,DIP-14,5,OR in A,D6_ST,
+U13,CD4071B,-,DIP-14,6,OR in B,MIN_GATE,
+U13,CD4071B,-,DIP-14,4,OR out Y,CLK_MU,
+U13,CD4071B,-,DIP-14,8,OR in A,D6_MT,
+U13,CD4071B,-,DIP-14,9,OR in B,HOUR_GATE,
+U13,CD4071B,-,DIP-14,10,OR out Y,CLK_HU,
+U13,CD4071B,-,DIP-14,12,OR in A,GND,unused gate: inputs tied LOW
+U13,CD4071B,-,DIP-14,13,OR in B,GND,unused gate: inputs tied LOW
+U13,CD4071B,-,DIP-14,11,OR out Y,NC,unused gate: inputs tied LOW
+U13,CD4071B,-,DIP-14,7,VSS,GND,
+U13,CD4071B,-,DIP-14,14,VDD,VCC,
+U14,CD4093B,-,DIP-14,1,Schmitt NAND in A,BTN_SET_n,inputs tied => inverter
+U14,CD4093B,-,DIP-14,2,Schmitt NAND in B,BTN_SET_n,inputs tied => inverter
+U14,CD4093B,-,DIP-14,3,Schmitt NAND out Y,BTN_SET,
+U14,CD4093B,-,DIP-14,5,Schmitt NAND in A,BTN_HOUR_n,inputs tied => inverter
+U14,CD4093B,-,DIP-14,6,Schmitt NAND in B,BTN_HOUR_n,inputs tied => inverter
+U14,CD4093B,-,DIP-14,4,Schmitt NAND out Y,BTN_HOUR,
+U14,CD4093B,-,DIP-14,8,Schmitt NAND in A,BTN_MIN_n,inputs tied => inverter
+U14,CD4093B,-,DIP-14,9,Schmitt NAND in B,BTN_MIN_n,inputs tied => inverter
+U14,CD4093B,-,DIP-14,10,Schmitt NAND out Y,BTN_MIN,
+U14,CD4093B,-,DIP-14,12,Schmitt NAND in A,BTN_SECRST_n,inputs tied => inverter
+U14,CD4093B,-,DIP-14,13,Schmitt NAND in B,BTN_SECRST_n,inputs tied => inverter
+U14,CD4093B,-,DIP-14,11,Schmitt NAND out Y,BTN_SECRST,
+U14,CD4093B,-,DIP-14,7,VSS,GND,
+U14,CD4093B,-,DIP-14,14,VDD,VCC,
+U15,CD4093B,-,DIP-14,1,Schmitt NAND in A,BTN_MSTRST_n,inputs tied => inverter
+U15,CD4093B,-,DIP-14,2,Schmitt NAND in B,BTN_MSTRST_n,inputs tied => inverter
+U15,CD4093B,-,DIP-14,3,Schmitt NAND out Y,BTN_MSTRST,
+U15,CD4093B,-,DIP-14,5,Schmitt NAND in A,SET_MODE,inputs tied => inverter
+U15,CD4093B,-,DIP-14,6,Schmitt NAND in B,SET_MODE,inputs tied => inverter
+U15,CD4093B,-,DIP-14,4,Schmitt NAND out Y,nSET_MODE,
+U15,CD4093B,-,DIP-14,8,Schmitt NAND in A,POR_N,inputs tied => inverter
+U15,CD4093B,-,DIP-14,9,Schmitt NAND in B,POR_N,inputs tied => inverter
+U15,CD4093B,-,DIP-14,10,Schmitt NAND out Y,POR_RST,
+U15,CD4093B,-,DIP-14,12,Schmitt NAND in A,CLK2HZ,inputs tied => inverter
+U15,CD4093B,-,DIP-14,13,Schmitt NAND in B,CLK2HZ,inputs tied => inverter
+U15,CD4093B,-,DIP-14,11,Schmitt NAND out Y,CLK2HZ_INV,
+U15,CD4093B,-,DIP-14,7,VSS,GND,
+U15,CD4093B,-,DIP-14,14,VDD,VCC,
+U16,MC7805/LM7805,-,TO-220,1,INPUT,VIN2,
+U16,MC7805/LM7805,-,TO-220,2,GROUND,GND,tab = pin 2
+U16,MC7805/LM7805,-,TO-220,3,OUTPUT,VCC,
+Q1,2N3904,-,TO-92,1,E,GND,
+Q1,2N3904,-,TO-92,2,B,COLON_B,
+Q1,2N3904,-,TO-92,3,C,COLON_K,
+Y1,crystal 32.768kHz,CL=12.5pF,HC-49/S or cylinder,1,-,XTAL_A,
+Y1,crystal 32.768kHz,CL=12.5pF,HC-49/S or cylinder,2,-,XTAL_B,
+C1,cap ceramic NP0,18pF,radial,1,-,XTAL_A,
+C1,cap ceramic NP0,18pF,radial,2,-,GND,
+C2,cap ceramic NP0,18pF,radial,1,-,XTAL_B,
+C2,cap ceramic NP0,18pF,radial,2,-,GND,
+R_C,resistor,10M,0.25W,1,-,XTAL_A,
+R_C,resistor,10M,0.25W,2,-,XTAL_B,
+R_S,resistor,220k,0.25W,1,-,XTAL_B,
+R_S,resistor,220k,0.25W,2,-,OSC_FB,
+R_SUA,resistor,470R,0.25W,1,-,SEG_SU_A,
+R_SUA,resistor,470R,0.25W,2,-,DSP_SU_A,
+R_SUB,resistor,470R,0.25W,1,-,SEG_SU_B,
+R_SUB,resistor,470R,0.25W,2,-,DSP_SU_B,
+R_SUC,resistor,470R,0.25W,1,-,SEG_SU_C,
+R_SUC,resistor,470R,0.25W,2,-,DSP_SU_C,
+R_SUD,resistor,470R,0.25W,1,-,SEG_SU_D,
+R_SUD,resistor,470R,0.25W,2,-,DSP_SU_D,
+R_SUE,resistor,470R,0.25W,1,-,SEG_SU_E,
+R_SUE,resistor,470R,0.25W,2,-,DSP_SU_E,
+R_SUF,resistor,470R,0.25W,1,-,SEG_SU_F,
+R_SUF,resistor,470R,0.25W,2,-,DSP_SU_F,
+R_SUG,resistor,470R,0.25W,1,-,SEG_SU_G,
+R_SUG,resistor,470R,0.25W,2,-,DSP_SU_G,
+DS6,SC52-11EWA,CC red 0.52in,10-pin,7,a,DSP_SU_A,
+DS6,SC52-11EWA,CC red 0.52in,10-pin,6,b,DSP_SU_B,
+DS6,SC52-11EWA,CC red 0.52in,10-pin,4,c,DSP_SU_C,
+DS6,SC52-11EWA,CC red 0.52in,10-pin,2,d,DSP_SU_D,
+DS6,SC52-11EWA,CC red 0.52in,10-pin,1,e,DSP_SU_E,
+DS6,SC52-11EWA,CC red 0.52in,10-pin,9,f,DSP_SU_F,
+DS6,SC52-11EWA,CC red 0.52in,10-pin,10,g,DSP_SU_G,
+DS6,SC52-11EWA,CC red 0.52in,10-pin,3,COM,GND,common cathode
+DS6,SC52-11EWA,CC red 0.52in,10-pin,8,COM,GND,common cathode
+DS6,SC52-11EWA,CC red 0.52in,10-pin,5,DP,NC,
+R_STA,resistor,470R,0.25W,1,-,SEG_ST_A,
+R_STA,resistor,470R,0.25W,2,-,DSP_ST_A,
+R_STB,resistor,470R,0.25W,1,-,SEG_ST_B,
+R_STB,resistor,470R,0.25W,2,-,DSP_ST_B,
+R_STC,resistor,470R,0.25W,1,-,SEG_ST_C,
+R_STC,resistor,470R,0.25W,2,-,DSP_ST_C,
+R_STD,resistor,470R,0.25W,1,-,SEG_ST_D,
+R_STD,resistor,470R,0.25W,2,-,DSP_ST_D,
+R_STE,resistor,470R,0.25W,1,-,SEG_ST_E,
+R_STE,resistor,470R,0.25W,2,-,DSP_ST_E,
+R_STF,resistor,470R,0.25W,1,-,SEG_ST_F,
+R_STF,resistor,470R,0.25W,2,-,DSP_ST_F,
+R_STG,resistor,470R,0.25W,1,-,SEG_ST_G,
+R_STG,resistor,470R,0.25W,2,-,DSP_ST_G,
+DS5,SC52-11EWA,CC red 0.52in,10-pin,7,a,DSP_ST_A,
+DS5,SC52-11EWA,CC red 0.52in,10-pin,6,b,DSP_ST_B,
+DS5,SC52-11EWA,CC red 0.52in,10-pin,4,c,DSP_ST_C,
+DS5,SC52-11EWA,CC red 0.52in,10-pin,2,d,DSP_ST_D,
+DS5,SC52-11EWA,CC red 0.52in,10-pin,1,e,DSP_ST_E,
+DS5,SC52-11EWA,CC red 0.52in,10-pin,9,f,DSP_ST_F,
+DS5,SC52-11EWA,CC red 0.52in,10-pin,10,g,DSP_ST_G,
+DS5,SC52-11EWA,CC red 0.52in,10-pin,3,COM,GND,common cathode
+DS5,SC52-11EWA,CC red 0.52in,10-pin,8,COM,GND,common cathode
+DS5,SC52-11EWA,CC red 0.52in,10-pin,5,DP,NC,
+R_MUA,resistor,470R,0.25W,1,-,SEG_MU_A,
+R_MUA,resistor,470R,0.25W,2,-,DSP_MU_A,
+R_MUB,resistor,470R,0.25W,1,-,SEG_MU_B,
+R_MUB,resistor,470R,0.25W,2,-,DSP_MU_B,
+R_MUC,resistor,470R,0.25W,1,-,SEG_MU_C,
+R_MUC,resistor,470R,0.25W,2,-,DSP_MU_C,
+R_MUD,resistor,470R,0.25W,1,-,SEG_MU_D,
+R_MUD,resistor,470R,0.25W,2,-,DSP_MU_D,
+R_MUE,resistor,470R,0.25W,1,-,SEG_MU_E,
+R_MUE,resistor,470R,0.25W,2,-,DSP_MU_E,
+R_MUF,resistor,470R,0.25W,1,-,SEG_MU_F,
+R_MUF,resistor,470R,0.25W,2,-,DSP_MU_F,
+R_MUG,resistor,470R,0.25W,1,-,SEG_MU_G,
+R_MUG,resistor,470R,0.25W,2,-,DSP_MU_G,
+DS4,SC52-11EWA,CC red 0.52in,10-pin,7,a,DSP_MU_A,
+DS4,SC52-11EWA,CC red 0.52in,10-pin,6,b,DSP_MU_B,
+DS4,SC52-11EWA,CC red 0.52in,10-pin,4,c,DSP_MU_C,
+DS4,SC52-11EWA,CC red 0.52in,10-pin,2,d,DSP_MU_D,
+DS4,SC52-11EWA,CC red 0.52in,10-pin,1,e,DSP_MU_E,
+DS4,SC52-11EWA,CC red 0.52in,10-pin,9,f,DSP_MU_F,
+DS4,SC52-11EWA,CC red 0.52in,10-pin,10,g,DSP_MU_G,
+DS4,SC52-11EWA,CC red 0.52in,10-pin,3,COM,GND,common cathode
+DS4,SC52-11EWA,CC red 0.52in,10-pin,8,COM,GND,common cathode
+DS4,SC52-11EWA,CC red 0.52in,10-pin,5,DP,NC,
+R_MTA,resistor,470R,0.25W,1,-,SEG_MT_A,
+R_MTA,resistor,470R,0.25W,2,-,DSP_MT_A,
+R_MTB,resistor,470R,0.25W,1,-,SEG_MT_B,
+R_MTB,resistor,470R,0.25W,2,-,DSP_MT_B,
+R_MTC,resistor,470R,0.25W,1,-,SEG_MT_C,
+R_MTC,resistor,470R,0.25W,2,-,DSP_MT_C,
+R_MTD,resistor,470R,0.25W,1,-,SEG_MT_D,
+R_MTD,resistor,470R,0.25W,2,-,DSP_MT_D,
+R_MTE,resistor,470R,0.25W,1,-,SEG_MT_E,
+R_MTE,resistor,470R,0.25W,2,-,DSP_MT_E,
+R_MTF,resistor,470R,0.25W,1,-,SEG_MT_F,
+R_MTF,resistor,470R,0.25W,2,-,DSP_MT_F,
+R_MTG,resistor,470R,0.25W,1,-,SEG_MT_G,
+R_MTG,resistor,470R,0.25W,2,-,DSP_MT_G,
+DS3,SC52-11EWA,CC red 0.52in,10-pin,7,a,DSP_MT_A,
+DS3,SC52-11EWA,CC red 0.52in,10-pin,6,b,DSP_MT_B,
+DS3,SC52-11EWA,CC red 0.52in,10-pin,4,c,DSP_MT_C,
+DS3,SC52-11EWA,CC red 0.52in,10-pin,2,d,DSP_MT_D,
+DS3,SC52-11EWA,CC red 0.52in,10-pin,1,e,DSP_MT_E,
+DS3,SC52-11EWA,CC red 0.52in,10-pin,9,f,DSP_MT_F,
+DS3,SC52-11EWA,CC red 0.52in,10-pin,10,g,DSP_MT_G,
+DS3,SC52-11EWA,CC red 0.52in,10-pin,3,COM,GND,common cathode
+DS3,SC52-11EWA,CC red 0.52in,10-pin,8,COM,GND,common cathode
+DS3,SC52-11EWA,CC red 0.52in,10-pin,5,DP,NC,
+R_HUA,resistor,470R,0.25W,1,-,SEG_HU_A,
+R_HUA,resistor,470R,0.25W,2,-,DSP_HU_A,
+R_HUB,resistor,470R,0.25W,1,-,SEG_HU_B,
+R_HUB,resistor,470R,0.25W,2,-,DSP_HU_B,
+R_HUC,resistor,470R,0.25W,1,-,SEG_HU_C,
+R_HUC,resistor,470R,0.25W,2,-,DSP_HU_C,
+R_HUD,resistor,470R,0.25W,1,-,SEG_HU_D,
+R_HUD,resistor,470R,0.25W,2,-,DSP_HU_D,
+R_HUE,resistor,470R,0.25W,1,-,SEG_HU_E,
+R_HUE,resistor,470R,0.25W,2,-,DSP_HU_E,
+R_HUF,resistor,470R,0.25W,1,-,SEG_HU_F,
+R_HUF,resistor,470R,0.25W,2,-,DSP_HU_F,
+R_HUG,resistor,470R,0.25W,1,-,SEG_HU_G,
+R_HUG,resistor,470R,0.25W,2,-,DSP_HU_G,
+DS2,SC52-11EWA,CC red 0.52in,10-pin,7,a,DSP_HU_A,
+DS2,SC52-11EWA,CC red 0.52in,10-pin,6,b,DSP_HU_B,
+DS2,SC52-11EWA,CC red 0.52in,10-pin,4,c,DSP_HU_C,
+DS2,SC52-11EWA,CC red 0.52in,10-pin,2,d,DSP_HU_D,
+DS2,SC52-11EWA,CC red 0.52in,10-pin,1,e,DSP_HU_E,
+DS2,SC52-11EWA,CC red 0.52in,10-pin,9,f,DSP_HU_F,
+DS2,SC52-11EWA,CC red 0.52in,10-pin,10,g,DSP_HU_G,
+DS2,SC52-11EWA,CC red 0.52in,10-pin,3,COM,GND,common cathode
+DS2,SC52-11EWA,CC red 0.52in,10-pin,8,COM,GND,common cathode
+DS2,SC52-11EWA,CC red 0.52in,10-pin,5,DP,NC,
+R_HTA,resistor,470R,0.25W,1,-,SEG_HT_A,
+R_HTA,resistor,470R,0.25W,2,-,DSP_HT_A,
+R_HTB,resistor,470R,0.25W,1,-,SEG_HT_B,
+R_HTB,resistor,470R,0.25W,2,-,DSP_HT_B,
+R_HTC,resistor,470R,0.25W,1,-,SEG_HT_C,
+R_HTC,resistor,470R,0.25W,2,-,DSP_HT_C,
+R_HTD,resistor,470R,0.25W,1,-,SEG_HT_D,
+R_HTD,resistor,470R,0.25W,2,-,DSP_HT_D,
+R_HTE,resistor,470R,0.25W,1,-,SEG_HT_E,
+R_HTE,resistor,470R,0.25W,2,-,DSP_HT_E,
+R_HTF,resistor,470R,0.25W,1,-,SEG_HT_F,
+R_HTF,resistor,470R,0.25W,2,-,DSP_HT_F,
+R_HTG,resistor,470R,0.25W,1,-,SEG_HT_G,
+R_HTG,resistor,470R,0.25W,2,-,DSP_HT_G,
+DS1,SC52-11EWA,CC red 0.52in,10-pin,7,a,DSP_HT_A,
+DS1,SC52-11EWA,CC red 0.52in,10-pin,6,b,DSP_HT_B,
+DS1,SC52-11EWA,CC red 0.52in,10-pin,4,c,DSP_HT_C,
+DS1,SC52-11EWA,CC red 0.52in,10-pin,2,d,DSP_HT_D,
+DS1,SC52-11EWA,CC red 0.52in,10-pin,1,e,DSP_HT_E,
+DS1,SC52-11EWA,CC red 0.52in,10-pin,9,f,DSP_HT_F,
+DS1,SC52-11EWA,CC red 0.52in,10-pin,10,g,DSP_HT_G,
+DS1,SC52-11EWA,CC red 0.52in,10-pin,3,COM,GND,common cathode
+DS1,SC52-11EWA,CC red 0.52in,10-pin,8,COM,GND,common cathode
+DS1,SC52-11EWA,CC red 0.52in,10-pin,5,DP,NC,
+SW_SET,tact switch 6x6,SPST-NO,4-pin,1,-,BTN_SET_n,pins 1-2 joined
+SW_SET,tact switch 6x6,SPST-NO,4-pin,2,-,BTN_SET_n,pins 1-2 joined
+SW_SET,tact switch 6x6,SPST-NO,4-pin,3,-,GND,pins 3-4 joined
+SW_SET,tact switch 6x6,SPST-NO,4-pin,4,-,GND,pins 3-4 joined
+R_PU_SET,resistor,100k,0.25W,1,-,VCC,
+R_PU_SET,resistor,100k,0.25W,2,-,BTN_SET_n,
+C_BTN_SET,cap ceramic,1uF,radial,1,-,BTN_SET_n,
+C_BTN_SET,cap ceramic,1uF,radial,2,-,GND,
+SW_HOUR,tact switch 6x6,SPST-NO,4-pin,1,-,BTN_HOUR_n,pins 1-2 joined
+SW_HOUR,tact switch 6x6,SPST-NO,4-pin,2,-,BTN_HOUR_n,pins 1-2 joined
+SW_HOUR,tact switch 6x6,SPST-NO,4-pin,3,-,GND,pins 3-4 joined
+SW_HOUR,tact switch 6x6,SPST-NO,4-pin,4,-,GND,pins 3-4 joined
+R_PU_HOUR,resistor,100k,0.25W,1,-,VCC,
+R_PU_HOUR,resistor,100k,0.25W,2,-,BTN_HOUR_n,
+C_BTN_HOUR,cap ceramic,1uF,radial,1,-,BTN_HOUR_n,
+C_BTN_HOUR,cap ceramic,1uF,radial,2,-,GND,
+SW_MIN,tact switch 6x6,SPST-NO,4-pin,1,-,BTN_MIN_n,pins 1-2 joined
+SW_MIN,tact switch 6x6,SPST-NO,4-pin,2,-,BTN_MIN_n,pins 1-2 joined
+SW_MIN,tact switch 6x6,SPST-NO,4-pin,3,-,GND,pins 3-4 joined
+SW_MIN,tact switch 6x6,SPST-NO,4-pin,4,-,GND,pins 3-4 joined
+R_PU_MIN,resistor,100k,0.25W,1,-,VCC,
+R_PU_MIN,resistor,100k,0.25W,2,-,BTN_MIN_n,
+C_BTN_MIN,cap ceramic,1uF,radial,1,-,BTN_MIN_n,
+C_BTN_MIN,cap ceramic,1uF,radial,2,-,GND,
+SW_SECRST,tact switch 6x6,SPST-NO,4-pin,1,-,BTN_SECRST_n,pins 1-2 joined
+SW_SECRST,tact switch 6x6,SPST-NO,4-pin,2,-,BTN_SECRST_n,pins 1-2 joined
+SW_SECRST,tact switch 6x6,SPST-NO,4-pin,3,-,GND,pins 3-4 joined
+SW_SECRST,tact switch 6x6,SPST-NO,4-pin,4,-,GND,pins 3-4 joined
+R_PU_SECRST,resistor,100k,0.25W,1,-,VCC,
+R_PU_SECRST,resistor,100k,0.25W,2,-,BTN_SECRST_n,
+C_BTN_SECRST,cap ceramic,1uF,radial,1,-,BTN_SECRST_n,
+C_BTN_SECRST,cap ceramic,1uF,radial,2,-,GND,
+SW_MSTRST,tact switch 6x6,SPST-NO,4-pin,1,-,BTN_MSTRST_n,pins 1-2 joined
+SW_MSTRST,tact switch 6x6,SPST-NO,4-pin,2,-,BTN_MSTRST_n,pins 1-2 joined
+SW_MSTRST,tact switch 6x6,SPST-NO,4-pin,3,-,GND,pins 3-4 joined
+SW_MSTRST,tact switch 6x6,SPST-NO,4-pin,4,-,GND,pins 3-4 joined
+R_PU_MSTRST,resistor,100k,0.25W,1,-,VCC,
+R_PU_MSTRST,resistor,100k,0.25W,2,-,BTN_MSTRST_n,
+C_BTN_MSTRST,cap ceramic,1uF,radial,1,-,BTN_MSTRST_n,
+C_BTN_MSTRST,cap ceramic,1uF,radial,2,-,GND,
+R_POR,resistor,100k,0.25W,1,-,VCC,
+R_POR,resistor,100k,0.25W,2,-,POR_N,
+C_POR,cap electrolytic,10uF,radial,1,+,POR_N,
+C_POR,cap electrolytic,10uF,radial,2,-,GND,
+D2,1N4148,-,DO-35,1,A,POR_N,discharge on power-down
+D2,1N4148,-,DO-35,2,K,VCC,
+R_CB,resistor,10k,0.25W,1,-,CLK1HZ,
+R_CB,resistor,10k,0.25W,2,-,COLON_B,
+R_CL1,resistor,1k,0.25W,1,-,VCC,
+R_CL1,resistor,1k,0.25W,2,-,COLON_A1,
+R_CL2,resistor,1k,0.25W,1,-,VCC,
+R_CL2,resistor,1k,0.25W,2,-,COLON_A2,
+LED1,LED red,Vf~2.0V,5mm,1,A,COLON_A1,
+LED1,LED red,Vf~2.0V,5mm,2,K,COLON_K,
+LED2,LED red,Vf~2.0V,5mm,1,A,COLON_A2,
+LED2,LED red,Vf~2.0V,5mm,2,K,COLON_K,
+J1,DC jack / terminal,9-12V in,2-pin,1,+,VIN,
+J1,DC jack / terminal,9-12V in,2-pin,2,-,GND,
+D1,1N4007,-,DO-41,1,A,VIN,reverse-polarity protection
+D1,1N4007,-,DO-41,2,K,VIN2,
+C_IN1,cap ceramic/film,0.33uF,radial,1,-,VIN2,
+C_IN1,cap ceramic/film,0.33uF,radial,2,-,GND,
+C_IN2,cap electrolytic,100uF,radial,1,+,VIN2,
+C_IN2,cap electrolytic,100uF,radial,2,-,GND,
+C_OUT1,cap ceramic,100nF,radial,1,-,VCC,
+C_OUT1,cap ceramic,100nF,radial,2,-,GND,
+C_OUT2,cap electrolytic,100uF,radial,1,+,VCC,
+C_OUT2,cap electrolytic,100uF,radial,2,-,GND,
+C_BULK,cap electrolytic,470uF,radial,1,+,VCC,
+C_BULK,cap electrolytic,470uF,radial,2,-,GND,
+C_BYP1,cap ceramic,100nF,radial,1,-,VCC,at U1 VDD
+C_BYP1,cap ceramic,100nF,radial,2,-,GND,at U1 VSS
+C_BYP2,cap ceramic,100nF,radial,1,-,VCC,at U2 VDD
+C_BYP2,cap ceramic,100nF,radial,2,-,GND,at U2 VSS
+C_BYP3,cap ceramic,100nF,radial,1,-,VCC,at U3 VDD
+C_BYP3,cap ceramic,100nF,radial,2,-,GND,at U3 VSS
+C_BYP4,cap ceramic,100nF,radial,1,-,VCC,at U4 VDD
+C_BYP4,cap ceramic,100nF,radial,2,-,GND,at U4 VSS
+C_BYP5,cap ceramic,100nF,radial,1,-,VCC,at U5 VDD
+C_BYP5,cap ceramic,100nF,radial,2,-,GND,at U5 VSS
+C_BYP6,cap ceramic,100nF,radial,1,-,VCC,at U6 VDD
+C_BYP6,cap ceramic,100nF,radial,2,-,GND,at U6 VSS
+C_BYP7,cap ceramic,100nF,radial,1,-,VCC,at U7 VDD
+C_BYP7,cap ceramic,100nF,radial,2,-,GND,at U7 VSS
+C_BYP8,cap ceramic,100nF,radial,1,-,VCC,at U8 VDD
+C_BYP8,cap ceramic,100nF,radial,2,-,GND,at U8 VSS
+C_BYP9,cap ceramic,100nF,radial,1,-,VCC,at U9 VDD
+C_BYP9,cap ceramic,100nF,radial,2,-,GND,at U9 VSS
+C_BYP10,cap ceramic,100nF,radial,1,-,VCC,at U10 VDD
+C_BYP10,cap ceramic,100nF,radial,2,-,GND,at U10 VSS
+C_BYP11,cap ceramic,100nF,radial,1,-,VCC,at U11 VDD
+C_BYP11,cap ceramic,100nF,radial,2,-,GND,at U11 VSS
+C_BYP12,cap ceramic,100nF,radial,1,-,VCC,at U12 VDD
+C_BYP12,cap ceramic,100nF,radial,2,-,GND,at U12 VSS
+C_BYP13,cap ceramic,100nF,radial,1,-,VCC,at U13 VDD
+C_BYP13,cap ceramic,100nF,radial,2,-,GND,at U13 VSS
+C_BYP14,cap ceramic,100nF,radial,1,-,VCC,at U14 VDD
+C_BYP14,cap ceramic,100nF,radial,2,-,GND,at U14 VSS
+C_BYP15,cap ceramic,100nF,radial,1,-,VCC,at U15 VDD
+C_BYP15,cap ceramic,100nF,radial,2,-,GND,at U15 VSS

@@ -1,0 +1,146 @@
+<div dir="rtl">
+
+# برگهٔ سیم‌کشی — هر نت و همهٔ پین‌های آن
+
+> ناوبری: [سند طراحی](../docs/design_fa.md) · [راهنمای ساخت/تست](../docs/proteus_guide_fa.md) · [نت‌لیست](netlist.csv) · [BOM](bom.csv)
+
+روش: همهٔ قطعات را قرار دهید؛ سپس برای هر نت زیر، روی تک‌تک پین‌های فهرست‌شده یک net label هم‌نام بگذارید (یا سیم بکشید). VCC و GND را با ترمینال‌های POWER/ground پروتئوس بدهید. این فایل از netlist.csv تولید شده و مرجع یگانه است.
+
+- **CLK2HZ** (3 پین): U1.3 , U15.12 , U15.13
+- **GND** (78 پین): U1.8 , U2.4 , U2.7 , U2.8 , U3.2 , U3.8 , U4.2 , U4.8 , U5.2 , U5.8 , U6.2 , U6.8 , U7.2 , U7.8 , U8.2 , U8.8 , U9.7 , U10.7 , U11.7 , U12.7 , U13.12 , U13.13 , U13.7 , U14.7 , U15.7 , U16.2 , Q1.1 , C1.2 , C2.2 , DS6.3 , DS6.8 , DS5.3 , DS5.8 , DS4.3 , DS4.8 , DS3.3 , DS3.8 , DS2.3 , DS2.8 , DS1.3 , DS1.8 , SW_SET.3 , SW_SET.4 , C_BTN_SET.2 , SW_HOUR.3 , SW_HOUR.4 , C_BTN_HOUR.2 , SW_MIN.3 , SW_MIN.4 , C_BTN_MIN.2 , SW_SECRST.3 , SW_SECRST.4 , C_BTN_SECRST.2 , SW_MSTRST.3 , SW_MSTRST.4 , C_BTN_MSTRST.2 , C_POR.2 , J1.2 , C_IN1.2 , C_IN2.2 , C_OUT1.2 , C_OUT2.2 , C_BULK.2 , C_BYP1.2 , C_BYP2.2 , C_BYP3.2 , C_BYP4.2 , C_BYP5.2 , C_BYP6.2 , C_BYP7.2 , C_BYP8.2 , C_BYP9.2 , C_BYP10.2 , C_BYP11.2 , C_BYP12.2 , C_BYP13.2 , C_BYP14.2 , C_BYP15.2
+- **OSC_FB** (2 پین): U1.10 , R_S.2
+- **XTAL_A** (4 پین): U1.11 , Y1.1 , C1.1 , R_C.1
+- **RST_GLOBAL** (8 پین): U1.12 , U2.6 , U2.10 , U5.15 , U12.1 , U12.5 , U12.12 , U13.3
+- **VCC** (49 پین): U1.16 , U2.14 , U3.3 , U3.16 , U4.3 , U4.16 , U5.3 , U5.16 , U6.3 , U6.16 , U7.3 , U7.16 , U8.3 , U8.16 , U9.14 , U10.14 , U11.14 , U12.14 , U13.14 , U14.14 , U15.14 , U16.3 , R_PU_SET.1 , R_PU_HOUR.1 , R_PU_MIN.1 , R_PU_SECRST.1 , R_PU_MSTRST.1 , R_POR.1 , D2.2 , R_CL1.1 , R_CL2.1 , C_OUT1.1 , C_OUT2.1 , C_BULK.1 , C_BYP1.1 , C_BYP2.1 , C_BYP3.1 , C_BYP4.1 , C_BYP5.1 , C_BYP6.1 , C_BYP7.1 , C_BYP8.1 , C_BYP9.1 , C_BYP10.1 , C_BYP11.1 , C_BYP12.1 , C_BYP13.1 , C_BYP14.1 , C_BYP15.1
+- **CLK1HZ** (3 پین): U2.1 , U11.5 , R_CB.1
+- **FF1_D** (2 پین): U2.2 , U2.5
+- **CLK2HZ_INV** (2 پین): U2.3 , U15.11
+- **FF2_D** (2 پین): U2.9 , U2.12
+- **BTN_SET** (2 پین): U2.11 , U14.3
+- **SET_MODE** (5 پین): U2.13 , U11.9 , U11.13 , U15.5 , U15.6
+- **CLK_SEC** (2 پین): U3.1 , U11.4
+- **C_SU** (2 پین): U3.5 , U4.1
+- **SEG_SU_A** (2 پین): U3.10 , R_SUA.1
+- **SEG_SU_B** (2 پین): U3.12 , R_SUB.1
+- **SEG_SU_C** (2 پین): U3.13 , R_SUC.1
+- **SEG_SU_D** (2 پین): U3.9 , R_SUD.1
+- **SEG_SU_E** (2 پین): U3.11 , R_SUE.1
+- **SEG_SU_F** (2 پین): U3.6 , R_SUF.1
+- **SEG_SU_G** (2 پین): U3.7 , R_SUG.1
+- **RST_SEC** (3 پین): U3.15 , U12.3 , U12.8
+- **SEG_ST_A** (2 پین): U4.10 , R_STA.1
+- **SEG_ST_B** (2 پین): U4.12 , R_STB.1
+- **SEG_ST_C** (2 پین): U4.13 , R_STC.1
+- **SEG_ST_D** (2 پین): U4.9 , R_STD.1
+- **SEG_ST_E** (3 پین): U4.11 , U9.1 , R_STE.1
+- **SEG_ST_F** (3 پین): U4.6 , U9.2 , R_STF.1
+- **SEG_ST_G** (3 پین): U4.7 , U9.6 , R_STG.1
+- **RST_ST** (2 پین): U4.15 , U12.10
+- **CLK_MU** (2 پین): U5.1 , U13.4
+- **C_MU** (2 پین): U5.5 , U6.1
+- **SEG_MU_A** (2 پین): U5.10 , R_MUA.1
+- **SEG_MU_B** (2 پین): U5.12 , R_MUB.1
+- **SEG_MU_C** (2 پین): U5.13 , R_MUC.1
+- **SEG_MU_D** (2 پین): U5.9 , R_MUD.1
+- **SEG_MU_E** (2 پین): U5.11 , R_MUE.1
+- **SEG_MU_F** (2 پین): U5.6 , R_MUF.1
+- **SEG_MU_G** (2 پین): U5.7 , R_MUG.1
+- **SEG_MT_A** (2 پین): U6.10 , R_MTA.1
+- **SEG_MT_B** (2 پین): U6.12 , R_MTB.1
+- **SEG_MT_C** (2 پین): U6.13 , R_MTC.1
+- **SEG_MT_D** (2 پین): U6.9 , R_MTD.1
+- **SEG_MT_E** (3 پین): U6.11 , U9.8 , R_MTE.1
+- **SEG_MT_F** (3 پین): U6.6 , U9.9 , R_MTF.1
+- **SEG_MT_G** (3 پین): U6.7 , U9.13 , R_MTG.1
+- **RST_MT** (2 پین): U6.15 , U12.11
+- **CLK_HU** (2 پین): U7.1 , U13.10
+- **C_HU** (2 پین): U7.5 , U8.1
+- **SEG_HU_A** (2 پین): U7.10 , R_HUA.1
+- **SEG_HU_B** (2 پین): U7.12 , R_HUB.1
+- **SEG_HU_C** (3 پین): U7.13 , U10.8 , R_HUC.1
+- **SEG_HU_D** (2 پین): U7.9 , R_HUD.1
+- **SEG_HU_E** (2 پین): U7.11 , R_HUE.1
+- **SEG_HU_F** (3 پین): U7.6 , U10.9 , R_HUF.1
+- **SEG_HU_G** (3 پین): U7.7 , U10.13 , R_HUG.1
+- **RST_HOURS** (3 پین): U7.15 , U8.15 , U12.4
+- **SEG_HT_A** (3 پین): U8.10 , U10.1 , R_HTA.1
+- **SEG_HT_B** (2 پین): U8.12 , R_HTB.1
+- **SEG_HT_C** (2 پین): U8.13 , R_HTC.1
+- **SEG_HT_D** (3 پین): U8.9 , U10.2 , R_HTD.1
+- **SEG_HT_E** (2 پین): U8.11 , R_HTE.1
+- **SEG_HT_F** (2 پین): U8.6 , R_HTF.1
+- **SEG_HT_G** (3 پین): U8.7 , U10.6 , R_HTG.1
+- **ST_EF** (2 پین): U9.3 , U9.5
+- **D6_ST** (3 پین): U9.4 , U12.9 , U13.5
+- **MT_EF** (2 پین): U9.10 , U9.12
+- **D6_MT** (3 پین): U9.11 , U12.13 , U13.8
+- **HT_AD** (2 پین): U10.3 , U10.5
+- **HT2** (2 پین): U10.4 , U11.1
+- **HU_CF** (2 پین): U10.10 , U10.12
+- **HU4** (2 پین): U10.11 , U11.2
+- **D24** (2 پین): U11.3 , U12.6
+- **nSET_MODE** (2 پین): U11.6 , U15.4
+- **BTN_HOUR** (2 پین): U11.8 , U14.4
+- **HOUR_GATE** (2 پین): U11.10 , U13.9
+- **BTN_MIN** (2 پین): U11.12 , U14.10
+- **MIN_GATE** (2 پین): U11.11 , U13.6
+- **BTN_SECRST** (2 پین): U12.2 , U14.11
+- **POR_RST** (2 پین): U13.1 , U15.10
+- **BTN_MSTRST** (2 پین): U13.2 , U15.3
+- **BTN_SET_n** (6 پین): U14.1 , U14.2 , SW_SET.1 , SW_SET.2 , R_PU_SET.2 , C_BTN_SET.1
+- **BTN_HOUR_n** (6 پین): U14.5 , U14.6 , SW_HOUR.1 , SW_HOUR.2 , R_PU_HOUR.2 , C_BTN_HOUR.1
+- **BTN_MIN_n** (6 پین): U14.8 , U14.9 , SW_MIN.1 , SW_MIN.2 , R_PU_MIN.2 , C_BTN_MIN.1
+- **BTN_SECRST_n** (6 پین): U14.12 , U14.13 , SW_SECRST.1 , SW_SECRST.2 , R_PU_SECRST.2 , C_BTN_SECRST.1
+- **BTN_MSTRST_n** (6 پین): U15.1 , U15.2 , SW_MSTRST.1 , SW_MSTRST.2 , R_PU_MSTRST.2 , C_BTN_MSTRST.1
+- **POR_N** (5 پین): U15.8 , U15.9 , R_POR.2 , C_POR.1 , D2.1
+- **VIN2** (4 پین): U16.1 , D1.2 , C_IN1.1 , C_IN2.1
+- **COLON_B** (2 پین): Q1.2 , R_CB.2
+- **COLON_K** (3 پین): Q1.3 , LED1.2 , LED2.2
+- **XTAL_B** (4 پین): Y1.2 , C2.1 , R_C.2 , R_S.1
+- **DSP_SU_A** (2 پین): R_SUA.2 , DS6.7
+- **DSP_SU_B** (2 پین): R_SUB.2 , DS6.6
+- **DSP_SU_C** (2 پین): R_SUC.2 , DS6.4
+- **DSP_SU_D** (2 پین): R_SUD.2 , DS6.2
+- **DSP_SU_E** (2 پین): R_SUE.2 , DS6.1
+- **DSP_SU_F** (2 پین): R_SUF.2 , DS6.9
+- **DSP_SU_G** (2 پین): R_SUG.2 , DS6.10
+- **DSP_ST_A** (2 پین): R_STA.2 , DS5.7
+- **DSP_ST_B** (2 پین): R_STB.2 , DS5.6
+- **DSP_ST_C** (2 پین): R_STC.2 , DS5.4
+- **DSP_ST_D** (2 پین): R_STD.2 , DS5.2
+- **DSP_ST_E** (2 پین): R_STE.2 , DS5.1
+- **DSP_ST_F** (2 پین): R_STF.2 , DS5.9
+- **DSP_ST_G** (2 پین): R_STG.2 , DS5.10
+- **DSP_MU_A** (2 پین): R_MUA.2 , DS4.7
+- **DSP_MU_B** (2 پین): R_MUB.2 , DS4.6
+- **DSP_MU_C** (2 پین): R_MUC.2 , DS4.4
+- **DSP_MU_D** (2 پین): R_MUD.2 , DS4.2
+- **DSP_MU_E** (2 پین): R_MUE.2 , DS4.1
+- **DSP_MU_F** (2 پین): R_MUF.2 , DS4.9
+- **DSP_MU_G** (2 پین): R_MUG.2 , DS4.10
+- **DSP_MT_A** (2 پین): R_MTA.2 , DS3.7
+- **DSP_MT_B** (2 پین): R_MTB.2 , DS3.6
+- **DSP_MT_C** (2 پین): R_MTC.2 , DS3.4
+- **DSP_MT_D** (2 پین): R_MTD.2 , DS3.2
+- **DSP_MT_E** (2 پین): R_MTE.2 , DS3.1
+- **DSP_MT_F** (2 پین): R_MTF.2 , DS3.9
+- **DSP_MT_G** (2 پین): R_MTG.2 , DS3.10
+- **DSP_HU_A** (2 پین): R_HUA.2 , DS2.7
+- **DSP_HU_B** (2 پین): R_HUB.2 , DS2.6
+- **DSP_HU_C** (2 پین): R_HUC.2 , DS2.4
+- **DSP_HU_D** (2 پین): R_HUD.2 , DS2.2
+- **DSP_HU_E** (2 پین): R_HUE.2 , DS2.1
+- **DSP_HU_F** (2 پین): R_HUF.2 , DS2.9
+- **DSP_HU_G** (2 پین): R_HUG.2 , DS2.10
+- **DSP_HT_A** (2 پین): R_HTA.2 , DS1.7
+- **DSP_HT_B** (2 پین): R_HTB.2 , DS1.6
+- **DSP_HT_C** (2 پین): R_HTC.2 , DS1.4
+- **DSP_HT_D** (2 پین): R_HTD.2 , DS1.2
+- **DSP_HT_E** (2 پین): R_HTE.2 , DS1.1
+- **DSP_HT_F** (2 پین): R_HTF.2 , DS1.9
+- **DSP_HT_G** (2 پین): R_HTG.2 , DS1.10
+- **COLON_A1** (2 پین): R_CL1.2 , LED1.1
+- **COLON_A2** (2 پین): R_CL2.2 , LED2.1
+- **VIN** (2 پین): J1.1 , D1.1
+
+</div>

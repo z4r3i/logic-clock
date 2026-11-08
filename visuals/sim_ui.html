@@ -1,0 +1,293 @@
+<style>
+  .clksim{--bg:#0d1117;--panel:#161b22;--panel2:#1c2330;--line:#2d3646;--txt:#e6edf3;--mut:#8b98a9;
+       --red:#ff3b30;--redoff:#3a1512;--grn:#3fb950;--amber:#d29922;--cyan:#39c5cf;--acc:#58a6ff;
+       background:var(--bg);color:var(--txt);font-family:Tahoma,'Segoe UI',sans-serif;font-size:14px;line-height:1.6;
+       direction:rtl;text-align:right;border-radius:12px;padding:0 0 4px}
+  .clksim *{box-sizing:border-box}
+  .clksim .hd{padding:16px 20px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#11161d,#0d1117);border-radius:12px 12px 0 0}
+  .clksim .hd h1{margin:0;font-size:19px}
+  .clksim .hd p{margin:4px 0 0;color:var(--mut);font-size:12.5px}
+  .clksim .wrap{max-width:1180px;margin:0 auto;padding:16px}
+  .clksim .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:16px}
+  .clksim .card h2{margin:0 0 12px;font-size:15px;color:var(--acc);display:flex;align-items:center;gap:8px}
+  .clksim .badge{font-size:11px;padding:2px 9px;border-radius:20px;border:1px solid var(--line);color:var(--mut)}
+  .clksim .display{display:flex;direction:ltr;align-items:center;justify-content:center;gap:clamp(2px,1vw,6px);background:#0a0d12;border:1px solid var(--line);
+           border-radius:12px;padding:22px 10px;flex-wrap:nowrap}
+  .clksim .digit{width:clamp(34px,11.5vw,74px);height:auto;aspect-ratio:100/180;flex-shrink:1}
+  .clksim .digit polygon{fill:var(--redoff);transition:fill .05s}
+  .clksim .digit polygon.on{fill:var(--red);filter:drop-shadow(0 0 5px rgba(255,59,48,.8))}
+  .clksim .colon{display:flex;flex-direction:column;gap:26px;padding:0 4px}
+  .clksim .colon i{width:12px;height:12px;border-radius:50%;background:var(--redoff)}
+  .clksim .colon i.on{background:var(--red);box-shadow:0 0 8px rgba(255,59,48,.9)}
+  .clksim .readout{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:12px;color:var(--mut);font-size:13px}
+  .clksim .readout b{color:var(--txt);font-variant-numeric:tabular-nums}
+  .clksim .mode-run{color:var(--grn)} .clksim .mode-set{color:var(--amber)} .clksim .mode-rst{color:var(--red)}
+  .clksim .controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .clksim button,.clksim select{font-family:inherit;font-size:13px;color:var(--txt);background:var(--panel2);border:1px solid var(--line);
+        border-radius:8px;padding:9px 14px;cursor:pointer;transition:.12s}
+  .clksim button:hover{border-color:var(--acc)} .clksim button:active{transform:translateY(1px)}
+  .clksim button.key{min-width:96px}
+  .clksim button.warn{border-color:#5a3a1a;color:var(--amber)}
+  .clksim button.danger{border-color:#5a1a1a;color:var(--red)}
+  .clksim button.set-on{background:#3a2e10;border-color:var(--amber);color:var(--amber)}
+  .clksim button:disabled{opacity:.4;cursor:not-allowed}
+  .clksim select{padding:9px}
+  .clksim .lbl{color:var(--mut);font-size:12px}
+  .clksim .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:820px){.clksim .grid2{grid-template-columns:1fr}}
+  .clksim .nets{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:7px}
+  .clksim .net{display:flex;align-items:center;justify-content:space-between;background:var(--panel2);border:1px solid var(--line);
+       border-radius:7px;padding:5px 9px;font-size:12px}
+  .clksim .net .nm{color:var(--mut);font-family:Consolas,monospace;font-size:11px}
+  .clksim .net .led{width:11px;height:11px;border-radius:50%;background:#30363d;flex-shrink:0}
+  .clksim .net .led.hi{background:var(--grn);box-shadow:0 0 6px rgba(63,185,80,.8)}
+  .clksim .net .v{font-family:Consolas,monospace;width:14px;text-align:center;color:var(--txt)}
+  .clksim #scope{width:100%;height:230px;background:#0a0d12;border:1px solid var(--line);border-radius:8px;display:block}
+  .clksim .blocks{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+  .clksim .blk{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:9px 10px;cursor:pointer;font-size:12.5px}
+  .clksim .blk:hover{border-color:var(--acc)} .clksim .blk.sel{border-color:var(--acc);background:#13233a}
+  .clksim .blk .t{color:var(--txt)} .clksim .blk .s{color:var(--mut);font-size:11px;font-family:Consolas,monospace}
+  .clksim table{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px}
+  .clksim th,.clksim td{border:1px solid var(--line);padding:4px 7px;text-align:right}
+  .clksim th{background:var(--panel2);color:var(--mut);font-weight:normal}
+  .clksim td.mono{font-family:Consolas,monospace;font-size:11px}
+  .clksim td .led{display:inline-block;width:9px;height:9px;border-radius:50%;background:#30363d;vertical-align:middle}
+  .clksim td .led.hi{background:var(--grn)}
+  .clksim .ic-title{margin:12px 0 2px;color:var(--cyan);font-size:13px;font-family:Consolas,monospace}
+  .clksim #log{max-height:200px;overflow:auto;font-family:Consolas,monospace;font-size:12px;background:#0a0d12;
+       border:1px solid var(--line);border-radius:8px;padding:8px}
+  .clksim #log div{padding:1px 0;border-bottom:1px solid #161b22}
+  .clksim #log .t{color:var(--mut)} .clksim .k-carry{color:var(--cyan)} .clksim .k-reset24{color:var(--red)} .clksim .k-set{color:var(--amber)} .clksim .k-reset{color:var(--red)}
+  .clksim .note{color:var(--mut);font-size:12px;margin-top:10px}
+</style>
+<div class="clksim">
+  <div class="hd">
+    <h1>شبیه‌ساز واقعی ساعت دیجیتال تمام‌سخت‌افزاری</h1>
+    <p>اجرای منطق واقعی مدار روی نت‌لیست: اسیلاتور ۳۲۷۶۸Hz → CD4060 → CD4013 ÷۲ → زنجیرهٔ CD4026 با دیکودهای MOD-6/MOD-24، POR و دیبانس کلیدها. موتور با تست ۲۵ ساعته تأیید شده است.</p>
+  </div>
+  <div class="wrap">
+
+    <div class="card">
+      <div class="display" id="display"></div>
+      <div class="readout">
+        <span>زمان مدار: <b id="ro-time">0.000 s</b></span>
+        <span>حالت: <b id="ro-mode" class="mode-run">RUN</b></span>
+        <span>سرعت: <b id="ro-speed">1×</b></span>
+        <span>کری ث→د: <b id="ro-c1">0</b></span>
+        <span>کری د→س: <b id="ro-c2">0</b></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>کنترل‌ها <span class="badge">کلیدها با دیبانس واقعی</span></h2>
+      <div class="controls">
+        <button id="btn-run">توقف</button>
+        <span class="lbl">سرعت:</span>
+        <select id="speed">
+          <option value="1">1× (واقعی)</option>
+          <option value="10">10×</option>
+          <option value="60">60×</option>
+          <option value="600">600×</option>
+          <option value="3600">3600×</option>
+        </select>
+        <button class="key" id="k-SET">SET</button>
+        <button class="key" id="k-HOUR">HOUR+</button>
+        <button class="key" id="k-MIN">MIN+</button>
+        <button class="key warn" id="k-SECRST">SEC RESET</button>
+        <button class="key danger" id="k-MSTRST">MASTER RESET</button>
+        <button class="danger" id="btn-power">قطع و وصل تغذیه (POR)</button>
+      </div>
+      <div class="note">HOUR+/MIN+ فقط در حالت SET اثر دارند (گیت واقعی SET_MODE). نگه‌داشتن کلید = یک افزایش (لبه‌trigger). SEC RESET و MASTER RESET سطح‌فعال‌اند. قطع و وصل، پالس POR ≈۰٫۸۷s تولید می‌کند.</div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <h2>کاوشگر نت‌های واقعی <span class="badge">زنده</span></h2>
+        <div class="nets" id="nets"></div>
+      </div>
+      <div class="card">
+        <h2>تحلیل‌گر منطقی <span class="badge">مقیاس ثانیه</span></h2>
+        <canvas id="scope"></canvas>
+        <div class="note">پالس‌های کری/ریست در حد نانوثانیه‌اند و در این مقیاس دیده نمی‌شوند؛ در «رویدادها» ثبت می‌شوند. اینجا CLK1HZ، سطح کری‌ها، SET_MODE و RST_GLOBAL نمایش داده می‌شود.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>دیاگرام بلوکی و پین‌های واقعی <span class="badge">از netlist.csv</span></h2>
+      <div class="blocks" id="blocks"></div>
+      <div id="block-detail"></div>
+    </div>
+
+    <div class="card">
+      <h2>رویدادها <span class="badge">کری / ریست / SET</span></h2>
+      <div id="log"></div>
+    </div>
+
+  </div>
+</div>
+<script>
+{{ENGINE}}
+</script>
+<script>
+const PIN_DATA = {{PIN_DATA}};
+const NET_DESC = {{NET_DESC}};
+'use strict';
+const E = ClockEngine.create(); E.powerOn();
+let running=true, speed=1;
+
+// ---------- seven-segment display ----------
+const SEGPOLY={
+ a:"22,7 78,7 85,14 78,21 22,21 15,14",
+ b:"86,22 93,29 93,83 86,90 79,83 79,29",
+ c:"86,98 93,105 93,159 86,166 79,159 79,105",
+ d:"22,159 78,159 85,166 78,173 22,173 15,166",
+ e:"14,98 21,105 21,159 14,166 7,159 7,105",
+ f:"14,22 21,29 21,83 14,90 7,83 7,29",
+ g:"22,83 78,83 85,90 78,97 22,97 15,90"
+};
+const ORDER=['HT','HU','MT','MU','ST','SU'];
+const disp=document.getElementById('display');
+const segEls={};
+ORDER.forEach((d,i)=>{
+  if(i===2||i===4){const c=document.createElement('div');c.className='colon';c.innerHTML='<i></i><i></i>';disp.appendChild(c);}
+  const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  svg.setAttribute('viewBox','0 0 100 180');svg.setAttribute('class','digit');
+  segEls[d]={};
+  for(const s of 'abcdefg'){const p=document.createElementNS('http://www.w3.org/2000/svg','polygon');
+    p.setAttribute('points',SEGPOLY[s]);svg.appendChild(p);segEls[d][s]=p;}
+  disp.appendChild(svg);
+});
+function renderDisplay(){
+  for(const d of ORDER) for(const s of 'abcdefg'){
+    const on=E.nets['SEG_'+d+'_'+s.toUpperCase()]===1;
+    segEls[d][s].classList.toggle('on',on);
+  }
+  document.querySelectorAll('.clksim .colon').forEach(c=>{
+    c.querySelectorAll('i').forEach(i=>i.classList.toggle('on',E.colon));
+  });
+}
+
+// ---------- net probe ----------
+const PROBE=['CLK2HZ','CLK2HZ_INV','CLK1HZ','CLK_SEC','SET_MODE','nSET_MODE','C_SU','D6_ST','C_MU','D6_MT',
+ 'C_HU','D24','HT2','HU4','RST_GLOBAL','RST_SEC','RST_ST','RST_MT','RST_HOURS','POR_RST',
+ 'BTN_SET','BTN_HOUR','BTN_MIN','BTN_SECRST','BTN_MSTRST'];
+const netsBox=document.getElementById('nets');const netEls={};
+PROBE.forEach(n=>{const d=document.createElement('div');d.className='net';d.title=NET_DESC[n]||'';
+  d.innerHTML='<span class="nm">'+n+'</span><span class="v">0</span><span class="led"></span>';
+  netsBox.appendChild(d);netEls[n]={v:d.querySelector('.v'),led:d.querySelector('.led')};});
+function renderNets(){for(const n of PROBE){const v=E.nets[n]?1:0;netEls[n].v.textContent=v;netEls[n].led.classList.toggle('hi',v===1);}}
+
+// ---------- logic analyzer ----------
+const SIG=['CLK1HZ','C_SU','C_MU','C_HU','SET_MODE','RST_GLOBAL'];
+const SIGCOL={'CLK1HZ':'#3fb950','C_SU':'#39c5cf','C_MU':'#58a6ff','C_HU':'#bc8cff','SET_MODE':'#d29922','RST_GLOBAL':'#ff3b30'};
+const scope=document.getElementById('scope');const ctx=scope.getContext('2d');
+const buf=[];const WINDOW=12;
+function sizeScope(){const r=scope.getBoundingClientRect();scope.width=Math.max(1,r.width)*devicePixelRatio;scope.height=230*devicePixelRatio;}
+sizeScope();window.addEventListener('resize',sizeScope);
+function sample(){buf.push({t:E.simTime,v:SIG.map(s=>E.nets[s]?1:0)});
+  const t0=E.simTime-WINDOW;while(buf.length&&buf[0].t<t0-1)buf.shift();}
+function drawScope(){
+  const W=scope.width,H=scope.height;ctx.clearRect(0,0,W,H);
+  const t1=Math.max(E.simTime,WINDOW),t0=t1-WINDOW;
+  const rowH=H/(SIG.length+0.5);
+  const X=t=>(t-t0)/WINDOW*W;
+  ctx.font=(11*devicePixelRatio)+'px Consolas,monospace';ctx.textBaseline='middle';
+  SIG.forEach((s,i)=>{
+    const yTop=rowH*(i+0.5),yBot=yTop+rowH*0.62;
+    ctx.strokeStyle='#2d3646';ctx.beginPath();ctx.moveTo(0,yBot+rowH*0.18);ctx.lineTo(W,yBot+rowH*0.18);ctx.stroke();
+    ctx.fillStyle=SIGCOL[s];ctx.textAlign='left';ctx.fillText(s,6*devicePixelRatio,yTop-rowH*0.05);
+    ctx.strokeStyle=SIGCOL[s];ctx.lineWidth=1.6*devicePixelRatio;ctx.beginPath();
+    let started=false,prevY=null;
+    for(const p of buf){if(p.t<t0)continue;const x=X(p.t);const y=p.v[i]?yTop:yBot;
+      if(!started){ctx.moveTo(x,y);started=true;}else{ctx.lineTo(x,prevY);ctx.lineTo(x,y);}prevY=y;}
+    if(started){ctx.lineTo(X(t1),prevY);}ctx.stroke();
+  });
+}
+
+// ---------- blocks + pin tables ----------
+const BLOCKS=[
+ {id:'B1',t:'تغذیه ۵V',s:'U16,D1,J1',refs:['U16']},
+ {id:'B2',t:'POR',s:'U15/3,RC',refs:['U15']},
+ {id:'B3',t:'اسیلاتور ۳۲۷۶۸Hz',s:'U1,Y1',refs:['U1']},
+ {id:'B4',t:'تقسیم ÷۲ → 1Hz',s:'U2/FF1,U15/4',refs:['U2','U15']},
+ {id:'B5',t:'حالت SET',s:'U2/FF2',refs:['U2']},
+ {id:'B6',t:'ثانیه MOD-60',s:'U3,U4,U9',refs:['U3','U4','U9']},
+ {id:'B7',t:'دقیقه MOD-60',s:'U5,U6,U9',refs:['U5','U6','U9']},
+ {id:'B8',t:'ساعت MOD-24',s:'U7,U8,U10',refs:['U7','U8','U10','U11']},
+ {id:'B9',t:'مسیریابی کلاک/ریست',s:'U11,U12,U13',refs:['U11','U12','U13']},
+ {id:'B10',t:'کلیدها + دیبانس',s:'U14,U15',refs:['U14','U15']},
+ {id:'B11',t:'نمایشگر + کولن',s:'U3..U8,Q1',refs:['U3','U4','U5','U6','U7','U8','Q1']},
+];
+const blocksBox=document.getElementById('blocks');const detail=document.getElementById('block-detail');
+let selBlock=null;
+BLOCKS.forEach(b=>{const d=document.createElement('div');d.className='blk';d.dataset.id=b.id;
+  d.innerHTML='<div class="t">'+b.id+' · '+b.t+'</div><div class="s">'+b.s+'</div>';
+  d.onclick=()=>{selBlock=b.id;document.querySelectorAll('.clksim .blk').forEach(x=>x.classList.toggle('sel',x.dataset.id===b.id));renderBlock();};
+  blocksBox.appendChild(d);});
+function netVal(n){if(n==='NC')return '—';if(n==='VCC')return '1';if(n==='GND')return '0';return (E.nets[n]?1:0);}
+function renderBlock(){
+  if(!selBlock){detail.innerHTML='';return;}
+  const b=BLOCKS.find(x=>x.id===selBlock);let h='<div class="note">بلوک '+b.id+' — '+b.t+'. مقادیر نت‌ها زنده‌اند.</div>';
+  const seen=new Set();
+  b.refs.forEach(ref=>{const ic=PIN_DATA[ref];if(!ic||seen.has(ref))return;seen.add(ref);
+    h+='<div class="ic-title">'+ref+' · '+ic.model+' · '+ic.pkg+'</div>';
+    h+='<table><tr><th>پین</th><th>نام</th><th>نت</th><th>مقدار</th></tr>';
+    ic.pins.forEach(p=>{const v=netVal(p.net);const hi=(v==='1');
+      h+='<tr><td class="mono">'+p.n+'</td><td>'+p.name+'</td><td class="mono">'+p.net+'</td>'+
+         '<td class="mono">'+(v==='—'?'—':'<span class="led '+(hi?'hi':'')+'"></span> '+v)+'</td></tr>';});
+    h+='</table>';});
+  detail.innerHTML=h;
+}
+
+// ---------- event log ----------
+const logBox=document.getElementById('log');let lastEv=0;
+const KLABEL={carry:'کری',reset24:'ریست ۲۴',set:'SET',reset:'ریست',clk:'کلاک'};
+function renderLog(){
+  while(lastEv<E.events.length){const e=E.events[lastEv++];
+    if(e.kind==='clk')continue;
+    const d=document.createElement('div');
+    d.innerHTML='<span class="t">t='+e.t.toFixed(3)+'s</span> · <span class="k-'+e.kind+'">'+(KLABEL[e.kind]||e.kind)+'</span> · '+e.net;
+    logBox.appendChild(d);}
+  while(logBox.childNodes.length>60)logBox.removeChild(logBox.firstChild);
+  logBox.scrollTop=logBox.scrollHeight;
+}
+
+// ---------- readouts ----------
+function renderReadout(){
+  document.getElementById('ro-time').textContent=E.simTime.toFixed(3)+' s';
+  const m=document.getElementById('ro-mode');
+  if(!E.powered){m.textContent='POWER OFF';m.className='mode-rst';}
+  else if(E.nets.RST_GLOBAL){m.textContent='RESET';m.className='mode-rst';}
+  else if(E.setMode){m.textContent='SET';m.className='mode-set';}
+  else{m.textContent='RUN';m.className='mode-run';}
+  document.getElementById('ro-speed').textContent=speed+'×';
+  document.getElementById('ro-c1').textContent=E.carryCount.secMin;
+  document.getElementById('ro-c2').textContent=E.carryCount.minHour;
+  document.getElementById('k-SET').classList.toggle('set-on',E.setMode);
+}
+
+// ---------- controls ----------
+const btnRun=document.getElementById('btn-run');
+btnRun.onclick=()=>{running=!running;btnRun.textContent=running?'توقف':'اجرا';};
+document.getElementById('speed').onchange=e=>{speed=+e.target.value;};
+['SET','HOUR','MIN','SECRST','MSTRST'].forEach(k=>{
+  const el=document.getElementById('k-'+k);
+  const down=ev=>{ev.preventDefault();E.press(k);renderAll();};
+  const up=ev=>{ev.preventDefault();E.release(k);renderAll();};
+  el.addEventListener('pointerdown',down);el.addEventListener('pointerup',up);
+  el.addEventListener('pointerleave',up);el.addEventListener('pointercancel',up);
+});
+document.getElementById('btn-power').onclick=()=>{E.powerCycle();E.powerOn();lastEv=0;logBox.innerHTML='';buf.length=0;renderAll();};
+
+// ---------- main loop ----------
+function renderAll(){renderDisplay();renderNets();renderReadout();renderBlock();renderLog();}
+let last=performance.now(),lastBlock=0;
+function frame(now){
+  let dt=(now-last)/1000;last=now;if(dt>0.1)dt=0.1;
+  if(running&&E.powered){E.step(dt*speed);}
+  sample();renderDisplay();renderNets();renderReadout();drawScope();renderLog();
+  if(now-lastBlock>200){lastBlock=now;renderBlock();}
+  requestAnimationFrame(frame);
+}
+renderAll();requestAnimationFrame(frame);
+</script>

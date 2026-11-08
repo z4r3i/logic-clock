@@ -1,0 +1,12 @@
+# دیتاشیت‌های سازندگان (حجم بالا + کپی‌رایت) — منابع در docs/design_fa.md ذکر شده‌اند
+research/
+
+# خروجی‌های میانی/ارائه‌ای که توسط اسکریپت‌ها بازتولید می‌شوند
+visuals/*_frag.html
+netlist/frag_*.md
+
+# پیش‌نویس قدیمی سند طراحی (نسخهٔ کامل: docs/design_fa.md)
+docs/design_fa.src.md
+
+__pycache__/
+*.pyc

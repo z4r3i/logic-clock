@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ساعت دیجیتال تمام‌سخت‌افزاری — نمایه پروژه</title>
+<style>
+  :root{--bg:#0d1117;--card:#161b22;--border:#30363d;--txt:#c9d1d9;--dim:#8b949e;--acc:#58a6ff}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:"Segoe UI",Tahoma,sans-serif;line-height:1.7}
+  .wrap{max-width:960px;margin:0 auto;padding:32px 20px 60px}
+  h1{color:#e6edf3;font-size:26px;margin:0 0 6px}
+  .sub{color:var(--dim);font-size:14px;margin:0 0 24px}
+  .badges{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px}
+  .badge{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:12px;color:var(--dim)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+  a.card{display:block;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;text-decoration:none;color:var(--txt);transition:border-color .15s}
+  a.card:hover{border-color:var(--acc)}
+  a.card h2{margin:0 0 6px;font-size:16px;color:var(--acc)}
+  a.card p{margin:0;font-size:13px;color:var(--dim)}
+  a.card .tag{display:inline-block;margin-top:10px;font-size:11px;color:var(--dim);border:1px solid var(--border);border-radius:4px;padding:1px 7px}
+  h3.sec{color:#e6edf3;font-size:16px;margin:32px 0 12px;border-bottom:1px solid var(--border);padding-bottom:6px}
+  ul.docs{list-style:none;padding:0;margin:0}
+  ul.docs li{margin:6px 0}
+  ul.docs a{color:var(--acc);text-decoration:none;font-size:14px}
+  ul.docs a:hover{text-decoration:underline}
+  ul.docs .note{color:var(--dim);font-size:12px;margin-right:6px}
+  .status{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--dim);margin-top:28px}
+  .status b{color:#e6edf3}
+  code{font-family:Consolas,monospace;font-size:12px;background:#21262d;border-radius:4px;padding:1px 5px;direction:ltr;display:inline-block}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>ساعت دیجیتال تمام‌سخت‌افزاری ۲۴ ساعته</h1>
+  <p class="sub">کریستال ۳۲٫۷۶۸ kHz → CD4060B → CD4013B → شش CD4026B (HH:MM:SS) — بدون میکروکنترلر، بدون برنامه، بدون FPGA</p>
+  <div class="badges">
+    <span class="badge">۱۳۷ نت</span>
+    <span class="badge">۴۸۴ پین</span>
+    <span class="badge">۱۱۵ قطعه</span>
+    <span class="badge">تغذیه ۵ V از 7805</span>
+    <span class="badge">نمایشگر کاتد مشترک</span>
+  </div>
+
+  <h3 class="sec">ابزارهای تعاملی (HTML)</h3>
+  <div class="grid">
+    <a class="card" href="visuals/circuit_schematic.html">
+      <h2>نقشه کامل مدار</h2>
+      <p>تمام ICها، مقاومت‌ها، خازن‌ها، دیودها، کلیدها و نمایشگرها با شماره پین واقعی؛ ردیابی تعاملی هر نت روی کل نقشه، زوم/پن و جستجو.</p>
+      <span class="tag">SVG تعاملی</span>
+    </a>
+    <a class="card" href="visuals/clock_simulator.html">
+      <h2>شبیه‌ساز واقعی</h2>
+      <p>شبیه‌سازی نت‌محور در سطح IC با اتصالات واقعی نت‌لیست؛ نمایشگر زنده، کلیدهای SET/HOUR/MIN/RESET، پروب نت و تحلیل‌گر منطقی.</p>
+      <span class="tag">موتور نت‌محور</span>
+    </a>
+    <a class="card" href="visuals/schematic.html">
+      <h2>شماتیک بلوکی + جدول پین</h2>
+      <p>بلوک دیاگرام ۱۱ بلوک با جدول کامل پین→نت هر قطعه و جستجوی نت.</p>
+      <span class="tag">بلوک / پین</span>
+    </a>
+    <a class="card" href="visuals/waveforms.html">
+      <h2>شکل‌موج‌ها</h2>
+      <p>شکل‌موج پایه زمان (Q14، CLK1HZ) و پالس‌های کری/ریست با تأخیرهای دیتاشیت.</p>
+      <span class="tag">زمان‌بندی</span>
+    </a>
+  </div>
+
+  <h3 class="sec">مستندات و داده‌ها</h3>
+  <ul class="docs">
+    <li><a href="docs/design_fa.md">سند طراحی کامل (فارسی)</a><span class="note">محاسبات، وضعیت تأیید، رد روش‌های نامطمئن</span></li>
+    <li><a href="docs/proteus_guide_fa.md">راهنمای ساخت و چک‌لیست تست</a><span class="note">مونتاژ + اندازه‌گیری مرحله‌به‌مرحله</span></li>
+    <li><a href="netlist/netlist.csv">نت‌لیست کامل (CSV)</a><span class="note">مرجع یگانهٔ سیم‌کشی</span></li>
+    <li><a href="netlist/bom.csv">فهرست قطعات (BOM)</a></li>
+    <li><a href="netlist/nets.csv">شرح نت‌ها</a></li>
+    <li><a href="netlist/proteus_wiring.md">برگه سیم‌کشی گروه‌بندی‌شده</a></li>
+  </ul>
+  <p class="sub" style="margin-top:10px">فایل‌های Markdown روی GitHub رندر می‌شوند؛ در GitHub Pages به‌صورت متن خام باز می‌شوند.</p>
+
+  <div class="status">
+    <b>وضعیت تأیید:</b> منطق شمارش/کری/مرزها و فاز پایه زمان با شبیه‌سازی JS تأیید شده
+    (<code>sim/verify.js</code>، <code>sim/divider_check.js</code>، <code>sim/engine_test.js</code>).
+    رفتار آنالوگ (راه‌اندازی کریستال، دیبانس، جریان LED) محاسبه شده ولی <b>نیازمند تأیید روی برد واقعی</b> است؛
+    این پروژه خود را «تأییدشدهٔ نهایی سخت‌افزاری» اعلام نمی‌کند.
+  </div>
+</div>
+</body>
+</html>
