@@ -15,17 +15,16 @@
 
 | صفحه | توضیح |
 |---|---|
-| [نمایهٔ پروژه](index.html) | صفحهٔ اصلی برای GitHub Pages |
-| [نقشهٔ کامل مدار](visuals/circuit_schematic.html) | شماتیک تعاملی تمام قطعات؛ کلیک روی هر نت = ردیابی همهٔ اتصالات آن |
-| [شبیه‌ساز ساعت](visuals/clock_simulator.html) | شبیه‌سازی نت‌محور با همان نت‌لیست واقعی؛ دکمه‌ها، ریست و تنظیم ساعت |
-| [شماتیک بلوکی + جدول پین‌ها](visuals/schematic.html) | نمای بلوکی ۱۱ بلوک با جدول پین هر IC |
-| [شکل‌موج‌ها](visuals/waveforms.html) | شکل‌موج پایهٔ زمان، کری/ریست و دیبانس |
+| [نمایهٔ پروژه](https://z4r3i.github.io/logic-clock/index.html) | صفحهٔ اصلی برای GitHub Pages |
+| [نقشهٔ کامل مدار](https://z4r3i.github.io/logic-clock/visuals/circuit_schematic.html) | شماتیک تعاملی تمام قطعات؛ کلیک روی هر نت = ردیابی همهٔ اتصالات آن |
+| [شبیه‌ساز ساعت](https://z4r3i.github.io/logic-clock/visuals/clock_simulator.html) | شبیه‌سازی نت‌محور با همان نت‌لیست واقعی؛ دکمه‌ها، ریست و تنظیم ساعت |
+| [شماتیک بلوکی + جدول پین‌ها](https://z4r3i.github.io/logic-clock/visuals/schematic.html) | نمای بلوکی ۱۱ بلوک با جدول پین هر IC |
+| [شکل‌موج‌ها](https://z4r3i.github.io/logic-clock/visuals/waveforms.html) | شکل‌موج پایهٔ زمان، کری/ریست و دیبانس |
 
 همهٔ HTMLها **مستقل و بدون وابستگی خارجی** هستند؛ کافی است فایل را در مرورگر باز کنید (یا از طریق GitHub Pages ببینید).
 
 ## داکیومنت‌ها
 
-- [سند طراحی کامل](docs/design_fa.md) — معماری، تمام محاسبات، تحلیل پالس‌ها، دلایل رد روش‌های نامطمئن، وضعیت تأیید
 - [راهنمای ساخت و تست](docs/proteus_guide_fa.md) — چک‌لیست راه‌اندازی (Proteus اختیاری است؛ برای برد واقعی معتبر است)
 - [برگهٔ سیم‌کشی گروه‌بندی‌شده](netlist/proteus_wiring.md) — هر نت و همهٔ پین‌های آن
 - [نت‌لیست کامل](netlist/netlist.csv) · [شرح نت‌ها](netlist/nets.csv) · [لیست قطعات (BOM)](netlist/bom.csv)
