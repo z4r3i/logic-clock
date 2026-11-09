@@ -1,0 +1,23 @@
+﻿نام قطعه,مدل,مقدار,تعداد,پکیج
+1,دیود سوئیچ,1N4148,-,496,DO-35
+2,مقاومت,resistor,10k,218,AXIAL-0.25W
+3,ترانزیستور NPN,2N3904,-,169,TO-92
+4,مقاومت,resistor,2.2k,115,AXIAL-0.25W
+5,مقاومت,resistor,22k,107,AXIAL-0.25W
+6,خازن,capacitor,100pF,80,RADIAL
+7,مقاومت,resistor,47k,80,AXIAL-0.25W
+8,مقاومت,resistor,100k,46,AXIAL-0.25W
+9,مقاومت,resistor,330R,42,AXIAL-0.25W
+10,مقاومت,resistor,1k,22,AXIAL-0.25W
+11,خازن,capacitor,100nF,21,RADIAL
+12,مقاومت,resistor,0R,13,AXIAL-0.25W
+13,نمایشگر ۷ سگمنت کاتد-مشترک,SC52-11EWA,red 0.52in,6,10-pin
+14,کلید tact,tact switch,SPST-NO,5,6x6mm
+15,LED قرمز,LED red,Vf~2.0V,2,5mm
+16,خازن,capacitor,22pF,2,RADIAL
+17,کانکتور تغذیه USB,USB power,5V regulated,1,USB-B
+18,خازن,capacitor,100uF,1,RADIAL
+19,خازن,capacitor,10uF,1,RADIAL
+20,خازن,capacitor,470uF,1,RADIAL
+21,کریستال,crystal,32.768kHz,1,HC-49S
+22,مقاومت,resistor,1M,1,AXIAL-0.25W

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ساعت دیجیتال تمام‌سخت‌افزاری — نمایه پروژه</title>
 <style>
-  :root{--bg:#0d1117;--card:#161b22;--border:#30363d;--txt:#c9d1d9;--dim:#8b949e;--acc:#58a6ff}
+  :root{--bg:#0d1117;--card:#161b22;--border:#30363d;--txt:#c9d1d9;--dim:#8b949e;--acc:#58a6ff;--warn:#d29922}
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--txt);font-family:"Segoe UI",Tahoma,sans-serif;line-height:1.7}
   .wrap{max-width:960px;margin:0 auto;padding:32px 20px 60px}
@@ -19,6 +19,8 @@
   a.card h2{margin:0 0 6px;font-size:16px;color:var(--acc)}
   a.card p{margin:0;font-size:13px;color:var(--dim)}
   a.card .tag{display:inline-block;margin-top:10px;font-size:11px;color:var(--dim);border:1px solid var(--border);border-radius:4px;padding:1px 7px}
+  a.card.alt{border-color:#5a4a1a}
+  a.card.alt h2{color:var(--warn)}
   h3.sec{color:#e6edf3;font-size:16px;margin:32px 0 12px;border-bottom:1px solid var(--border);padding-bottom:6px}
   ul.docs{list-style:none;padding:0;margin:0}
   ul.docs li{margin:6px 0}
@@ -27,6 +29,8 @@
   ul.docs .note{color:var(--dim);font-size:12px;margin-right:6px}
   .status{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--dim);margin-top:28px}
   .status b{color:#e6edf3}
+  .verdict{background:var(--card);border:1px solid #5a4a1a;border-radius:10px;padding:14px 16px;font-size:13px;color:var(--dim);margin-top:14px}
+  .verdict b{color:var(--warn)}
   code{font-family:Consolas,monospace;font-size:12px;background:#21262d;border-radius:4px;padding:1px 5px;direction:ltr;display:inline-block}
 </style>
 </head>
@@ -66,6 +70,24 @@
     </a>
   </div>
 
+  <h3 class="sec">گزینهٔ جایگزین: نسخهٔ تمام‌ترانزیستوری</h3>
+  <div class="grid">
+    <a class="card alt" href="transistor-clock/visuals/assessment.html">
+      <h2>بررسی سختی و ارزش (تمام‌ترانزیستوری)</h2>
+      <p>داشبورد تعاملی مقایسهٔ CMOS با نسخهٔ کاملاً گسسته (بدون هیچ IC): شمارش قطعات هر بلوک، مدار سلول‌های TFF/DTL/دیکودر، و حکم «آیا ارزش دارد».</p>
+      <span class="tag">۱۴۳۰ قطعه · ۱۶۹ ترانزیستور</span>
+    </a>
+    <a class="card alt" href="transistor-clock/README.md">
+      <h2>مستند نسخهٔ ترانزیستوری</h2>
+      <p>سند طراحی با محاسبات کامل، نت‌لیست ۳۰۷۹ پین، BOM و شبیه‌سازی منطق ۲۵ ساعت؛ به‌همراه مسیر کم‌ریسک پیشنهادی.</p>
+      <span class="tag">گزینهٔ آموزشی</span>
+    </a>
+  </div>
+  <div class="verdict">
+    <b>حکم:</b> نسخهٔ تمام‌ترانزیستوری به‌عنوان <b>ساعت عملی ارزش ندارد</b> (۱۲× قطعه، ۱۰× زمان ساخت، ۴× هزینه، همان دقت)،
+    اما به‌عنوان <b>پروژهٔ آموزشی ارزش دارد</b>. نسخهٔ CMOS همین مخزن گزینهٔ پیشنهادی برای ساخت است.
+  </div>
+
   <h3 class="sec">مستندات و داده‌ها</h3>
   <ul class="docs">
     <li><a href="docs/design_fa.md">سند طراحی کامل (فارسی)</a><span class="note">محاسبات، وضعیت تأیید، رد روش‌های نامطمئن</span></li>
@@ -74,6 +96,7 @@
     <li><a href="netlist/bom.csv">فهرست قطعات (BOM)</a></li>
     <li><a href="netlist/nets.csv">شرح نت‌ها</a></li>
     <li><a href="netlist/proteus_wiring.md">برگه سیم‌کشی گروه‌بندی‌شده</a></li>
+    <li><a href="transistor-clock/docs/design_fa.md">سند طراحی نسخهٔ ترانزیستوری (گزینه)</a><span class="note">محاسبات گسسته + حکم ارزش</span></li>
   </ul>
   <p class="sub" style="margin-top:10px">فایل‌های Markdown روی GitHub رندر می‌شوند؛ در GitHub Pages به‌صورت متن خام باز می‌شوند.</p>
 
@@ -82,6 +105,7 @@
     (<code>sim/verify.js</code>، <code>sim/divider_check.js</code>، <code>sim/engine_test.js</code>).
     رفتار آنالوگ (راه‌اندازی کریستال، دیبانس، جریان LED) محاسبه شده ولی <b>نیازمند تأیید روی برد واقعی</b> است؛
     این پروژه خود را «تأییدشدهٔ نهایی سخت‌افزاری» اعلام نمی‌کند.
+    نسخهٔ ترانزیستوری نیز فقط منطقش تأیید شده؛ آنالوگ آن نیازمند SPICE + بنچ‌تست است.
   </div>
 </div>
 </body>

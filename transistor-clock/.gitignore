@@ -1,0 +1,16 @@
+# Official datasheets + extracted text/renders: large & copyrighted, local reference only
+research/
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Scratch / test artifacts
+*_test_*.png
+*.tmp
+netlist/block_counts.json
+
+# OS / editor noise
+Thumbs.db
+Desktop.ini
+.DS_Store

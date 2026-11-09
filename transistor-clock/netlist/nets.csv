@@ -1,0 +1,562 @@
+﻿Net,Description
+BTN_HOUR,HOUR debounced pulse (active HIGH)
+BTN_HOUR_RAW,HOUR raw node (HIGH while pressed)
+BTN_MIN,MIN debounced pulse (active HIGH)
+BTN_MIN_RAW,MIN raw node (HIGH while pressed)
+BTN_MSTRST,MSTRST debounced pulse (active HIGH)
+BTN_MSTRST_RAW,MSTRST raw node (HIGH while pressed)
+BTN_SECRST,SECRST debounced pulse (active HIGH)
+BTN_SECRST_RAW,SECRST raw node (HIGH while pressed)
+BTN_SET,SET debounced pulse (active HIGH)
+BTN_SET_RAW,SET raw node (HIGH while pressed)
+CLK1HZ,clean 1Hz after Schmitt; first rising edge t=1.000s
+CLK32K,32.768kHz Pierce oscillator output
+CLK_HU,MT_R6 OR HOUR_GATE -> HU clock
+CLK_HU_BUF_E,CLK_HU_BUF EF emitter
+CLK_HU_OR,HU clock diode-OR
+CLK_MU,ST_R6 OR MIN_GATE -> MU clock
+CLK_MU_BUF_E,CLK_MU_BUF EF emitter
+CLK_MU_OR,MU clock diode-OR
+CLK_SEC,CLK1HZ gated by nSET_MODE -> SU clock
+COLON_A1,LED1 anode (via 1k)
+COLON_A2,LED2 anode (via 1k)
+COLON_B,colon driver base via 10k
+COLON_E,colon driver emitter
+COLON_K,colon LED cathodes
+D24,hour = 24 decode (HT.Q1 AND HU.Q2)
+DIV10_B1,DIV10 base Q1
+DIV10_B2,DIV10 base Q2
+DIV10_QA,DIV10 bit Q (Q1 collector)
+DIV10_QB,DIV10 bit QN (Q2 collector)
+DIV10_RSTN,DIV10 reset injection node
+DIV11_B1,DIV11 base Q1
+DIV11_B2,DIV11 base Q2
+DIV11_QA,DIV11 bit Q (Q1 collector)
+DIV11_QB,DIV11 bit QN (Q2 collector)
+DIV11_RSTN,DIV11 reset injection node
+DIV12_B1,DIV12 base Q1
+DIV12_B2,DIV12 base Q2
+DIV12_QA,DIV12 bit Q (Q1 collector)
+DIV12_QB,DIV12 bit QN (Q2 collector)
+DIV12_RSTN,DIV12 reset injection node
+DIV13_B1,DIV13 base Q1
+DIV13_B2,DIV13 base Q2
+DIV13_QA,DIV13 bit Q (Q1 collector)
+DIV13_QB,DIV13 bit QN (Q2 collector)
+DIV13_RSTN,DIV13 reset injection node
+DIV14_B1,DIV14 base Q1
+DIV14_B2,DIV14 base Q2
+DIV14_QA,DIV14 bit Q (Q1 collector)
+DIV14_QB,DIV14 bit QN (Q2 collector)
+DIV14_RSTN,DIV14 reset injection node
+DIV15_B1,DIV15 base Q1
+DIV15_B2,DIV15 base Q2
+DIV15_QA,DIV15 bit Q (Q1 collector)
+DIV15_QB,DIV15 bit QN (Q2 collector)
+DIV15_RSTN,DIV15 reset injection node
+DIV1_B1,DIV1 base Q1
+DIV1_B2,DIV1 base Q2
+DIV1_QA,DIV1 bit Q (Q1 collector)
+DIV1_QB,DIV1 bit QN (Q2 collector)
+DIV1_RSTN,DIV1 reset injection node
+DIV2_B1,DIV2 base Q1
+DIV2_B2,DIV2 base Q2
+DIV2_QA,DIV2 bit Q (Q1 collector)
+DIV2_QB,DIV2 bit QN (Q2 collector)
+DIV2_RSTN,DIV2 reset injection node
+DIV3_B1,DIV3 base Q1
+DIV3_B2,DIV3 base Q2
+DIV3_QA,DIV3 bit Q (Q1 collector)
+DIV3_QB,DIV3 bit QN (Q2 collector)
+DIV3_RSTN,DIV3 reset injection node
+DIV4_B1,DIV4 base Q1
+DIV4_B2,DIV4 base Q2
+DIV4_QA,DIV4 bit Q (Q1 collector)
+DIV4_QB,DIV4 bit QN (Q2 collector)
+DIV4_RSTN,DIV4 reset injection node
+DIV5_B1,DIV5 base Q1
+DIV5_B2,DIV5 base Q2
+DIV5_QA,DIV5 bit Q (Q1 collector)
+DIV5_QB,DIV5 bit QN (Q2 collector)
+DIV5_RSTN,DIV5 reset injection node
+DIV6_B1,DIV6 base Q1
+DIV6_B2,DIV6 base Q2
+DIV6_QA,DIV6 bit Q (Q1 collector)
+DIV6_QB,DIV6 bit QN (Q2 collector)
+DIV6_RSTN,DIV6 reset injection node
+DIV7_B1,DIV7 base Q1
+DIV7_B2,DIV7 base Q2
+DIV7_QA,DIV7 bit Q (Q1 collector)
+DIV7_QB,DIV7 bit QN (Q2 collector)
+DIV7_RSTN,DIV7 reset injection node
+DIV8_B1,DIV8 base Q1
+DIV8_B2,DIV8 base Q2
+DIV8_QA,DIV8 bit Q (Q1 collector)
+DIV8_QB,DIV8 bit QN (Q2 collector)
+DIV8_RSTN,DIV8 reset injection node
+DIV9_B1,DIV9 base Q1
+DIV9_B2,DIV9 base Q2
+DIV9_QA,DIV9 bit Q (Q1 collector)
+DIV9_QB,DIV9 bit QN (Q2 collector)
+DIV9_RSTN,DIV9 reset injection node
+GND,0V common ground
+G_CLKSEC_N,G_CLKSEC NAND intermediate
+G_CLKSEC_i_B,G_CLKSEC_i DTL base
+G_CLKSEC_i_X,G_CLKSEC_i DTL input node
+G_CLKSEC_n_B,G_CLKSEC_n DTL base
+G_CLKSEC_n_X,G_CLKSEC_n DTL input node
+G_D24_N,G_D24 NAND intermediate
+G_D24_i_B,G_D24_i DTL base
+G_D24_i_X,G_D24_i DTL input node
+G_D24_n_B,G_D24_n DTL base
+G_D24_n_X,G_D24_n DTL input node
+G_HOUR_N,G_HOUR NAND intermediate
+G_HOUR_i_B,G_HOUR_i DTL base
+G_HOUR_i_X,G_HOUR_i DTL input node
+G_HOUR_n_B,G_HOUR_n DTL base
+G_HOUR_n_X,G_HOUR_n DTL input node
+G_MIN_N,G_MIN NAND intermediate
+G_MIN_i_B,G_MIN_i DTL base
+G_MIN_i_X,G_MIN_i DTL input node
+G_MIN_n_B,G_MIN_n DTL base
+G_MIN_n_X,G_MIN_n DTL input node
+HOUR_GATE,BTN_HOUR AND SET_MODE
+HT_DEC_N,HT_DEC NAND intermediate
+HT_DEC_i_B,HT_DEC_i DTL base
+HT_DEC_i_X,HT_DEC_i DTL input node
+HT_DEC_n_B,HT_DEC_n DTL base
+HT_DEC_n_X,HT_DEC_n DTL input node
+HT_DP,HT decimal point (unused)
+HT_DSP_a,HT seg a display anode
+HT_DSP_b,HT seg b display anode
+HT_DSP_c,HT seg c display anode
+HT_DSP_d,HT seg d display anode
+HT_DSP_e,HT seg e display anode
+HT_DSP_f,HT seg f display anode
+HT_DSP_g,HT seg g display anode
+HT_R3,HT = 0011 decode (Q1.Q0)
+HT_RST,HT reset bus (buffered)
+HT_RST_BUF_E,HT_RST_BUF EF emitter
+HT_RST_OR,HT reset diode-OR
+HT_SEG_a,HT segment a diode-OR node
+HT_SEG_b,HT segment b diode-OR node
+HT_SEG_c,HT segment c diode-OR node
+HT_SEG_d,HT segment d diode-OR node
+HT_SEG_e,HT segment e diode-OR node
+HT_SEG_f,HT segment f diode-OR node
+HT_SEG_g,HT segment g diode-OR node
+HT_a_E,HT seg a driver emitter
+HT_b0_B1,HT_b0 base Q1
+HT_b0_B2,HT_b0 base Q2
+HT_b0_QA,HT_b0 bit Q (Q1 collector)
+HT_b0_QB,HT_b0 bit QN (Q2 collector)
+HT_b0_RSTN,HT_b0 reset injection node
+HT_b1_B1,HT_b1 base Q1
+HT_b1_B2,HT_b1 base Q2
+HT_b1_QA,HT_b1 bit Q (Q1 collector)
+HT_b1_QB,HT_b1 bit QN (Q2 collector)
+HT_b1_RSTN,HT_b1 reset injection node
+HT_b2_B1,HT_b2 base Q1
+HT_b2_B2,HT_b2 base Q2
+HT_b2_QA,HT_b2 bit Q (Q1 collector)
+HT_b2_QB,HT_b2 bit QN (Q2 collector)
+HT_b2_RSTN,HT_b2 reset injection node
+HT_b3_B1,HT_b3 base Q1
+HT_b3_B2,HT_b3 base Q2
+HT_b3_QA,HT_b3 bit Q (Q1 collector)
+HT_b3_QB,HT_b3 bit QN (Q2 collector)
+HT_b3_RSTN,HT_b3 reset injection node
+HT_b_E,HT seg b driver emitter
+HT_c_E,HT seg c driver emitter
+HT_d_E,HT seg d driver emitter
+HT_e_E,HT seg e driver emitter
+HT_f_E,HT seg f driver emitter
+HT_f_t0,HT seg f AND term 0
+HT_g_E,HT seg g driver emitter
+HT_g_t0,HT seg g AND term 0
+HU_DEC_N,HU_DEC NAND intermediate
+HU_DEC_i_B,HU_DEC_i DTL base
+HU_DEC_i_X,HU_DEC_i DTL input node
+HU_DEC_n_B,HU_DEC_n DTL base
+HU_DEC_n_X,HU_DEC_n DTL input node
+HU_DP,HU decimal point (unused)
+HU_DSP_a,HU seg a display anode
+HU_DSP_b,HU seg b display anode
+HU_DSP_c,HU seg c display anode
+HU_DSP_d,HU seg d display anode
+HU_DSP_e,HU seg e display anode
+HU_DSP_f,HU seg f display anode
+HU_DSP_g,HU seg g display anode
+HU_R10,HU = 1010 decode (Q3.Q1)
+HU_RST,HU reset bus (buffered)
+HU_RST_BUF_E,HU_RST_BUF EF emitter
+HU_RST_OR,HU reset diode-OR
+HU_SEG_a,HU segment a diode-OR node
+HU_SEG_b,HU segment b diode-OR node
+HU_SEG_c,HU segment c diode-OR node
+HU_SEG_d,HU segment d diode-OR node
+HU_SEG_e,HU segment e diode-OR node
+HU_SEG_f,HU segment f diode-OR node
+HU_SEG_g,HU segment g diode-OR node
+HU_a_E,HU seg a driver emitter
+HU_a_t2,HU seg a AND term 2
+HU_a_t3,HU seg a AND term 3
+HU_b0_B1,HU_b0 base Q1
+HU_b0_B2,HU_b0 base Q2
+HU_b0_QA,HU_b0 bit Q (Q1 collector)
+HU_b0_QB,HU_b0 bit QN (Q2 collector)
+HU_b0_RSTN,HU_b0 reset injection node
+HU_b1_B1,HU_b1 base Q1
+HU_b1_B2,HU_b1 base Q2
+HU_b1_QA,HU_b1 bit Q (Q1 collector)
+HU_b1_QB,HU_b1 bit QN (Q2 collector)
+HU_b1_RSTN,HU_b1 reset injection node
+HU_b2_B1,HU_b2 base Q1
+HU_b2_B2,HU_b2 base Q2
+HU_b2_QA,HU_b2 bit Q (Q1 collector)
+HU_b2_QB,HU_b2 bit QN (Q2 collector)
+HU_b2_RSTN,HU_b2 reset injection node
+HU_b3_B1,HU_b3 base Q1
+HU_b3_B2,HU_b3 base Q2
+HU_b3_QA,HU_b3 bit Q (Q1 collector)
+HU_b3_QB,HU_b3 bit QN (Q2 collector)
+HU_b3_RSTN,HU_b3 reset injection node
+HU_b_E,HU seg b driver emitter
+HU_b_t1,HU seg b AND term 1
+HU_b_t2,HU seg b AND term 2
+HU_c_E,HU seg c driver emitter
+HU_d_E,HU seg d driver emitter
+HU_d_t1,HU seg d AND term 1
+HU_d_t2,HU seg d AND term 2
+HU_d_t3,HU seg d AND term 3
+HU_d_t4,HU seg d AND term 4
+HU_e_E,HU seg e driver emitter
+HU_e_t0,HU seg e AND term 0
+HU_e_t1,HU seg e AND term 1
+HU_f_E,HU seg f driver emitter
+HU_f_t1,HU seg f AND term 1
+HU_f_t2,HU seg f AND term 2
+HU_f_t3,HU seg f AND term 3
+HU_g_E,HU seg g driver emitter
+HU_g_t1,HU seg g AND term 1
+HU_g_t2,HU seg g AND term 2
+HU_g_t3,HU seg g AND term 3
+MIN_GATE,BTN_MIN AND SET_MODE
+MT_DEC_N,MT_DEC NAND intermediate
+MT_DEC_i_B,MT_DEC_i DTL base
+MT_DEC_i_X,MT_DEC_i DTL input node
+MT_DEC_n_B,MT_DEC_n DTL base
+MT_DEC_n_X,MT_DEC_n DTL input node
+MT_DP,MT decimal point (unused)
+MT_DSP_a,MT seg a display anode
+MT_DSP_b,MT seg b display anode
+MT_DSP_c,MT seg c display anode
+MT_DSP_d,MT seg d display anode
+MT_DSP_e,MT seg e display anode
+MT_DSP_f,MT seg f display anode
+MT_DSP_g,MT seg g display anode
+MT_R6,MT = 0110 decode (Q2.Q1)
+MT_RST,MT reset bus (buffered)
+MT_RST_BUF_E,MT_RST_BUF EF emitter
+MT_RST_OR,MT reset diode-OR
+MT_SEG_a,MT segment a diode-OR node
+MT_SEG_b,MT segment b diode-OR node
+MT_SEG_c,MT segment c diode-OR node
+MT_SEG_d,MT segment d diode-OR node
+MT_SEG_e,MT segment e diode-OR node
+MT_SEG_f,MT segment f diode-OR node
+MT_SEG_g,MT segment g diode-OR node
+MT_a_E,MT seg a driver emitter
+MT_a_t2,MT seg a AND term 2
+MT_a_t3,MT seg a AND term 3
+MT_b0_B1,MT_b0 base Q1
+MT_b0_B2,MT_b0 base Q2
+MT_b0_QA,MT_b0 bit Q (Q1 collector)
+MT_b0_QB,MT_b0 bit QN (Q2 collector)
+MT_b0_RSTN,MT_b0 reset injection node
+MT_b1_B1,MT_b1 base Q1
+MT_b1_B2,MT_b1 base Q2
+MT_b1_QA,MT_b1 bit Q (Q1 collector)
+MT_b1_QB,MT_b1 bit QN (Q2 collector)
+MT_b1_RSTN,MT_b1 reset injection node
+MT_b2_B1,MT_b2 base Q1
+MT_b2_B2,MT_b2 base Q2
+MT_b2_QA,MT_b2 bit Q (Q1 collector)
+MT_b2_QB,MT_b2 bit QN (Q2 collector)
+MT_b2_RSTN,MT_b2 reset injection node
+MT_b3_B1,MT_b3 base Q1
+MT_b3_B2,MT_b3 base Q2
+MT_b3_QA,MT_b3 bit Q (Q1 collector)
+MT_b3_QB,MT_b3 bit QN (Q2 collector)
+MT_b3_RSTN,MT_b3 reset injection node
+MT_b_E,MT seg b driver emitter
+MT_b_t1,MT seg b AND term 1
+MT_b_t2,MT seg b AND term 2
+MT_c_E,MT seg c driver emitter
+MT_d_E,MT seg d driver emitter
+MT_d_t1,MT seg d AND term 1
+MT_d_t2,MT seg d AND term 2
+MT_d_t3,MT seg d AND term 3
+MT_d_t4,MT seg d AND term 4
+MT_e_E,MT seg e driver emitter
+MT_e_t0,MT seg e AND term 0
+MT_e_t1,MT seg e AND term 1
+MT_f_E,MT seg f driver emitter
+MT_f_t1,MT seg f AND term 1
+MT_f_t2,MT seg f AND term 2
+MT_f_t3,MT seg f AND term 3
+MT_g_E,MT seg g driver emitter
+MT_g_t1,MT seg g AND term 1
+MT_g_t2,MT seg g AND term 2
+MT_g_t3,MT seg g AND term 3
+MU_DEC_N,MU_DEC NAND intermediate
+MU_DEC_i_B,MU_DEC_i DTL base
+MU_DEC_i_X,MU_DEC_i DTL input node
+MU_DEC_n_B,MU_DEC_n DTL base
+MU_DEC_n_X,MU_DEC_n DTL input node
+MU_DP,MU decimal point (unused)
+MU_DSP_a,MU seg a display anode
+MU_DSP_b,MU seg b display anode
+MU_DSP_c,MU seg c display anode
+MU_DSP_d,MU seg d display anode
+MU_DSP_e,MU seg e display anode
+MU_DSP_f,MU seg f display anode
+MU_DSP_g,MU seg g display anode
+MU_R10,MU = 1010 decode (Q3.Q1)
+MU_RST,MU reset bus (buffered)
+MU_RST_BUF_E,MU_RST_BUF EF emitter
+MU_RST_OR,MU reset diode-OR
+MU_SEG_a,MU segment a diode-OR node
+MU_SEG_b,MU segment b diode-OR node
+MU_SEG_c,MU segment c diode-OR node
+MU_SEG_d,MU segment d diode-OR node
+MU_SEG_e,MU segment e diode-OR node
+MU_SEG_f,MU segment f diode-OR node
+MU_SEG_g,MU segment g diode-OR node
+MU_a_E,MU seg a driver emitter
+MU_a_t2,MU seg a AND term 2
+MU_a_t3,MU seg a AND term 3
+MU_b0_B1,MU_b0 base Q1
+MU_b0_B2,MU_b0 base Q2
+MU_b0_QA,MU_b0 bit Q (Q1 collector)
+MU_b0_QB,MU_b0 bit QN (Q2 collector)
+MU_b0_RSTN,MU_b0 reset injection node
+MU_b1_B1,MU_b1 base Q1
+MU_b1_B2,MU_b1 base Q2
+MU_b1_QA,MU_b1 bit Q (Q1 collector)
+MU_b1_QB,MU_b1 bit QN (Q2 collector)
+MU_b1_RSTN,MU_b1 reset injection node
+MU_b2_B1,MU_b2 base Q1
+MU_b2_B2,MU_b2 base Q2
+MU_b2_QA,MU_b2 bit Q (Q1 collector)
+MU_b2_QB,MU_b2 bit QN (Q2 collector)
+MU_b2_RSTN,MU_b2 reset injection node
+MU_b3_B1,MU_b3 base Q1
+MU_b3_B2,MU_b3 base Q2
+MU_b3_QA,MU_b3 bit Q (Q1 collector)
+MU_b3_QB,MU_b3 bit QN (Q2 collector)
+MU_b3_RSTN,MU_b3 reset injection node
+MU_b_E,MU seg b driver emitter
+MU_b_t1,MU seg b AND term 1
+MU_b_t2,MU seg b AND term 2
+MU_c_E,MU seg c driver emitter
+MU_d_E,MU seg d driver emitter
+MU_d_t1,MU seg d AND term 1
+MU_d_t2,MU seg d AND term 2
+MU_d_t3,MU seg d AND term 3
+MU_d_t4,MU seg d AND term 4
+MU_e_E,MU seg e driver emitter
+MU_e_t0,MU seg e AND term 0
+MU_e_t1,MU seg e AND term 1
+MU_f_E,MU seg f driver emitter
+MU_f_t1,MU seg f AND term 1
+MU_f_t2,MU seg f AND term 2
+MU_f_t3,MU seg f AND term 3
+MU_g_E,MU seg g driver emitter
+MU_g_t1,MU seg g AND term 1
+MU_g_t2,MU seg g AND term 2
+MU_g_t3,MU seg g AND term 3
+OSC_E,oscillator emitter
+POR_N,POR RC node (HIGH at power-up)
+POR_RAW,POR Schmitt output
+RST_BUF_E,RST_BUF EF emitter
+RST_GLOBAL,"global reset bus (active HIGH, buffered)"
+RST_HOURS,hours reset (global OR 24-decode)
+RST_HOURS_BUF_E,RST_HOURS_BUF EF emitter
+RST_HOURS_OR,hours reset diode-OR
+RST_OR,POR OR master-reset (diode-OR)
+RST_SEC,seconds reset (global OR sec-reset button)
+RST_SEC_BUF_E,RST_SEC_BUF EF emitter
+RST_SEC_OR,seconds reset diode-OR
+SCH_1HZ_Ba,SCH_1HZ Qa base
+SCH_1HZ_Ca,SCH_1HZ Qa collector
+SCH_1HZ_Cb,SCH_1HZ Qb base
+SCH_1HZ_Ee,SCH_1HZ common emitter
+SCH_HOUR_Ba,SCH_HOUR Qa base
+SCH_HOUR_Ca,SCH_HOUR Qa collector
+SCH_HOUR_Cb,SCH_HOUR Qb base
+SCH_HOUR_Ee,SCH_HOUR common emitter
+SCH_MIN_Ba,SCH_MIN Qa base
+SCH_MIN_Ca,SCH_MIN Qa collector
+SCH_MIN_Cb,SCH_MIN Qb base
+SCH_MIN_Ee,SCH_MIN common emitter
+SCH_MSTRST_Ba,SCH_MSTRST Qa base
+SCH_MSTRST_Ca,SCH_MSTRST Qa collector
+SCH_MSTRST_Cb,SCH_MSTRST Qb base
+SCH_MSTRST_Ee,SCH_MSTRST common emitter
+SCH_POR_Ba,SCH_POR Qa base
+SCH_POR_Ca,SCH_POR Qa collector
+SCH_POR_Cb,SCH_POR Qb base
+SCH_POR_Ee,SCH_POR common emitter
+SCH_SECRST_Ba,SCH_SECRST Qa base
+SCH_SECRST_Ca,SCH_SECRST Qa collector
+SCH_SECRST_Cb,SCH_SECRST Qb base
+SCH_SECRST_Ee,SCH_SECRST common emitter
+SCH_SET_Ba,SCH_SET Qa base
+SCH_SET_Ca,SCH_SET Qa collector
+SCH_SET_Cb,SCH_SET Qb base
+SCH_SET_Ee,SCH_SET common emitter
+SET_FF_B1,SET_FF base Q1
+SET_FF_B2,SET_FF base Q2
+SET_FF_QA,SET_FF bit Q (Q1 collector)
+SET_FF_QB,SET_FF bit QN (Q2 collector)
+SET_FF_RSTN,SET_FF reset injection node
+SET_MODE,1 = set mode
+ST_DEC_N,ST_DEC NAND intermediate
+ST_DEC_i_B,ST_DEC_i DTL base
+ST_DEC_i_X,ST_DEC_i DTL input node
+ST_DEC_n_B,ST_DEC_n DTL base
+ST_DEC_n_X,ST_DEC_n DTL input node
+ST_DP,ST decimal point (unused)
+ST_DSP_a,ST seg a display anode
+ST_DSP_b,ST seg b display anode
+ST_DSP_c,ST seg c display anode
+ST_DSP_d,ST seg d display anode
+ST_DSP_e,ST seg e display anode
+ST_DSP_f,ST seg f display anode
+ST_DSP_g,ST seg g display anode
+ST_R6,ST = 0110 decode (Q2.Q1)
+ST_RST,ST reset bus (buffered)
+ST_RST_BUF_E,ST_RST_BUF EF emitter
+ST_RST_OR,ST reset diode-OR
+ST_SEG_a,ST segment a diode-OR node
+ST_SEG_b,ST segment b diode-OR node
+ST_SEG_c,ST segment c diode-OR node
+ST_SEG_d,ST segment d diode-OR node
+ST_SEG_e,ST segment e diode-OR node
+ST_SEG_f,ST segment f diode-OR node
+ST_SEG_g,ST segment g diode-OR node
+ST_a_E,ST seg a driver emitter
+ST_a_t2,ST seg a AND term 2
+ST_a_t3,ST seg a AND term 3
+ST_b0_B1,ST_b0 base Q1
+ST_b0_B2,ST_b0 base Q2
+ST_b0_QA,ST_b0 bit Q (Q1 collector)
+ST_b0_QB,ST_b0 bit QN (Q2 collector)
+ST_b0_RSTN,ST_b0 reset injection node
+ST_b1_B1,ST_b1 base Q1
+ST_b1_B2,ST_b1 base Q2
+ST_b1_QA,ST_b1 bit Q (Q1 collector)
+ST_b1_QB,ST_b1 bit QN (Q2 collector)
+ST_b1_RSTN,ST_b1 reset injection node
+ST_b2_B1,ST_b2 base Q1
+ST_b2_B2,ST_b2 base Q2
+ST_b2_QA,ST_b2 bit Q (Q1 collector)
+ST_b2_QB,ST_b2 bit QN (Q2 collector)
+ST_b2_RSTN,ST_b2 reset injection node
+ST_b3_B1,ST_b3 base Q1
+ST_b3_B2,ST_b3 base Q2
+ST_b3_QA,ST_b3 bit Q (Q1 collector)
+ST_b3_QB,ST_b3 bit QN (Q2 collector)
+ST_b3_RSTN,ST_b3 reset injection node
+ST_b_E,ST seg b driver emitter
+ST_b_t1,ST seg b AND term 1
+ST_b_t2,ST seg b AND term 2
+ST_c_E,ST seg c driver emitter
+ST_d_E,ST seg d driver emitter
+ST_d_t1,ST seg d AND term 1
+ST_d_t2,ST seg d AND term 2
+ST_d_t3,ST seg d AND term 3
+ST_d_t4,ST seg d AND term 4
+ST_e_E,ST seg e driver emitter
+ST_e_t0,ST seg e AND term 0
+ST_e_t1,ST seg e AND term 1
+ST_f_E,ST seg f driver emitter
+ST_f_t1,ST seg f AND term 1
+ST_f_t2,ST seg f AND term 2
+ST_f_t3,ST seg f AND term 3
+ST_g_E,ST seg g driver emitter
+ST_g_t1,ST seg g AND term 1
+ST_g_t2,ST seg g AND term 2
+ST_g_t3,ST seg g AND term 3
+SU_DEC_N,SU_DEC NAND intermediate
+SU_DEC_i_B,SU_DEC_i DTL base
+SU_DEC_i_X,SU_DEC_i DTL input node
+SU_DEC_n_B,SU_DEC_n DTL base
+SU_DEC_n_X,SU_DEC_n DTL input node
+SU_DP,SU decimal point (unused)
+SU_DSP_a,SU seg a display anode
+SU_DSP_b,SU seg b display anode
+SU_DSP_c,SU seg c display anode
+SU_DSP_d,SU seg d display anode
+SU_DSP_e,SU seg e display anode
+SU_DSP_f,SU seg f display anode
+SU_DSP_g,SU seg g display anode
+SU_R10,SU = 1010 decode (Q3.Q1)
+SU_RST,SU reset bus (buffered)
+SU_RST_BUF_E,SU_RST_BUF EF emitter
+SU_RST_OR,SU reset diode-OR
+SU_SEG_a,SU segment a diode-OR node
+SU_SEG_b,SU segment b diode-OR node
+SU_SEG_c,SU segment c diode-OR node
+SU_SEG_d,SU segment d diode-OR node
+SU_SEG_e,SU segment e diode-OR node
+SU_SEG_f,SU segment f diode-OR node
+SU_SEG_g,SU segment g diode-OR node
+SU_a_E,SU seg a driver emitter
+SU_a_t2,SU seg a AND term 2
+SU_a_t3,SU seg a AND term 3
+SU_b0_B1,SU_b0 base Q1
+SU_b0_B2,SU_b0 base Q2
+SU_b0_QA,SU_b0 bit Q (Q1 collector)
+SU_b0_QB,SU_b0 bit QN (Q2 collector)
+SU_b0_RSTN,SU_b0 reset injection node
+SU_b1_B1,SU_b1 base Q1
+SU_b1_B2,SU_b1 base Q2
+SU_b1_QA,SU_b1 bit Q (Q1 collector)
+SU_b1_QB,SU_b1 bit QN (Q2 collector)
+SU_b1_RSTN,SU_b1 reset injection node
+SU_b2_B1,SU_b2 base Q1
+SU_b2_B2,SU_b2 base Q2
+SU_b2_QA,SU_b2 bit Q (Q1 collector)
+SU_b2_QB,SU_b2 bit QN (Q2 collector)
+SU_b2_RSTN,SU_b2 reset injection node
+SU_b3_B1,SU_b3 base Q1
+SU_b3_B2,SU_b3 base Q2
+SU_b3_QA,SU_b3 bit Q (Q1 collector)
+SU_b3_QB,SU_b3 bit QN (Q2 collector)
+SU_b3_RSTN,SU_b3 reset injection node
+SU_b_E,SU seg b driver emitter
+SU_b_t1,SU seg b AND term 1
+SU_b_t2,SU seg b AND term 2
+SU_c_E,SU seg c driver emitter
+SU_d_E,SU seg d driver emitter
+SU_d_t1,SU seg d AND term 1
+SU_d_t2,SU seg d AND term 2
+SU_d_t3,SU seg d AND term 3
+SU_d_t4,SU seg d AND term 4
+SU_e_E,SU seg e driver emitter
+SU_e_t0,SU seg e AND term 0
+SU_e_t1,SU seg e AND term 1
+SU_f_E,SU seg f driver emitter
+SU_f_t1,SU seg f AND term 1
+SU_f_t2,SU seg f AND term 2
+SU_f_t3,SU seg f AND term 3
+SU_g_E,SU seg g driver emitter
+SU_g_t1,SU seg g AND term 1
+SU_g_t2,SU seg g AND term 2
+SU_g_t3,SU seg g AND term 3
+VCC,+5V regulated USB rail
+XTAL_A,crystal node A = base side
+XTAL_B,crystal node B = collector side
+nSET_MODE,inverted SET_MODE
