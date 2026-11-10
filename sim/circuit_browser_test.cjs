@@ -1,0 +1,154 @@
+'use strict';
+const assert = require('node:assert/strict');
+const path = require('node:path');
+const { pathToFileURL } = require('node:url');
+const { chromium } = require('playwright');
+
+(async () => {
+  const browser = await chromium.launch({ channel: 'chrome', headless: true });
+  try {
+    const page = await browser.newPage({ viewport: { width: 1440, height: 1080 } });
+    const errors = [];
+    page.on('pageerror', e => errors.push(e.message));
+    page.on('console', m => { if (m.type() === 'error' && !m.text().includes('favicon')) errors.push(m.text()); });
+    const origin = process.env.LAB_URL || 'http://127.0.0.1:8765';
+    await page.goto(origin + '/visuals/circuit_lab.html');
+    await page.waitForFunction(() => Boolean(window.CircuitLab));
+    assert.deepEqual(await page.evaluate(() => CircuitLab.coverage), { parts: 115, pins: 484, nets: 136 });
+    assert.equal(await page.locator('#live-pins .pin-group').count(), 484);
+    assert.equal(await page.locator('#part-select option').count(), 115);
+    assert.equal(await page.locator('#component-detail .pin-table tbody tr').count(), 16);
+
+    await page.locator('[data-scenario="0,0,58"]').click();
+    assert.equal(await page.locator('#clock').getAttribute('aria-label'), '00:00:58');
+    await page.locator('#second').click();
+    assert.equal(await page.locator('#clock').getAttribute('aria-label'), '00:00:59');
+    await page.locator('#second').click();
+    assert.equal(await page.locator('#clock').getAttribute('aria-label'), '00:01:00');
+    const pulse = await page.evaluate(() => CircuitLab.frames.findIndex(f => f.nets.D6_ST === 1));
+    assert(pulse >= 0, 'minute carry pulse must be selectable in history');
+    await page.locator('[data-frame="' + pulse + '"]').click();
+    assert.equal(await page.evaluate(() => CircuitLab.frame.nets.D6_ST), 1);
+    assert.match(await page.locator('#view-mode').innerText(), /تاریخچه/);
+    assert.equal(await page.evaluate(() => CircuitLab.running), false);
+    const oldCursor = await page.evaluate(() => CircuitLab.cursor);
+    await page.locator('#map-micro').click();
+    assert.equal(await page.evaluate(() => CircuitLab.cursor), oldCursor + 1);
+    await page.locator('#map-back').click();
+    assert.equal(await page.evaluate(() => CircuitLab.cursor), oldCursor);
+    await page.locator('#micro').click();
+    assert.equal(await page.evaluate(() => CircuitLab.cursor), oldCursor + 1);
+    await page.locator('#search').fill('D6_ST');
+    await page.locator('#search-go').click();
+    assert.match(await page.locator('#net-detail').innerText(), /U9\.4/);
+    assert(await page.locator('#schsvg .selected').count() > 1);
+    assert(await page.locator('#tracelayer .trace-guide').count() > 0);
+
+    await page.locator('[data-scenario="23,59,59"]').click();
+    await page.locator('#second').click();
+    assert.equal(await page.locator('#clock').getAttribute('aria-label'), '00:00:00');
+    assert(await page.evaluate(() => CircuitLab.frames.some(f => f.nets.D24 === 1)));
+    await page.locator('[data-scenario="0,59,59"]').click();
+    await page.locator('#second').click();
+    assert.equal(await page.locator('#clock').getAttribute('aria-label'), '01:00:00');
+
+    await page.locator('#search').fill('U3.15');
+    await page.locator('#search').press('Enter');
+    assert.equal(await page.locator('#part-select').inputValue(), 'U3');
+    assert.equal(await page.locator('#component-detail .pin-picked').count(), 1);
+    assert.match(await page.locator('#net-detail').innerText(), /RST_SEC/);
+    await page.locator('#live-pins [data-ref="U3"][data-pin="1"] .pin-dot').click();
+    assert.match(await page.locator('#net-detail').innerText(), /CLK_SEC/);
+    await page.locator('#schsvg .comp[data-ref="U3"] text').filter({ hasText: /^U3$/ }).click();
+    assert.equal(await page.locator('#part-select').inputValue(), 'U3');
+    assert.equal(await page.locator('#component-detail .pin-picked').count(), 0);
+    await page.locator('#search').fill('NOT_A_NET');
+    await page.locator('#search-go').click();
+    assert.match(await page.locator('#search-feedback').innerText(), /پیدا نشد/);
+    await page.locator('#part-select').selectOption('R_SUA');
+    assert.equal(await page.locator('#component-detail .pin-table tbody tr').count(), 2);
+    assert.match(await page.locator('#component-detail').innerText(), /آنالوگ|حل نشده/);
+    await page.locator('#part-select').selectOption('C_BYP15');
+    assert.equal(await page.locator('#component-detail .pin-table tbody tr').count(), 2);
+    await page.locator('#part-select').selectOption('U15');
+    assert.equal(await page.locator('#component-detail .gate-row').count(), 4);
+    await page.locator('#search').fill('NC');
+    await page.locator('#search-go').click();
+    assert.match(await page.locator('#net-detail').innerText(), /به|اتصال ندارد/);
+    assert.equal(await page.locator('#tracelayer .trace-guide').count(), 0);
+
+    await page.locator('[data-scenario="0,0,58"]').click();
+    await page.locator('[data-key="MIN"]').click();
+    assert.equal(await page.locator('#clock').getAttribute('aria-label'), '00:00:58');
+    await page.locator('[data-key="SET"]').click();
+    await page.locator('[data-key="MIN"]').click();
+    assert.equal(await page.locator('#clock').getAttribute('aria-label'), '00:01:58');
+    await page.locator('#hold').check();
+    await page.locator('[data-key="HOUR"]').click();
+    assert.equal(await page.locator('#clock').getAttribute('aria-label'), '01:01:58');
+    await page.locator('#second').click();
+    assert.equal(await page.locator('#clock').getAttribute('aria-label'), '01:01:58');
+    await page.locator('[data-key="HOUR"]').click();
+    await page.locator('#hold').uncheck();
+    await page.locator('[data-key="SECRST"]').click();
+    assert.equal(await page.locator('#clock').getAttribute('aria-label'), '01:01:00');
+    await page.locator('[data-key="MSTRST"]').click();
+    assert.equal(await page.locator('#clock').getAttribute('aria-label'), '00:00:00');
+
+    await page.locator('#power').click();
+    assert(await page.locator('#second').isDisabled());
+    assert.equal(await page.locator('#clock polygon.lit').count(), 0);
+    await page.locator('#power').click();
+    assert.match(await page.locator('#state-label').innerText(), /ریست/);
+    await page.locator('#edge').click();
+    assert.equal(await page.evaluate(() => CircuitLab.frame.nets.RST_GLOBAL), 0);
+    await page.locator('#second').click();
+    assert.equal(await page.locator('#clock').getAttribute('aria-label'), '00:00:01');
+
+    await page.locator('#lesson-set').click();
+    assert.equal(await page.evaluate(() => CircuitLab.frame.nets.CLK1HZ), 1);
+    await page.locator('[data-key="SET"]').click();
+    const beforeSetExit = await page.evaluate(() => CircuitLab.frame.counts.U3);
+    await page.locator('[data-key="SET"]').click();
+    assert.equal(await page.evaluate(() => CircuitLab.frame.counts.U3), beforeSetExit + 1);
+    await page.locator('#run').click();
+    await page.waitForFunction(() => CircuitLab.engine.time > 1.2);
+    await page.locator('#run').click();
+    assert.equal(await page.evaluate(() => CircuitLab.running), false);
+
+    await page.locator('#part-select').selectOption('U3');
+    const viewBefore = await page.locator('#schsvg').getAttribute('viewBox');
+    await page.locator('#zoom-in').click();
+    assert.notEqual(await page.locator('#schsvg').getAttribute('viewBox'), viewBefore);
+    await page.locator('#pin-labels').uncheck();
+    assert(await page.locator('#schsvg').evaluate(el => el.classList.contains('no-labels')));
+    await page.locator('#pin-labels').check();
+    await page.locator('#region').selectOption('cnt');
+    await page.locator('#fit').click();
+    await page.locator('#part-select').selectOption('U3');
+    await page.locator('#search').fill('U3.1');
+    await page.locator('#search-go').click();
+    await page.evaluate(() => scrollTo(0, 0));
+    if (process.env.LAB_SHOTS) await page.screenshot({ path: path.join(process.env.LAB_SHOTS, 'clock-lab-desktop.png'), fullPage: true });
+    assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.locator('[data-scenario="0,0,58"]').click();
+    await page.locator('#part-select').selectOption('U3');
+    assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), 'mobile must not scroll sideways');
+    await page.locator('#second').click();
+    assert.equal(await page.locator('#clock').getAttribute('aria-label'), '00:00:59');
+    await page.evaluate(() => scrollTo(0, 0));
+    if (process.env.LAB_SHOTS) await page.screenshot({ path: path.join(process.env.LAB_SHOTS, 'clock-lab-mobile.png'), fullPage: true });
+
+    await page.goto(pathToFileURL(path.join(__dirname, '../visuals/circuit_lab.html')).href);
+    await page.waitForFunction(() => Boolean(window.CircuitLab));
+    await page.locator('[data-scenario="23,59,59"]').click();
+    await page.locator('#second').click();
+    assert.equal(await page.locator('#clock').getAttribute('aria-label'), '00:00:00', 'standalone file must work offline');
+    assert.deepEqual(errors, []);
+    console.log('CIRCUIT BROWSER TESTS PASSED: coverage, propagation history, rollovers, pins, nets, controls, desktop/mobile, standalone file, no page errors');
+  } finally {
+    await browser.close();
+  }
+})().catch(error => { console.error(error); process.exitCode = 1; });

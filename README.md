@@ -16,6 +16,7 @@
 | صفحه | توضیح |
 |---|---|
 | [نمایهٔ پروژه](https://z4r3i.github.io/logic-clock/index.html) | صفحهٔ اصلی برای GitHub Pages |
+| [آزمایشگاه ترکیبی نقشه و شبیه‌ساز](https://z4r3i.github.io/logic-clock/visuals/circuit_lab.html) | تمام قطعات و پایه‌های زنده، ورودی/خروجی، ریزگام انتشار، مرور رخداد، شکل‌موج و سناریوهای آموزشی؛ مدل منطقی، نه SPICE |
 | [نقشهٔ کامل مدار](https://z4r3i.github.io/logic-clock/visuals/circuit_schematic.html) | شماتیک تعاملی تمام قطعات؛ کلیک روی هر نت = ردیابی همهٔ اتصالات آن |
 | [شبیه‌ساز ساعت](https://z4r3i.github.io/logic-clock/visuals/clock_simulator.html) | شبیه‌سازی نت‌محور با همان نت‌لیست واقعی؛ دکمه‌ها، ریست و تنظیم ساعت |
 | [شماتیک بلوکی + جدول پین‌ها](https://z4r3i.github.io/logic-clock/visuals/schematic.html) | نمای بلوکی ۱۱ بلوک با جدول پین هر IC |
@@ -103,6 +104,14 @@ node sim/engine_test.js     # موتور نت‌محور
 
 هر سه باید با `PASSED` تمام شوند.
 
+مدل آموزشی مستقلِ صفحهٔ ترکیبی، پالس‌های گذرای دیکود/ریست و گیت‌های واقعی نت‌لیست را نیز ثبت می‌کند:
+
+```bash
+node sim/circuit_engine_test.js
+```
+
+«ریزگام انتشار» ترتیب منطقی مدل است، نه تأخیر اندازه‌گیری‌شدهٔ قطعه. مقادیر آنالوگ با `A` و پایه‌های بدون اتصال با `NC` مشخص می‌شوند؛ رفع POR در ۰٫۸۷ ثانیه و کلیدهای بدون جهش از فرض‌های این مدل‌اند.
+
 ## بازتولید خروجی‌ها
 
 نیازمندی: Python 3 (بدون پکیج خارجی).
@@ -111,6 +120,7 @@ node sim/engine_test.js     # موتور نت‌محور
 python netlist/gen_netlist.py          # netlist.csv / nets.csv / bom.csv
 python visuals/gen_visuals.py          # schematic.html
 python visuals/gen_full_schematic.py   # circuit_schematic.html (از netlist.csv)
+python visuals/gen_full_schematic.py --lab  # circuit_lab.html (نقشه و مدل آموزشی یکپارچه)
 python visuals/build_sim.py            # clock_simulator.html
 ```
 

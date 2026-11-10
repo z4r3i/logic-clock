@@ -801,6 +801,24 @@ html = (TEMPLATE
         .replace('__SW__', str(SHEET_W))
         .replace('__SH__', str(SHEET_H)))
 
+if '--lab' in sys.argv:
+    with open(os.path.join(OUT, 'lab_ui.html'), encoding='utf-8') as f:
+        lab = f.read()
+    with open(os.path.join(OUT, '..', 'sim', 'circuit_engine.js'), encoding='utf-8') as f:
+        engine = f.read()
+    replacements = {
+        '__SVG__': SVG, '__ENGINE__': engine, '__COMP__': COMP_JSON,
+        '__PINS__': PINS_JSON, '__NETDESC__': NETDESC_JSON, '__REGIONS__': REG_JSON,
+    }
+    for token, value in replacements.items():
+        lab = lab.replace(token, value)
+    lab_path = os.path.join(OUT, 'circuit_lab.html')
+    with open(lab_path, 'w', encoding='utf-8') as f:
+        f.write(lab)
+    print('lab coverage:', len(S.pins), 'pins;', len(comps), 'components')
+    print('OK:', lab_path)
+    sys.exit(0)
+
 frag_path = os.path.join(OUT, 'circuit_schematic_frag.html')
 with open(frag_path, 'w', encoding='utf-8') as f:
     f.write(html)
