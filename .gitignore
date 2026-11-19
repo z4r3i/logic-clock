@@ -10,3 +10,6 @@ docs/design_fa.src.md
 
 __pycache__/
 *.pyc
+# میانیِ نسخه چاپی (با gen_physical_print.py بازتولید می‌شود)
+visuals/physical_wiring_print.html
+visuals/physical_wiring_model.json

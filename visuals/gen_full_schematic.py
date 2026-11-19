@@ -488,7 +488,7 @@ ix, iy = 1980, 1170
 S.bg.append('<rect x="%d" y="%d" width="540" height="400" rx="10" fill="#121820" stroke="#3d4654" stroke-width="1.5"/>' % (ix, iy))
 S.text(ix + 20, iy + 28, '\u0641\u0647\u0631\u0633\u062a \u0642\u0637\u0639\u0627\u062a \u0641\u0639\u0627\u0644', 13, '#e6edf3', 'start', 'bold')
 inv_lines = [
-    'U1  CD4060B \u2014 \u067e\u0627\u06cc\u0647 \u0632\u0645\u0627\u0646 (DIP-16)',
+    'U1  CD4060B \u2014 \u067e\u0627\u06cc\u0647 \u0632\u0645\u0627\u0646 (%s)' % comps['U1']['pkg'],
     'U2  CD4013B \u2014 \u062f\u0648 \u0641\u0644\u06cc\u067e\u200c\u0641\u0644\u0627\u067e D (DIP-14)',
     'U3\u2026U8  CD4026B \u00d76 \u2014 \u0634\u0645\u0627\u0631\u0646\u062f\u0647/\u062f\u0631\u0627\u06cc\u0648\u0631 (DIP-16)',
     'U9\u2026U11  CD4081B \u00d73 \u2014 \u0686\u0647\u0627\u0631 AND (DIP-14)',

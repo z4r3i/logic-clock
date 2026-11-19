@@ -1,7 +1,9 @@
-// Net-driven functional simulator of the CD4026 hardware clock.
-// Mirrors netlist/gen_netlist.py: real nets, real gates, real IC behaviour.
+// Functional simulator of the CD4026 hardware clock.
+// Uses the same net and pin names as netlist/gen_netlist.py; logic is modelled
+// explicitly (the fully netlist-driven logic model is sim/circuit_engine.js).
 // Timebase is cycle-accurate: CD4060 counts 32768 Hz crystal edges; Q14 -> Schmitt
-// inverter -> CD4013 toggle (SET preset) => exact 1 Hz, first rising edge t=1.000 s.
+// inverter -> CD4013 toggle (SET preset) => exact 1 Hz, first rising edge 1.000 s
+// after POR release (1.87 s after power-on).
 // Counter chain + MOD-6/MOD-24 self-reset decodes match sim/verify.js (25 h proven).
 'use strict';
 
@@ -15,9 +17,10 @@ function create(){
   const dig = {SU:0,ST:0,MU:0,MT:0,HU:0,HT:0};
   let count=0, prevQ14=0;              // U1 CD4060 ripple divider
   let ff1=1, prevInv=1;                // U2 FF1 -> CLK1HZ (preset Q=1 during reset)
-  let ff2=0, prevBtnSet=0;             // U2 FF2 -> SET_MODE (toggle on BTN_SET rise)
+  let ff2=0;                           // U2 FF2 -> SET_MODE (toggle on BTN_SET rise)
   let simTime=0;                       // seconds since power-on
   let porUntil=0.87;                   // POR pulse width (100k/10uF + Schmitt)
+  let tbOrigin=null, tbTicks=0;        // timebase start (after POR/reset) and crystal ticks since it
   let powered=true;
   const raw={SET:1,HOUR:1,MIN:1,SECRST:1,MSTRST:1};   // raw node: 1=released, 0=pressed
   const prevBtn={SET:0,HOUR:0,MIN:0,SECRST:0,MSTRST:0};
@@ -80,7 +83,8 @@ function create(){
   function clockST(){ dig.ST++; if(dig.ST===6){ dig.ST=0; carryCount.secMin++; ev('carry','D6_ST'); clockMU(); } }
   function clockSU(){ dig.SU++; if(dig.SU===10){ dig.SU=0; clockST(); } }
 
-  function holdReset(){ count=0; prevQ14=0; ff1=1; prevInv=1; ff2=0; prevBtnSet=0;
+  function holdReset(){ count=0; prevQ14=0; ff1=1; prevInv=1; ff2=0;
+    tbOrigin=null; tbTicks=0;
     for(const d of DIGS) dig[d]=0; }
 
   function applyResets(){
@@ -101,18 +105,53 @@ function create(){
     prevInv=inv;
   }
 
+  // Advance the CD4060 by an integer number of crystal cycles, visiting only
+  // Q14 transitions (one every 8192 cycles) instead of every crystal edge.
+  function advanceCycles(cycles){
+    while(cycles>0){
+      const toEdge=8192-(count%8192);
+      if(cycles<toEdge){ count=(count+cycles)%16384; cycles=0; break; }
+      count=(count+toEdge)%16384;
+      cycles-=toEdge;
+      prevQ14=(count>>13)&1;
+      onQ14();
+    }
+  }
+
   function step(dt){
+    if(typeof dt!=='number'||!Number.isFinite(dt)||dt<0)
+      throw new RangeError('گام زمان باید عدد متناهی و نامنفی باشد.');
     if(!powered) return;
-    simTime+=dt;
+    if(dt===0){ settle(); return; }
+    let remaining=dt;
+
+    // POR holds the divider and both flip-flops in reset. Only time after the
+    // release boundary may advance the timebase.
+    if(simTime<porUntil){
+      const pre=Math.min(remaining, porUntil-simTime);
+      simTime+=pre; remaining-=pre;
+      settle();
+      if(nets.RST_GLOBAL) holdReset();
+      applyResets();
+      if(remaining<=0){ settle(); return; }
+      count=0; prevQ14=0; ff1=1; prevInv=1;
+      tbOrigin=simTime; tbTicks=0;
+      settle();
+    }
+
+    const start=simTime;
+    simTime+=remaining;
     settle();
     if(nets.RST_GLOBAL){ holdReset(); }
     else {
-      let cycles=Math.round(dt*F);
-      for(let i=0;i<cycles;i++){
-        count++;
-        const q14=(count>>13)&1;
-        if(q14!==prevQ14){ prevQ14=q14; onQ14(); }
-      }
+      if(tbOrigin===null){ tbOrigin=start; tbTicks=0; }
+      const exact=(simTime-tbOrigin)*F;
+      const nearest=Math.round(exact);
+      const tol=8*Number.EPSILON*Math.max(1,Math.abs(exact))*F;
+      const ticks=Math.abs(exact-nearest)<=tol?nearest:Math.floor(exact);
+      const delta=ticks-tbTicks;
+      tbTicks=ticks;
+      if(delta>0) advanceCycles(delta);
     }
     applyResets();
     settle();

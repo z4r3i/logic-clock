@@ -21,7 +21,7 @@
     if (!COMP || typeof COMP !== 'object') throw new TypeError('جدول قطعات و پایه‌ها لازم است.');
     const nets = {}, counts = {}, pins = {}, drivers = {}, sources = {}, devices = [], dividers = [], flips = [];
     const dirty = new Set();
-    let powered = false, time = 0, timeError = 0, porPending = true;
+    let powered = false, time = 0, porPending = true;
     let frames = [], delta = 0, truncated = false, batchChanged = false;
     let reasons = [], held = {};
 
@@ -271,7 +271,6 @@
       begin();
       powered = true;
       time = 0;
-      timeError = 0;
       porPending = true;
       for (const k of Object.keys(held)) held[k] = false;
       for (const d of devices) {
@@ -338,14 +337,10 @@
     }
     function advance(dt) {
       if (typeof dt !== 'number' || !Number.isFinite(dt) || dt < 0) throw new RangeError('گام زمان باید عدد متناهی و نامنفی باشد.');
-      const adjusted = dt - timeError;
-      const target = time + adjusted;
+      const target = time + dt;
       if (!Number.isFinite(target) || target * F > Number.MAX_SAFE_INTEGER) throw new RangeError('زمان از محدودهٔ دقیق مدل خارج است.');
       begin();
-      if (powered && dt > 0) {
-        timeError = (target - time) - adjusted;
-        runUntil(target);
-      }
+      if (powered && dt > 0) runUntil(target);
       finish();
     }
     function nextEdge() {
@@ -355,7 +350,6 @@
         record('تقسیم‌کننده خاموش یا در بازنشانی نگه داشته شده است؛ لبه‌ای در انتظار نیست', null, null, 'held', []);
         finish();
       } else {
-        timeError = 0;
         advance(Math.max(0, next - time));
       }
     }
@@ -379,7 +373,6 @@
       begin();
       powered = true;
       time = 0;
-      timeError = 0;
       porPending = false;
       for (const k of Object.keys(held)) held[k] = false;
       const values = [s % 10, Math.floor(s / 10), m % 10, Math.floor(m / 10), h % 10, Math.floor(h / 10)];
