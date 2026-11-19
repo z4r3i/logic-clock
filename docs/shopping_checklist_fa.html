@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>چک‌لیست خرید قطعات — ساعت دیجیتال CMOS</title>
+<style>
+  @page { size: A4; margin: 13mm 12mm; }
+  :root{--ink:#1a1a1a;--mut:#555;--line:#cfcfcf;--head:#f0f0f0;--acc:#0b5394;}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:"Segoe UI",Tahoma,"Iranian Sans",sans-serif;color:var(--ink);font-size:11px;line-height:1.55;background:#fff}
+  .sheet{max-width:186mm;margin:0 auto;padding:6mm 2mm}
+  h1{font-size:18px;margin:0 0 2px;color:#000}
+  .sub{color:var(--mut);font-size:11px;margin:0 0 3px}
+  .meta{color:var(--mut);font-size:10px;border-bottom:2px solid #000;padding-bottom:6px;margin-bottom:10px}
+  h2{font-size:12.5px;margin:12px 0 5px;padding:3px 7px;background:var(--head);border-right:4px solid var(--acc);color:#000}
+  table{width:100%;border-collapse:collapse;margin:0 0 4px}
+  th,td{border:1px solid var(--line);padding:3px 6px;text-align:right;vertical-align:top}
+  th{background:var(--head);font-size:10.5px;font-weight:700}
+  td.ck{width:20px;text-align:center;font-size:14px;line-height:1;color:#000}
+  td.qty{width:78px;text-align:center;white-space:nowrap;font-weight:700}
+  td.note{color:var(--mut);font-size:10px}
+  .part{font-weight:600}
+  .en{direction:ltr;unicode-bidi:embed;font-family:Consolas,"Segoe UI",monospace}
+  tr{break-inside:avoid}
+  thead{break-after:avoid}
+  h2{break-after:avoid}
+  .sec{break-inside:avoid}
+  .pb{break-before:page}
+  .warn{color:#9a0000;font-weight:700}
+  .box{border:1.5px solid #000;border-radius:5px;padding:7px 10px;margin:10px 0;font-size:10.5px;background:#fafafa}
+  .box b{color:#000}
+  ul.tips{margin:4px 0 0;padding-right:18px}
+  ul.tips li{margin:2px 0}
+  .total{font-size:11px;font-weight:700;margin:8px 0;padding:6px 9px;background:var(--head);border:1px solid var(--line);border-radius:4px}
+  .foot{margin-top:12px;border-top:1px solid var(--line);padding-top:5px;color:var(--mut);font-size:9.5px}
+  @media print{
+    body{font-size:10.5px}
+    .sheet{padding:0;max-width:none}
+    h2{break-after:avoid}
+    .box,.total{break-inside:avoid}
+    a{color:inherit;text-decoration:none}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+  <h1>چک‌لیست خرید قطعات — ساعت دیجیتال تمام‌سخت‌افزاری ۲۴ ساعته</h1>
+  <p class="sub">نسخهٔ CMOS (پروژهٔ <span class="en">digital-clock</span>) — بدون میکروکنترلر، بدون برنامه</p>
+  <p class="meta">مبنا: <span class="en">netlist/bom.csv</span> · جمع قطعات اصلی: <b>۱۱۵ عدد</b> · تغذیه: آداپتور ۹–۱۲V → 7805 → ۵V</p>
+
+  <section class="sec"><h2>۱) آی‌سیها — همه از خانوادهٔ <span class="en">CD4000B</span> (نه 74HC)</h2>
+  <table>
+    <tr><th>✓</th><th>قطعه</th><th>تعداد</th><th>پکیج / نکته</th></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">CD4060B</span></td><td class="qty">۱ (+۱)</td><td class="note">DIP-16 — منبع زمان</td></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">CD4013B</span></td><td class="qty">۱ (+۱)</td><td class="note">DIP-14</td></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">CD4026B</span></td><td class="qty">۶ (+۲)</td><td class="note"><span class="warn">کمیاب‌ترین قطعه — اول موجودی را چک کن</span></td></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">CD4081B</span></td><td class="qty">۳ (+۱)</td><td class="note">DIP-14</td></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">CD4071B</span></td><td class="qty">۲ (+۱)</td><td class="note">DIP-14</td></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">CD4093B</span></td><td class="qty">۲ (+۱)</td><td class="note">DIP-14</td></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">LM7805 / MC7805</span></td><td class="qty">۱ (+۱)</td><td class="note">TO-220 — رگولاتور ۵V</td></tr>
+    <tr><td class="ck">☐</td><td class="part">سوکت DIP-16</td><td class="qty">۷ (+۱)</td><td class="note">برای U1 و U3..U8</td></tr>
+    <tr><td class="ck">☐</td><td class="part">سوکت DIP-14</td><td class="qty">۸ (+۱)</td><td class="note">برای ICهای چهارده‌پایه</td></tr>
+  </table></section>
+
+  <section class="sec"><h2>۲) نمایشگر و کریستال</h2>
+  <table>
+    <tr><th>✓</th><th>قطعه</th><th>تعداد</th><th>مشخصات دقیق</th></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">SC52-11EWA</span> (یا معادل <span class="en">5161AS</span>)</td><td class="qty">۶ (+۱)</td><td class="note">قرمز ۰٫۵۲ اینچ، <b>کاتد-مشترک</b>؛ پین‌اوت: <span class="en">COM=3,8 · a=7,b=6,c=4,d=2,e=1,f=9,g=10</span></td></tr>
+    <tr><td class="ck">☐</td><td class="part">کریستال <span class="en">32.768kHz</span></td><td class="qty">۱ (+۱)</td><td class="note"><span class="en">HC-49S</span> یا استوانه‌ای ۳×۸؛ <b>CL=12.5pF</b></td></tr>
+  </table></section>
+
+  <section class="sec"><h2>۳) مقاومت‌ها — همگی ۰٫۲۵ وات</h2>
+  <table>
+    <tr><th>✓</th><th>مقدار</th><th>تعداد</th><th>کاربرد</th></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">470Ω</span></td><td class="qty">۴۲ (+۸)</td><td class="note">محدودکنندهٔ سگمنت — یک بستهٔ ۵۰تایی بخر</td></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">1kΩ</span></td><td class="qty">۲</td><td class="note">LED کولن</td></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">10kΩ</span></td><td class="qty">۱</td><td class="note">بیس 2N3904</td></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">100kΩ</span></td><td class="qty">۶</td><td class="note">بالاکش کلیدها + POR</td></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">220kΩ</span></td><td class="qty">۱</td><td class="note">جریان کریستال</td></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">10MΩ</span></td><td class="qty">۱</td><td class="note">بایاس اسیلاتور</td></tr>
+  </table></section>
+
+  <section class="sec"><h2>۴) خازن‌ها</h2>
+  <table>
+    <tr><th>✓</th><th>مقدار</th><th>تعداد</th><th>نوع / کاربرد</th></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">18pF</span></td><td class="qty">۲</td><td class="note">NP0 — بار کریستال</td></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">100nF</span></td><td class="qty">۱۶ (+۴)</td><td class="note">سرامیک — ۱۵ بای‌پس + ۱ خروجی 7805</td></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">0.33µF</span></td><td class="qty">۱</td><td class="note">ورودی 7805</td></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">1µF</span></td><td class="qty">۵</td><td class="note">X7R — دیبانس کلیدها</td></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">10µF / 16V</span></td><td class="qty">۱</td><td class="note">الکترولیت — POR</td></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">100µF / 25V</span></td><td class="qty">۱</td><td class="note">الکترولیت — ورودی 7805</td></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">100µF / 16V</span></td><td class="qty">۱</td><td class="note">الکترولیت — خروجی 7805</td></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">470µF / 16V</span></td><td class="qty">۱</td><td class="note">الکترولیت — ذخیرهٔ برد</td></tr>
+  </table></section>
+
+  <section class="sec pb"><h2>۵) دیود / ترانزیستور / LED / کلید / تغذیه</h2>
+  <table>
+    <tr><th>✓</th><th>قطعه</th><th>تعداد</th><th>نکته</th></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">1N4148</span></td><td class="qty">۱ (+۲)</td><td class="note">دیود تخلیهٔ POR</td></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">1N4007</span></td><td class="qty">۱ (+۲)</td><td class="note">حفاظت پلاریتهٔ ورودی</td></tr>
+    <tr><td class="ck">☐</td><td class="part"><span class="en">2N3904</span></td><td class="qty">۱ (+۲)</td><td class="note">درایور کولن</td></tr>
+    <tr><td class="ck">☐</td><td class="part">LED قرمز ۵mm</td><td class="qty">۲ (+۱)</td><td class="note">کولن چشمک‌زن</td></tr>
+    <tr><td class="ck">☐</td><td class="part">کلید tact 6×6</td><td class="qty">۵ (+۲)</td><td class="note">SET / HOUR / MIN / SECRST / MSTRST</td></tr>
+    <tr><td class="ck">☐</td><td class="part">جک DC آداپتوری / ترمینال پیچی</td><td class="qty">۱</td><td class="note">ورودی تغذیه</td></tr>
+    <tr><td class="ck">☐</td><td class="part">آداپتور ۹ یا ۱۲V DC</td><td class="qty">۱</td><td class="note">حداقل ۵۰۰mA</td></tr>
+  </table></section>
+
+  <section class="sec"><h2>۶) لوازم مونتاژ (در BOM نیست، ولی لازم است)</h2>
+  <table>
+    <tr><th>✓</th><th>مورد</th><th>✓</th><th>مورد</th></tr>
+    <tr><td class="ck">☐</td><td>برد پرفراژ یا PCB</td><td class="ck">☐</td><td>قلع + flux و هویه</td></tr>
+    <tr><td class="ck">☐</td><td>سیم مفتولی نازک روکش‌دار</td><td class="ck">☐</td><td>مولتی‌متر (تست مرحله‌به‌مرحله)</td></tr>
+    <tr><td class="ck">☐</td><td>سیم‌چین / دم‌باریک</td><td class="ck">☐</td><td>(اختیاری) اسیلوسکوپ برای دیباگ</td></tr>
+  </table></section>
+
+  <div class="total">جمع قطعات اصلی: ۱۶ IC + ۶ نمایشگر + ۱ کریستال + ۵۳ مقاومت + ۲۸ خازن + ۲ دیود + ۱ ترانزیستور + ۵ کلید + ۲ LED + ۱ کانکتور = <b>۱۱۵ عدد</b> (اعداد داخل پرانتز = پیشنهادیِ اضافه برای یدک)</div>
+
+  <div class="box">
+    <b>دو نکتهٔ حیاتی قبل از خرید:</b>
+    <ul class="tips">
+      <li>اول موجودی <b>CD4026B</b> را چک کن؛ اگر نبود، قبل از خرید بقیه خبر بده — جایگزین (<span class="en">CD4017+CD4511</span>) طراحی را عوض می‌کند و نباید خودسرانه عوض شود.</li>
+      <li>نمایشگر حتماً <b>کاتد-مشترک (CC)</b> باشد (نه آند-مشترک) و کریستال <b>CL=12.5pF</b>؛ اشتباه در این دو، کل مدار را از کار می‌اندازد.</li>
+    </ul>
+  </div>
+
+  <p class="foot">منبع: <span class="en">digital-clock/netlist/bom.csv</span> · وضعیت تأیید: منطق در شبیه‌سازی تأیید شده؛ رفتار آنالوگ نیازمند تست روی برد واقعی است. این فهرست صرفاً خرید است، نه تأیید سخت‌افزاری.</p>
+</div>
+</body>
+</html>
