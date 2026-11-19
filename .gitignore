@@ -13,3 +13,6 @@ __pycache__/
 # میانیِ نسخه چاپی (با gen_physical_print.py بازتولید می‌شود)
 visuals/physical_wiring_print.html
 visuals/physical_wiring_model.json
+
+# خروجیِ میانیِ gen_full_schematic (نسخهٔ زنده: circuit_lab.html)
+visuals/circuit_schematic.html

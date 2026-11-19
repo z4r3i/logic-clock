@@ -7,7 +7,7 @@
 شمارش و نمایش: شش عدد CD4026B به صورت MOD-60 / MOD-60 / MOD-24 روی شش نمایشگر ۷ سگمنت کاتد مشترک، با کولن چشمک‌زن ۱ Hz.
 تغذیه: ورودی ۹–۱۲ V DC → رگولاتور 7805 → ۵ V.
 
-**۱۳۷ نت (۱۳۶ قابل سیم‌کشی + NC) · ۴۸۴ پین · ۱۱۵ قطعه · ۱۶ IC** — همهٔ اتصالات با شمارهٔ پین دقیق در [نت‌لیست](netlist/netlist.csv) و [برگهٔ سیم‌کشی](netlist/proteus_wiring.md).
+**۱۳۷ نت (۱۳۶ قابل سیم‌کشی + NC) · ۴۸۴ پین · ۱۱۵ قطعه · ۱۶ IC** — همهٔ اتصالات با شمارهٔ پین دقیق در [نت‌لیست](netlist/netlist.csv) و [شرح نت‌ها](netlist/nets.csv).
 
 ---
 
@@ -19,10 +19,6 @@
 | [آزمایشگاه ترکیبی نقشه و شبیه‌ساز](https://z4r3i.github.io/logic-clock/visuals/circuit_lab.html) | تمام قطعات و پایه‌های زنده، ورودی/خروجی، ریزگام انتشار، مرور رخداد، شکل‌موج و سناریوهای آموزشی؛ مدل منطقیِ **نت‌محور** (از netlist)، نه SPICE |
 | [راهنمای ساخت و سیم‌کشی مبتدی](https://z4r3i.github.io/logic-clock/visuals/build_guide_fa.html) | جای‌گذاری بلوکی + سیم‌کشی نت‌به‌نت + کد رنگ مقاومت و کد خازن؛ [PDF قابل‌پرینت](visuals/build_guide_fa.pdf) |
 | [نقشه فیزیکی ساخت (تخته + سیم لاکی)](https://z4r3i.github.io/logic-clock/visuals/physical_wiring.html) | چیدمان واقعی ۱۱۵ قطعه و ۲۵۳ سیم نقطه‌به‌نقطه **بدون هیچ هم‌پوشانی**؛ ۳۹۱ مرحله ساخت با طول برش و آزمایش هر بخش؛ نمای آینه‌ای سمتِ لحیم؛ [PDF دوازده‌صفحه‌ای فاز‌به‌فاز با جدول سیم‌ها](visuals/physical_wiring.pdf) |
-| [نقشهٔ کامل مدار](https://z4r3i.github.io/logic-clock/visuals/circuit_schematic.html) | شماتیک تعاملی تمام قطعات؛ کلیک روی هر نت = ردیابی همهٔ اتصالات آن |
-| [شبیه‌ساز ساعت](https://z4r3i.github.io/logic-clock/visuals/clock_simulator.html) | مدل تابعی ICها با همان نام/شمارهٔ پایه‌های نت‌لیست؛ دکمه‌ها، ریست و تنظیم ساعت |
-| [شماتیک بلوکی + جدول پین‌ها](https://z4r3i.github.io/logic-clock/visuals/schematic.html) | نمای بلوکی ۱۱ بلوک با جدول پین هر IC |
-| [شکل‌موج‌ها](https://z4r3i.github.io/logic-clock/visuals/waveforms.html) | شکل‌موج پایهٔ زمان، کری/ریست و دیبانس |
 
 همهٔ HTMLها **مستقل و بدون وابستگی خارجی** هستند؛ کافی است فایل را در مرورگر باز کنید (یا از طریق GitHub Pages ببینید).
 
@@ -44,9 +40,8 @@
 
 ## داکیومنت‌ها
 
-- [راهنمای ساخت](docs/design_fa.md) — چک‌لیست راه‌اندازی (Proteus اختیاری است؛ برای برد واقعی معتبر است)
+- [راهنمای ساخت](docs/design_fa.md) — محاسبات، معماری و چک‌لیست راه‌اندازی
 - [چک‌لیست خرید قطعات](docs/shopping_checklist_fa.html) — [PDF](docs/shopping_checklist_fa.pdf)
-- [برگهٔ سیم‌کشی گروه‌بندی‌شده](netlist/proteus_wiring.md) — هر نت و همهٔ پین‌های آن
 - [نت‌لیست کامل](netlist/netlist.csv) · [شرح نت‌ها](netlist/nets.csv) · [لیست قطعات (BOM)](netlist/bom.csv)
 
 ## ساختار مخزن
@@ -56,13 +51,11 @@ digital-clock/
 ├── index.html                  ← صفحهٔ اصلی GitHub Pages
 ├── docs/
 │   ├── design_fa.md            ← سند طراحی کامل (محاسبات + تأیید)
-│   ├── proteus_guide_fa.md     ← راهنمای ساخت و چک‌لیست تست
 │   └── shopping_checklist_fa.html/.pdf ← چک‌لیست خرید
 ├── netlist/
 │   ├── netlist.csv             ← مرجع یگانهٔ سیم‌کشی (۴۸۴ پین)
 │   ├── nets.csv                ← شرح ۱۳۷ نت
 │   ├── bom.csv                 ← لیست قطعات
-│   ├── proteus_wiring.md       ← برگهٔ سیم‌کشی گروه‌بندی‌شده
 │   └── gen_netlist.py          ← مولد نت‌لیست/BOM
 ├── sim/
 │   ├── clock_engine.js         ← موتور تابعی هم‌ارز نت‌لیست
@@ -72,24 +65,17 @@ digital-clock/
 │   ├── engine_test.js          ← تست POR/۲۵ ساعت/۶۰fps موتور تابعی
 │   └── circuit_engine_test.js  ← تست مدل نت‌محور + ۴۸۴ پین
 ├── visuals/
-│   ├── circuit_schematic.html  ← نقشهٔ کامل مدار (تعاملی)
-│   ├── circuit_lab.html        ← نقشه + مدل منطقی نت‌محور
-│   ├── clock_simulator.html    ← شبیه‌ساز ساعت (تابعی)
-│   ├── schematic.html          ← شماتیک بلوکی + پین‌ها
-│   ├── waveforms.html          ← شکل‌موج‌ها
-│   ├── build_guide_fa.html     ← راهنمای ساخت مبتدی
-│   ├── physical_wiring.html    ← نقشه فیزیکی ساخت (تخته + سیم لاکی)
+│   ├── circuit_lab.html        ← آزمایشگاه: نقشهٔ کامل + مدل زنده + شکل‌موج
+│   ├── physical_wiring.html    ← نقشه فیزیکی ساخت (تخته + سیم لاکی) + PDF
+│   ├── build_guide_fa.html     ← راهنمای ساخت مبتدی + PDF
 │   ├── physical_wiring_ui.html ← قالب رابط + pw_draw.js/pw_app.js (رندر و مرحله‌به‌مرحله)
-│   ├── gen_visuals.py          ← مولد شماتیک بلوکی
-│   ├── gen_full_schematic.py   ← مولد نقشهٔ کامل از netlist.csv
+│   ├── gen_full_schematic.py   ← مولد circuit_lab.html (و نقشهٔ کامل) از netlist.csv
 │   ├── gen_build_guide.py      ← مولد راهنمای ساخت
 │   ├── gen_physical_wiring.py  ← مولد نقشهٔ فیزیکی
 │   ├── gen_physical_print.py   ← مولد نسخهٔ چاپی فاز‌به‌فاز
 │   ├── board_layout.py         ← چیدمان برد
 │   ├── board_model.py          ← مدل سیم‌کشی/گام‌ها
-│   ├── board_router.py         ← مسیریابی بدون هم‌پوشانی
-│   ├── build_sim.py            ← مولد شبیه‌ساز (sim_ui.html + موتور)
-│   └── sim_ui.html             ← قالب رابط شبیه‌ساز
+│   └── board_router.py         ← مسیریابی بدون هم‌پوشانی
 └── transistor-clock/           ← گزینهٔ جایگزین: نسخهٔ تمام‌ترانزیستوری
     ├── docs/design_fa.md       ← سند طراحی گسسته + محاسبات + حکم ارزش
     ├── docs/ring_vs_cmos_fa.md ← مقایسهٔ حلقوی/CMOS/باینری
@@ -109,7 +95,7 @@ digital-clock/
 | مدل منطقی نت‌محور (circuit_lab) | گیت‌ها/فلیپ‌فلاپ‌ها از COMP نت‌لیست + ۴۸۴ پین | ✅ ۱۹ تست (`sim/circuit_engine_test.js`) |
 | پین‌اوت‌ها و عرض پالس‌ها | دیتاشیت رسمی + محاسبهٔ typ/max | ✅ تأیید/محاسبه شده |
 | راه‌اندازی کریستال، دیبانس آنالوگ، جریان LED، رفتار تغذیه | محاسبهٔ مداری | ⚠️ نیازمند تأیید روی برد واقعی |
-| شبیه‌سازی آنالوگ Proteus / تست سخت‌افزار | — | ❌ انجام نشده — این مخزن ادعای «تأیید نهایی سخت‌افزاری» ندارد |
+| شبیه‌سازی آنالوگ / تست بنچ‌افزار سخت‌افزاری | — | ❌ انجام نشده — این مخزن ادعای «تأیید نهایی سخت‌افزاری» ندارد |
 
 ## اجرای تست‌ها
 
@@ -141,13 +127,10 @@ node sim/circuit_engine_test.js
 
 ```bash
 python netlist/gen_netlist.py              # netlist.csv / nets.csv / bom.csv
-python visuals/gen_visuals.py              # schematic.html
-python visuals/gen_full_schematic.py       # circuit_schematic.html (از netlist.csv)
 python visuals/gen_full_schematic.py --lab # circuit_lab.html (نقشه + مدل نت‌محور)
 python visuals/gen_build_guide.py          # build_guide_fa.html
 python visuals/gen_physical_wiring.py      # physical_wiring.html (+ مدل JSON)
 python visuals/gen_physical_print.py       # physical_wiring_print.html (از مدل JSON)
-python visuals/build_sim.py                # clock_simulator.html
 ```
 
 PDFهای موجود از همین HTMLها با **Print → Save as PDF** مرورگر ساخته می‌شوند (A4؛ نقشهٔ فیزیکی A4 landscape). بعد از هر تغییر، HTML مربوط را دوباره تولید و سپس PDF را از همان فایل چاپ کن.
